@@ -1,78 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import bgImg from '../assets/loginSignup.png';
 import logoIcon from '../assets/logo.png';
 import TextField from '@material-ui/core/TextField';
+import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CssBaseline } from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  link: {
-    textDecoration: 'none'
-  },
-  image: {
-    backgroundImage: `url(${bgImg})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    height: '100vh',
-    width: '100%'
-  },
-  logoContainer: {
-    height: '100vh',
-    width: '100%'
-  },
-  img: {
-    width: theme.spacing(12),
-    height: theme.spacing(12)
-  },
-  logoHeader: {
-    color: '#ffffff',
-    fontSize: '1.8rem',
-    fontWeight: 'bold',
-    textAlign: 'center'
-  },
-  createBtn: {
-    backgroundColor: '#ffffff',
-    margin: theme.spacing(8, 8, 8, 2),
-    padding: theme.spacing(1, 4),
-    fontSize: '1.1rem',
-    fontWeight: 'bold',
-    textTransform: 'capitalize',
-    color: theme.palette.primary.dark
-  },
-  typography: {
-    color: theme.palette.primary.dark,
-    fontWeight: 'bold',
-    margin: theme.spacing(0, 0, 4, 0)
-  },
-  disableText: {
-    color: theme.palette.text.disabled,
-    fontSize: '1.1rem'
-  },
-  form: {
-    margin: theme.spacing(8, 20)
-  },
-  textField: {
-    margin: theme.spacing(4, 0)
-  },
-  submit: {
-    margin: theme.spacing(8, 0),
-    padding: theme.spacing(2, 6),
-    fontSize: '1.3rem',
-    fontWeight: 'bold',
-    textTransform: 'capitalize'
-  }
-}));
+import { useStyles } from '../themes/loginSignupStyle';
 
 const Login = () => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
+  const [user, setUser] = useState({
+    email: '',
+    password: ''
+  });
+
+  const { email, password } = user;
+
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    if (!email || !password) {
+      setErrMsg('Please enter valid email and password');
+      setOpen(true);
+    } else {
+      console.log('Login form submitted');
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -105,7 +70,10 @@ const Login = () => {
                   Don't have an account?
                 </Typography>
                 <Link className={classes.link} to="/signup">
-                  <Button variant="contained" className={classes.createBtn}>
+                  <Button
+                    variant="contained"
+                    className={classes.loginSignupBtn}
+                  >
                     Create
                   </Button>
                 </Link>
@@ -116,7 +84,15 @@ const Login = () => {
               <Typography variant="h4" className={classes.typography}>
                 Welcome back!
               </Typography>
-              <form noValidate autoComplete="off">
+              <Snackbar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={open}
+                autoHideDuration={3000}
+                onClose={handleClose}
+                message={errMsg}
+              />
+
+              <form onSubmit={onSubmit} noValidate autoComplete="off">
                 <TextField
                   TextField
                   className={classes.textField}
@@ -124,6 +100,8 @@ const Login = () => {
                   label="Email Address"
                   type="email"
                   name="email"
+                  value={email}
+                  onChange={onChange}
                   required
                   fullWidth
                 />
@@ -134,10 +112,13 @@ const Login = () => {
                   label="Password"
                   type="password"
                   name="password"
+                  value={password}
+                  onChange={onChange}
                   required
                   fullWidth
                 />
                 <Button
+                  type="submit"
                   className={classes.submit}
                   variant="outlined"
                   color="secondary"

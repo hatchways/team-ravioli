@@ -1,78 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import bgImg from '../assets/loginSignup.png';
 import logoIcon from '../assets/logo.png';
 import TextField from '@material-ui/core/TextField';
+import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CssBaseline } from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  link: {
-    textDecoration: 'none'
-  },
-  image: {
-    backgroundImage: `url(${bgImg})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    height: '100vh',
-    width: '100%'
-  },
-  logoContainer: {
-    height: '100vh',
-    width: '100%'
-  },
-  img: {
-    width: theme.spacing(12),
-    height: theme.spacing(12)
-  },
-  logoHeader: {
-    color: '#ffffff',
-    fontSize: '1.8rem',
-    fontWeight: 'bold',
-    textAlign: 'center'
-  },
-  loginBtn: {
-    backgroundColor: '#ffffff',
-    margin: theme.spacing(8, 8, 8, 2),
-    padding: theme.spacing(1, 4),
-    fontSize: '1.1rem',
-    fontWeight: 'bold',
-    textTransform: 'capitalize',
-    color: theme.palette.primary.dark
-  },
-  typography: {
-    color: theme.palette.primary.dark,
-    fontWeight: 'bold',
-    margin: theme.spacing(0, 0, 4, 0)
-  },
-  disableText: {
-    color: theme.palette.text.disabled,
-    fontSize: '1.1rem'
-  },
-  form: {
-    margin: theme.spacing(8, 20)
-  },
-  textField: {
-    margin: theme.spacing(3, 0)
-  },
-  submit: {
-    margin: theme.spacing(8, 0),
-    padding: theme.spacing(2, 6),
-    fontSize: '1.3rem',
-    fontWeight: 'bold',
-    textTransform: 'capitalize'
-  }
-}));
+import { useStyles } from '../themes/loginSignupStyle';
 
 const Signup = () => {
   const classes = useStyles();
+  const [errMsg, setErrMsg] = useState('');
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password2: ''
+  });
+
+  const { name, email, password, password2 } = user;
+
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    if (!name || !email || !password) {
+      setErrMsg('Please enter all fields');
+      setOpen(true);
+    } else if (password.length < 6) {
+      setErrMsg('Please enter minimum 6 digits password');
+      setOpen(true);
+    } else if (password !== password2) {
+      setErrMsg('Password do not match');
+      setOpen(true);
+    } else {
+      console.log('Register Form Submitted');
+      setUser({
+        name: '',
+        email: '',
+        password: '',
+        password2: ''
+      });
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -92,6 +71,7 @@ const Signup = () => {
             </Typography>
           </Grid>
         </Grid>
+
         <Grid item xs={12} sm={8}>
           <Grid container>
             <Grid
@@ -105,7 +85,10 @@ const Signup = () => {
                   Already have an account?
                 </Typography>
                 <Link className={classes.link} to="/login">
-                  <Button variant="contained" className={classes.loginBtn}>
+                  <Button
+                    variant="contained"
+                    className={classes.loginSignupBtn}
+                  >
                     Login
                   </Button>
                 </Link>
@@ -116,13 +99,22 @@ const Signup = () => {
               <Typography variant="h4" className={classes.typography}>
                 Create an account
               </Typography>
-              <form noValidate autoComplete="off">
+              <Snackbar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                autoHideDuration={3000}
+                message={errMsg}
+                open={open}
+                onClose={handleClose}
+              />
+              <form onSubmit={onSubmit} noValidate autoComplete="off">
                 <TextField
                   className={classes.textField}
                   id="name"
                   label="Full Name"
                   type="text"
                   name="name"
+                  value={name}
+                  onChange={onChange}
                   required
                   fullWidth
                 />
@@ -133,6 +125,8 @@ const Signup = () => {
                   label="Email Address"
                   type="email"
                   name="email"
+                  value={email}
+                  onChange={onChange}
                   required
                   fullWidth
                 />
@@ -143,20 +137,25 @@ const Signup = () => {
                   label="Password"
                   type="password"
                   name="password"
+                  value={password}
+                  onChange={onChange}
                   required
                   fullWidth
                 />
                 <TextField
                   TextField
                   className={classes.textField}
-                  id="confirmPassword"
+                  id="password2"
                   label="Confirm Password"
                   type="password"
-                  name="confirmPassword"
+                  name="password2"
+                  value={password2}
+                  onChange={onChange}
                   required
                   fullWidth
                 />
                 <Button
+                  type="submit"
                   className={classes.submit}
                   variant="outlined"
                   color="secondary"
