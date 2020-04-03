@@ -1,5 +1,5 @@
+# import necessary libraries
 from flask_mongoengine import MongoEngine
-
 
 db = MongoEngine()
 
