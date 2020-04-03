@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import logoIcon from '../assets/logo.png';
@@ -8,8 +8,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CssBaseline } from '@material-ui/core';
 import { useStyles } from '../themes/loginSignupStyle';
+import AuthContext from '../context/auth/authContext';
 
-const Login = () => {
+const Login = props => {
+  const authContext = useContext(AuthContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [errMsg, setErrMsg] = useState('');
@@ -19,6 +21,19 @@ const Login = () => {
   });
 
   const { email, password } = user;
+  const { login, error, clearErrors, isAuthenticated } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+    if (error === 'Invalid Credentials') {
+      setErrMsg('Invalid Credentials');
+      setOpen(true);
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
 
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
@@ -28,7 +43,10 @@ const Login = () => {
       setErrMsg('Please enter valid email and password');
       setOpen(true);
     } else {
-      console.log('Login form submitted');
+      login({
+        email,
+        password
+      });
     }
   };
 

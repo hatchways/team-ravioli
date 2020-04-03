@@ -5,7 +5,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   sideBarDiv: {
-    height: '100vh',
+    height: '150vh',
     backgroundColor: theme.palette.primary.dark,
     color: '#ffffff'
   },
@@ -28,7 +28,8 @@ export const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    position: 'fixed',
+    [theme.breakpoints.up('md')]: {
       display: 'none'
     },
     [theme.breakpoints.down('sm')]: {
@@ -44,7 +45,8 @@ export const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3)
   },
   listText: {
-    textAlign: 'center',
-    padding: theme.spacing(1)
+    // textAlign: 'center',
+    padding: theme.spacing(1),
+    margin: theme.spacing(0, 4, 0, 6)
   }
 }));

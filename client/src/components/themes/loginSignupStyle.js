@@ -45,9 +45,9 @@ export const useStyles = makeStyles(theme => ({
     width: theme.spacing(12),
     height: theme.spacing(12),
     [theme.breakpoints.down('xs')]: {
-      width: theme.spacing(8),
-      height: theme.spacing(8),
-      margin: theme.spacing(2, 0, 0, 0)
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      margin: theme.spacing(1, 0, 0, 0)
     }
   },
   logoHeader: {

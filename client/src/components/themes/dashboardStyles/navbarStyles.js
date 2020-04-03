@@ -13,8 +13,7 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     visibility: 'hidden',
     [theme.breakpoints.down('xs')]: {
-      fontSize: '0.7rem',
-      visibility: 'hidden'
+      fontSize: '0.7rem'
     }
   },
   img: {
@@ -25,7 +24,8 @@ export const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       width: theme.spacing(4),
       height: theme.spacing(4),
-      margin: theme.spacing(0, 1, 0, 0)
+      margin: theme.spacing(0, 1, 0, 0),
+      display: 'none'
     }
   },
   uploadBtn: {

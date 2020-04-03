@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStyles } from '../../themes/dashboardStyles/sidebarStyles';
+import { useStyles } from '../themes/dashboardStyles/sidebarStyles';
 import { useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -12,7 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import logoIcon from '../../assets/logo.png';
+import logoIcon from '../assets/logo.png';
 
 const Sidebar = props => {
   const { container } = props;
@@ -84,7 +84,7 @@ const Sidebar = props => {
       </Toolbar>
 
       <nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="css">
+        <Hidden mdUp implementation="css">
           <Drawer
             container={container}
             variant="temporary"
@@ -101,7 +101,7 @@ const Sidebar = props => {
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper

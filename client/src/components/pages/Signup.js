@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import logoIcon from '../assets/logo.png';
@@ -8,11 +8,28 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { CssBaseline } from '@material-ui/core';
 import { useStyles } from '../themes/loginSignupStyle';
+import AuthContext from '../context/auth/authContext';
 
-const Signup = () => {
+const Signup = props => {
   const classes = useStyles();
   const [errMsg, setErrMsg] = useState('');
   const [open, setOpen] = useState(false);
+
+  const authContext = useContext(AuthContext);
+  const { signup, error, clearErrors, isAuthenticated } = authContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+    if (error === 'User already exists') {
+      setErrMsg('User already exists');
+      setOpen(true);
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
+
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -36,12 +53,10 @@ const Signup = () => {
       setErrMsg('Password do not match');
       setOpen(true);
     } else {
-      console.log('Register Form Submitted');
-      setUser({
-        name: '',
-        email: '',
-        password: '',
-        password2: ''
+      signup({
+        name,
+        email,
+        password
       });
     }
   };

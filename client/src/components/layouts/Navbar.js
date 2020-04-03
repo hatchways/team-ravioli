@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useStyles } from '../../themes/dashboardStyles/navbarStyles';
+import { useStyles } from '../themes/dashboardStyles/navbarStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import logoIcon from '../../assets/logo.png';
-import profilePic from '../../assets/dashboardIcon.png';
+import logoIcon from '../assets/logo.png';
+import profilePic from '../assets/dashboardIcon.png';
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" color="none">
+      <AppBar position="fixed" color="transparent">
         <Toolbar>
           <img src={logoIcon} alt="logo" className={classes.img} />
           <Typography className={classes.title}>RECEIPT TRACKER</Typography>
