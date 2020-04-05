@@ -6,76 +6,101 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   LOGIN_SUCCESS,
+  USER_LOADED,
   LOGIN_FAIL,
-  CLEAR_ERRORS
+  LOGOUT,
+  CLEAR_MESSAGE,
 } from '../actionTypes';
 
-const AuthState = props => {
+const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
     user: null,
-    error: null
+    message: null,
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
+  const loadUser = async () => {
+    if (initialState.token !== null) {
+      let data = {
+        message: 'User loaded',
+      };
+      dispatch({
+        type: USER_LOADED,
+        payload: data,
+      });
+    } else {
+      dispatch({
+        type: LOGOUT,
+        payload: 'Logged out',
+      });
+    }
+  };
 
   // Signup User
-
-  const signup = async formData => {
+  const signup = async (formData) => {
     const config = {
       header: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
     try {
       const res = await axios.post('/signup', formData, config);
-      console.log(res);
-      dispatch({
-        type: SIGNUP_SUCCESS,
-        payload: res.data
-      });
+
+      if (res.data.status === 'success') {
+        dispatch({
+          type: SIGNUP_SUCCESS,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: SIGNUP_FAIL,
+          payload: res.data.message,
+        });
+      }
     } catch (err) {
-      dispatch({
-        type: SIGNUP_FAIL,
-        payload: err.response.data.msg
-      });
+      console.log(err);
     }
   };
 
   // Login User
-  const login = async formData => {
+  const login = async (formData) => {
     const config = {
       header: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     };
 
     try {
       const res = await axios.post('/login', formData, config);
-      console.log(res);
 
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data
-      });
+      if (res.data.status === 'success') {
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: res.data.message,
+        });
+      }
     } catch (err) {
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: err.response.data.msg
-      });
+      console.log(err);
     }
   };
 
   // Logout
+  const logout = () => dispatch({ type: LOGOUT });
 
   // Clear Errors
-  const clearErrors = () =>
+  const clearMessage = () =>
     dispatch({
-      type: CLEAR_ERRORS
+      type: CLEAR_MESSAGE,
     });
 
   return (
@@ -85,10 +110,12 @@ const AuthState = props => {
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
         user: state.user,
-        error: state.error,
+        message: state.message,
         signup,
         login,
-        clearErrors
+        loadUser,
+        logout,
+        clearMessage,
       }}
     >
       {props.children}

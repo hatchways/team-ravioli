@@ -11,6 +11,8 @@ import profilePic from '../assets/dashboardIcon.png';
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { useContext } from 'react';
+import AuthContext from '../context/auth/authContext';
 // import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const Navbar = () => {
@@ -18,7 +20,14 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleMenu = e => {
+  const authContext = useContext(AuthContext);
+  const { logout } = authContext;
+
+  const handleClick = () => {
+    logout();
+  };
+
+  const handleMenu = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -29,7 +38,7 @@ const Navbar = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" color="transparent">
+      <AppBar position="fixed" className={classes.navBar}>
         <Toolbar>
           <img src={logoIcon} alt="logo" className={classes.img} />
           <Typography className={classes.title}>RECEIPT TRACKER</Typography>
@@ -82,7 +91,7 @@ const Navbar = () => {
               <MenuItem onClick={handleClose} className={classes.menuItem}>
                 My account
               </MenuItem>
-              <MenuItem onClick={handleClose} className={classes.menuItem}>
+              <MenuItem onClick={handleClick} className={classes.menuItem}>
                 Logout
               </MenuItem>
             </Menu>

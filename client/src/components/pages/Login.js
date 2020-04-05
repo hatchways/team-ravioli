@@ -10,34 +10,45 @@ import { CssBaseline } from '@material-ui/core';
 import { useStyles } from '../themes/loginSignupStyle';
 import AuthContext from '../context/auth/authContext';
 
-const Login = props => {
+const Login = (props) => {
   const authContext = useContext(AuthContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const [user, setUser] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   const { email, password } = user;
-  const { login, error, clearErrors, isAuthenticated } = authContext;
+  const { login, message, clearMessage, isAuthenticated } = authContext;
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (message === 'Successfully registered.') {
+      setErrMsg('Successfully registered, Please Login');
+      setOpen(true);
+      clearMessage();
+    }
+    if (isAuthenticated && message === 'Successfully logged in.') {
       props.history.push('/');
     }
-    if (error === 'Invalid Credentials') {
-      setErrMsg('Invalid Credentials');
+    if (message === 'Invalid Username or Password') {
+      setErrMsg('Invalid Username or Password');
       setOpen(true);
-      clearErrors();
+      clearMessage();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [message, isAuthenticated, props.history]);
 
-  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+  const onChange = (e) => {
+    if (e.target.name === 'email') {
+      setUser({ ...user, [e.target.name]: e.target.value.toLowerCase() });
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
+    }
+  };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (!email || !password) {
       setErrMsg('Please enter valid email and password');
@@ -45,8 +56,14 @@ const Login = props => {
     } else {
       login({
         email,
-        password
+        password,
       });
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      onSubmit(e);
     }
   };
 
@@ -132,6 +149,7 @@ const Login = props => {
                   name="password"
                   value={password}
                   onChange={onChange}
+                  onKeyDown={handleKeyDown}
                   required
                   fullWidth
                 />

@@ -1,12 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 import bgImg from '../assets/loginSignup.png';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   link: {
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
   image: {
     position: 'relative',
@@ -23,14 +23,14 @@ export const useStyles = makeStyles(theme => ({
       height: '100vh',
       width: '100%',
       opacity: '0.6',
-      zIndex: '1'
+      zIndex: '1',
     },
     [theme.breakpoints.down('xs')]: {
       height: '20vh',
       '&::before': {
-        height: '20vh'
-      }
-    }
+        height: '20vh',
+      },
+    },
   },
   logoContainer: {
     height: '100vh',
@@ -38,8 +38,8 @@ export const useStyles = makeStyles(theme => ({
     position: 'relative',
     zIndex: '2',
     [theme.breakpoints.down('xs')]: {
-      justifyContent: 'flex-start'
-    }
+      justifyContent: 'flex-start',
+    },
   },
   img: {
     width: theme.spacing(12),
@@ -47,8 +47,8 @@ export const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       width: theme.spacing(7),
       height: theme.spacing(7),
-      margin: theme.spacing(1, 0, 0, 0)
-    }
+      margin: theme.spacing(1, 0, 0, 0),
+    },
   },
   logoHeader: {
     color: '#ffffff',
@@ -58,8 +58,8 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(4),
     [theme.breakpoints.down('xs')]: {
       fontSize: '1.1rem',
-      margin: theme.spacing(2)
-    }
+      margin: theme.spacing(2),
+    },
   },
   loginSignupBtn: {
     backgroundColor: '#ffffff',
@@ -71,8 +71,8 @@ export const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.dark,
     [theme.breakpoints.down('md')]: {
       fontSize: '0.8rem',
-      margin: theme.spacing(4, 4, 4, 1)
-    }
+      margin: theme.spacing(4, 4, 4, 1),
+    },
   },
   typography: {
     color: theme.palette.primary.dark,
@@ -80,33 +80,33 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0, 0, 4, 0),
     [theme.breakpoints.down('md')]: {
       fontSize: '1.8rem',
-      margin: theme.spacing(0)
-    }
+      margin: theme.spacing(0),
+    },
   },
   disableText: {
     color: theme.palette.text.disabled,
     fontSize: '1.2rem',
     [theme.breakpoints.down('md')]: {
-      fontSize: '0.8rem'
-    }
+      fontSize: '0.8rem',
+    },
   },
   form: {
     margin: theme.spacing(8, 20, 0, 20),
     [theme.breakpoints.between('sm', 'md')]: {
       fontSize: '0.8rem',
-      margin: theme.spacing(4, 10, 0, 10)
+      margin: theme.spacing(4, 10, 0, 10),
     },
     [theme.breakpoints.down('sm')]: {
       fontSize: '0.8rem',
-      margin: theme.spacing(2, 5, 0, 5)
-    }
+      margin: theme.spacing(2, 5, 0, 5),
+    },
   },
   textField: {
     margin: theme.spacing(4, 0),
     [theme.breakpoints.down('md')]: {
       fontSize: '0.8rem',
-      margin: theme.spacing(2, 0)
-    }
+      margin: theme.spacing(2, 0),
+    },
   },
   submit: {
     margin: theme.spacing(8, 0),
@@ -116,10 +116,10 @@ export const useStyles = makeStyles(theme => ({
     textTransform: 'capitalize',
     [theme.breakpoints.down('md')]: {
       fontSize: '0.8rem',
-      margin: theme.spacing(4, 0)
-    }
+      margin: theme.spacing(4, 0),
+    },
   },
   alert: {
-    backgroundColor: 'red'
-  }
+    backgroundColor: 'red',
+  },
 }));
