@@ -24,11 +24,6 @@ const Login = (props) => {
   const { login, message, clearMessage, isAuthenticated } = authContext;
 
   useEffect(() => {
-    if (message === 'Successfully registered.') {
-      setErrMsg('Successfully registered, Please Login');
-      setOpen(true);
-      clearMessage();
-    }
     if (isAuthenticated && message === 'Successfully logged in.') {
       props.history.push('/');
     }

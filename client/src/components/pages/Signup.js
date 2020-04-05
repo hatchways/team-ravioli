@@ -20,10 +20,15 @@ const Signup = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/login');
+      props.history.push('/');
     }
     if (message === 'User already exists. Please Log in.') {
       setErrMsg('User already exists. Please Log in.');
+      setOpen(true);
+      clearMessage();
+    }
+    if (message === 'Successfully logged out') {
+      setErrMsg('Successfully logged out');
       setOpen(true);
       clearMessage();
     }

@@ -77,25 +77,21 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.post('/login', formData, config);
-
-      if (res.data.status === 'success') {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: res.data,
-        });
-      } else {
-        dispatch({
-          type: LOGIN_FAIL,
-          payload: res.data.message,
-        });
-      }
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data,
+      });
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: 'Invalid Username or Password',
+      });
     }
   };
 
   // Logout
-  const logout = () => dispatch({ type: LOGOUT });
+  const logout = () =>
+    dispatch({ type: LOGOUT, payload: 'Successfully logged out' });
 
   // Clear Errors
   const clearMessage = () =>
