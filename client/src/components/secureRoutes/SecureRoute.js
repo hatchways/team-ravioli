@@ -4,12 +4,12 @@ import { Route, Redirect } from 'react-router-dom';
 
 const SecureRoute = ({ component: Component, ...rest }) => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, loading } = authContext;
+  const { isAuthenticated, token } = authContext;
   return (
     <Route
       {...rest}
-      render={props =>
-        !isAuthenticated && !loading ? (
+      render={(props) =>
+        !isAuthenticated && !token ? (
           <Redirect to="/signup" />
         ) : (
           <Component {...props} />

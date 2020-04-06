@@ -1,41 +1,49 @@
 import {
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
-  AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  CLEAR_ERRORS
+  LOGOUT,
+  USER_LOADED,
+  CLEAR_MESSAGE,
 } from '../actionTypes';
 
 export default (state, action) => {
   switch (action.type) {
-    case SIGNUP_SUCCESS:
-    case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+    case USER_LOADED:
       return {
         ...state,
-        ...action.payload,
         isAuthenticated: true,
-        loading: false
+        loading: false,
+        message: action.payload.message,
+      };
+    case SIGNUP_SUCCESS:
+    case LOGIN_SUCCESS:
+      localStorage.setItem('token', action.payload.auth_token);
+      return {
+        ...state,
+        token: action.payload.auth_token,
+        message: action.payload.message,
+        isAuthenticated: true,
+        loading: false,
       };
     case SIGNUP_FAIL:
-    case AUTH_ERROR:
     case LOGIN_FAIL:
-      // case LOGOUT:
+    case LOGOUT:
       localStorage.removeItem('token');
       return {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: false,
         user: null,
-        error: action.payload
+        message: action.payload,
+        loading: false,
       };
 
-    case CLEAR_ERRORS:
+    case CLEAR_MESSAGE:
       return {
         ...state,
-        error: null
+        message: null,
       };
     default:
       return state;

@@ -10,38 +10,51 @@ import { CssBaseline } from '@material-ui/core';
 import { useStyles } from '../themes/loginSignupStyle';
 import AuthContext from '../context/auth/authContext';
 
-const Signup = props => {
+const Signup = (props) => {
   const classes = useStyles();
   const [errMsg, setErrMsg] = useState('');
   const [open, setOpen] = useState(false);
 
   const authContext = useContext(AuthContext);
-  const { signup, error, clearErrors, isAuthenticated } = authContext;
+  const { signup, message, clearMessage, isAuthenticated } = authContext;
 
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push('/');
     }
-    if (error === 'User already exists') {
-      setErrMsg('User already exists');
+    if (message === 'User already exists. Please Log in.') {
+      setErrMsg('User already exists. Please Log in.');
       setOpen(true);
-      clearErrors();
+      clearMessage();
+    }
+    if (message === 'Successfully logged out') {
+      setErrMsg('Successfully logged out');
+      setOpen(true);
+      clearMessage();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [message, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
-    password2: ''
+    password2: '',
   });
 
   const { name, email, password, password2 } = user;
 
-  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+  const onChange = (e) => {
+    if (e.target.name === 'name') {
+      setUser({ ...user, [e.target.name]: e.target.value.toUpperCase() });
+    } else if (e.target.name === 'email') {
+      setUser({ ...user, [e.target.name]: e.target.value.toLowerCase() });
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
+    }
+  };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
       setErrMsg('Please enter all fields');
@@ -56,8 +69,14 @@ const Signup = props => {
       signup({
         name,
         email,
-        password
+        password,
       });
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      onSubmit(e);
     }
   };
 
@@ -166,6 +185,7 @@ const Signup = props => {
                   name="password2"
                   value={password2}
                   onChange={onChange}
+                  onKeyDown={handleKeyDown}
                   required
                   fullWidth
                 />
