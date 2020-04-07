@@ -37,7 +37,7 @@ const ReceiptDialog = () => {
   };
   const dateNow = dateFormater();
   const [receipt, setReceipt] = useState({
-    userId: localStorage.getItem('userId'),
+    user_id: localStorage.getItem('userId'),
     title: '',
     amount: '',
     category: 'Food and Drinks',
@@ -83,7 +83,7 @@ const ReceiptDialog = () => {
 
       console.log(res);
       setReceipt({
-        userId: localStorage.getItem('userId'),
+        user_id: localStorage.getItem('userId'),
         title: '',
         amount: '',
         category: 'Food and Drinks',
