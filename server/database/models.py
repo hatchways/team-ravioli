@@ -5,10 +5,12 @@ import jwt
 from flask import Flask
 from config import SECRET_KEY
 
+
 # Data Model User
 class user(db.Document):
-    name = db.StringField(required=True, unique=True)
-    email = db.StringField(required=True)
+    user_id=db.StringField(required=True, unique=True)
+    name = db.StringField(required=True)
+    email = db.StringField(required=True, unique=True)
     password = db.StringField(required=True)
 
     # Method for encoding authentication token
@@ -35,17 +37,19 @@ class user(db.Document):
             return 'Invalid token. Please log in again.'
     
 # Data Model reciept
-class reciept(db.Document):
+class receipt(db.Document):
+    receipt_id=db.StringField(required=True, unique=True)
+    user_id=db.StringField(required=True)
     title = db.StringField(required=True)
     amount = db.IntField(required=True)
-    category = db.ListField()
-    reciept_date = db.StringField()
+    category = db.StringField()
+    receipt_date = db.StringField()
     date_created = db.StringField(required=True)
-    picture_url = db.StringField()
+    picture_url = db.ListField()
 
 # Data Model picture
 class picture(db.Document):
-    reciept_id = db.IntField(required=True)
-    picture_url = db.StringField(required=True)
+    receipt_id = db.IntField(required=True)
+    picture_url = db.ListField(required=True)
 
 
