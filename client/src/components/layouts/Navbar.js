@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useStyles } from '../themes/dashboardStyles/navbarStyles';
+import ReceiptDialog from './ReceiptDialog';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -42,25 +43,8 @@ const Navbar = () => {
         <Toolbar>
           <img src={logoIcon} alt="logo" className={classes.img} />
           <Typography className={classes.title}>RECEIPT TRACKER</Typography>
+          <ReceiptDialog />
           <div>
-            <label htmlFor="contained-button-file">
-              <Button
-                variant="outlined"
-                color="secondary"
-                component="span"
-                className={classes.uploadBtn}
-              >
-                Upload receipt
-              </Button>
-            </label>
-            <input
-              accept="image/*"
-              className={classes.input}
-              id="contained-button-file"
-              multiple
-              type="file"
-            />
-
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"

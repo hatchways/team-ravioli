@@ -19,9 +19,11 @@ export default (state, action) => {
       };
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
+      localStorage.setItem('userId', action.payload.user_id);
       localStorage.setItem('token', action.payload.auth_token);
       return {
         ...state,
+        userId: action.payload.user_id,
         token: action.payload.auth_token,
         message: action.payload.message,
         isAuthenticated: true,
