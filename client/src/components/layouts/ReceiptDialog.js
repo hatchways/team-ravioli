@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useStyles } from '../themes/dashboardStyles/receiptDialogStyle';
+import { dateFormater } from '../utility/utils';
 import {
   Button,
   Grid,
@@ -16,33 +17,29 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { DropzoneArea } from 'material-ui-dropzone';
-import axios from 'axios';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import ReceiptContext from '../context/receipt/receiptContext';
 
 const ReceiptDialog = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
-  const dateFormater = () => {
-    let d = new Date();
-    let month = d.getMonth() + 1;
-    let day = d.getDate();
-    if (month < 10) month = '0' + month;
-    if (day < 10) day = '0' + day;
-    let newDate = d.getFullYear() + '-' + month + '-' + day;
+  const [dateErr, setDateErr] = useState(false);
+  const [err, setErr] = useState(false);
 
-    return newDate;
-  };
+  const receiptContext = useContext(ReceiptContext);
+  const { createReceipt } = receiptContext;
+
   const dateNow = dateFormater();
   const [receipt, setReceipt] = useState({
     user_id: localStorage.getItem('userId'),
     title: '',
     amount: null,
     category: 'Food and Drinks',
-    receipt_date: '',
+    receipt_date: null,
     create_date: dateNow,
-    picture_url: null,
+    picture_url: [],
   });
   const {
     title,
@@ -66,10 +63,12 @@ const ReceiptDialog = () => {
 
   const onChange = (e) => {
     setReceipt({ ...receipt, [e.target.name]: e.target.value });
+    setErr(false);
   };
 
   const handleDateChange = (e) => {
     setReceipt({ ...receipt, receipt_date: e.target.value });
+    setErr(false);
   };
 
   const handleChange = (files) => {
@@ -79,13 +78,7 @@ const ReceiptDialog = () => {
   };
 
   const handleSubmit = async () => {
-    const config = {
-      header: {
-        'Content-Type': 'application/json',
-      },
-    };
-    setOpen3(false);
-    let sendingData = {
+    createReceipt({
       title,
       amount,
       category,
@@ -93,24 +86,8 @@ const ReceiptDialog = () => {
       receipt_date,
       user_id,
       picture_url,
-    };
-    console.log(sendingData);
-    try {
-      const res = await axios.post('/createReceipt', sendingData, config);
-
-      console.log(res);
-      setReceipt({
-        user_id: localStorage.getItem('userId'),
-        title: '',
-        amount: null,
-        category: 'Food and Drinks',
-        receipt_date: '',
-        create_date: dateNow,
-        picture_url: null,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    });
+    // run get receipt to update current receipt state
   };
 
   const handleNext = () => {
@@ -119,8 +96,14 @@ const ReceiptDialog = () => {
   };
 
   const handleContinue = () => {
-    setOpen2(false);
-    setOpen3(true);
+    if (!receipt_date) {
+      setDateErr(true);
+    } else if (!amount) {
+      setErr(true);
+    } else {
+      setOpen2(false);
+      setOpen3(true);
+    }
   };
 
   return (
@@ -207,8 +190,10 @@ const ReceiptDialog = () => {
         <DialogContent className={classes.dialog}>
           <Grid container spacing={4} direction="column" justify="center">
             <TextField
+              error={dateErr}
               id="date"
               type="date"
+              helperText="This field cannot be empty!"
               value={receipt_date}
               variant="outlined"
               required
@@ -252,6 +237,8 @@ const ReceiptDialog = () => {
 
             <TextField
               variant="outlined"
+              error={err}
+              helperText="This field cannot be empty!"
               className={classes.receiptInput}
               id="amount"
               label="$ Amount"

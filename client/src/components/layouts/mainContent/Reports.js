@@ -1,13 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
+import Report from '../reports/Report';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     fontSize: '1.5rem',
@@ -16,21 +16,20 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'flex-start',
     borderRadius: '30px',
     height: '50rem',
-    color: theme.palette.secondary.main
   },
   headingText: {
     fontSize: '2rem',
     fontWeight: 'bold',
-    color: theme.palette.primary.dark
+    color: theme.palette.primary.dark,
   },
   secondaryText: {
-    fontSize: '1.8rem',
+    fontSize: '1.5rem',
     fontWeight: 'bold',
-    color: theme.palette.primary.dark
+    color: theme.palette.secondary.main,
   },
   expense: {},
   categories: {},
-  transections: {}
+  transactions: {},
 }));
 
 const Reports = () => {
@@ -43,27 +42,10 @@ const Reports = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} className={classes.paper}>
-            Total Expenses
-            <Grid container spacing={8}>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-            </Grid>
+            <Typography className={classes.secondaryText}>
+              Total Expenses
+            </Typography>
+            <Report />
           </Paper>
         </Grid>
       </Grid>
