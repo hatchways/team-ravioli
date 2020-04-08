@@ -71,6 +71,7 @@ export const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(12),
     height: theme.spacing(12),
+    color: theme.palette.secondary.main,
     [theme.breakpoints.down('sm')]: {
       width: theme.spacing(10),
       height: theme.spacing(10),

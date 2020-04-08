@@ -13,12 +13,11 @@ import {
   Select,
   FormControl,
   InputLabel,
-  Avatar,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { DropzoneArea } from 'material-ui-dropzone';
 import axios from 'axios';
-import receiptImg from '../assets/starbucksIcon.png';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
 const ReceiptDialog = () => {
   const classes = useStyles();
@@ -178,7 +177,6 @@ const ReceiptDialog = () => {
             variant="outlined"
             color="secondary"
             className={classes.dialogActionBtn}
-            // onClick={handleStepChange}
             onClick={handleNext}
           >
             Next
@@ -211,6 +209,7 @@ const ReceiptDialog = () => {
             <TextField
               id="date"
               type="date"
+              value={receipt_date}
               variant="outlined"
               required
               onChange={handleDateChange}
@@ -306,11 +305,7 @@ const ReceiptDialog = () => {
             alignItems="center"
           >
             <Grid item>
-              <Avatar
-                alt="receipt"
-                src={receiptImg}
-                className={classes.avatar}
-              />
+              <ReceiptIcon className={classes.avatar} />
             </Grid>
             <Grid item>
               <Typography className={classes.receiptInfo}>
