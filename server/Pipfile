@@ -8,13 +8,15 @@ verify_ssl = true
 [packages]
 flask = "*"
 flask-mongoengine = "*"
-pyjwt = "==1.3.0"
+pyjwt = "*"
 bcrypt = "*"
 flask-bcrypt = "*"
 flask-cors = "*"
 flask-jwt-extended = "*"
 pymongo = {extras = ["srv"],version = "*"}
 jwt = "*"
+flask-expects-json = "*"
+jsonschema = "*"
 
 [requires]
 python_version = "3.8.2"
