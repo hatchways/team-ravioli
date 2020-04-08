@@ -39,13 +39,21 @@ const ReceiptDialog = () => {
   const [receipt, setReceipt] = useState({
     user_id: localStorage.getItem('userId'),
     title: '',
-    amount: '',
+    amount: null,
     category: 'Food and Drinks',
-    receiptDate: '',
-    dateCreated: dateNow,
-    pictureFile: null,
+    receipt_date: '',
+    create_date: dateNow,
+    picture_url: null,
   });
-  const { title, amount, category } = receipt;
+  const {
+    title,
+    amount,
+    category,
+    create_date,
+    receipt_date,
+    user_id,
+    picture_url,
+  } = receipt;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,12 +70,12 @@ const ReceiptDialog = () => {
   };
 
   const handleDateChange = (e) => {
-    setReceipt({ ...receipt, receiptDate: e.target.value });
+    setReceipt({ ...receipt, receipt_date: e.target.value });
   };
 
   const handleChange = (files) => {
     let newReceipt = receipt;
-    newReceipt = { ...receipt, pictureFile: files[0] };
+    newReceipt = { ...receipt, picture_url: files };
     setReceipt(newReceipt);
   };
 
@@ -78,18 +86,28 @@ const ReceiptDialog = () => {
       },
     };
     setOpen3(false);
+    let sendingData = {
+      title,
+      amount,
+      category,
+      create_date,
+      receipt_date,
+      user_id,
+      picture_url,
+    };
+    console.log(sendingData);
     try {
-      const res = await axios.post('/createReceipt', receipt, config);
+      const res = await axios.post('/createReceipt', sendingData, config);
 
       console.log(res);
       setReceipt({
         user_id: localStorage.getItem('userId'),
         title: '',
-        amount: '',
+        amount: null,
         category: 'Food and Drinks',
-        receiptDate: '',
-        dateCreated: dateNow,
-        pictureFile: null,
+        receipt_date: '',
+        create_date: dateNow,
+        picture_url: null,
       });
     } catch (err) {
       console.log(err);

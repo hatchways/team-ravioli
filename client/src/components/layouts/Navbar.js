@@ -6,7 +6,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
 import logoIcon from '../assets/logo.png';
 import profilePic from '../assets/dashboardIcon.png';
 import Avatar from '@material-ui/core/Avatar';
@@ -52,7 +51,6 @@ const Navbar = () => {
               onClick={handleMenu}
               color="inherit"
             >
-              {/* <AccountCircle fontSize="large" /> */}
               <Avatar
                 alt="Profile pic"
                 src={profilePic}
