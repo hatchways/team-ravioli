@@ -13,3 +13,4 @@ export const DELETE_RECEIPT = 'DELETE_RECEIPT';
 export const RECEIPT_ERROR = 'RECEIPT_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const SET_LOADING = 'SET_LOADING';
+export const CHANGE_TAB = 'CHANGE_TAB';

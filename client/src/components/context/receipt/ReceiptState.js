@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import ReceiptContext from './receiptContext';
 import axios from 'axios';
 import receiptReducer from './receiptReducer';
-import { CREATE_RECEIPT, RECEIPT_ERROR } from '../actionTypes';
+import { CREATE_RECEIPT, RECEIPT_ERROR, CHANGE_TAB } from '../actionTypes';
 
 const ReceiptState = (props) => {
   const initialState = {
@@ -60,6 +60,7 @@ const ReceiptState = (props) => {
     ],
     statusMessage: '',
     errorMessage: '',
+    activeTab: 'dashboard',
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
 
@@ -92,13 +93,24 @@ const ReceiptState = (props) => {
 
   // Delete receipt
 
+  // Change sidebar active tab
+
+  const changeTab = (tab) => {
+    dispatch({
+      type: CHANGE_TAB,
+      payload: tab,
+    });
+  };
+
   return (
     <ReceiptContext.Provider
       value={{
         receipts: state.receipts,
         statusMessage: state.statusMessage,
         errorMessage: state.errorMessage,
+        activeTab: state.activeTab,
         createReceipt,
+        changeTab,
       }}
     >
       {props.children}

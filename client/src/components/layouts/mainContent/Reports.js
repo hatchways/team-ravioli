@@ -1,36 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core';
+import { Grid, Paper, Typography } from '@material-ui/core';
 import Report from '../reports/Report';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    padding: theme.spacing(5),
-    textAlign: 'flex-start',
-    borderRadius: '30px',
-    height: '50rem',
-  },
-  headingText: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    color: theme.palette.primary.dark,
-  },
-  secondaryText: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    color: theme.palette.secondary.main,
-  },
-  expense: {},
-  categories: {},
-  transactions: {},
-}));
+import { useStyles } from '../../themes/reportsStyles/reportsStyle';
 
 const Reports = () => {
   const classes = useStyles();

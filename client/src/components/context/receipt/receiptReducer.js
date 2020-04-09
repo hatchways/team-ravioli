@@ -5,6 +5,7 @@ import {
   RECEIPT_ERROR,
   CLEAR_ERROR,
   SET_LOADING,
+  CHANGE_TAB,
 } from '../actionTypes';
 
 export default (state, action) => {
@@ -25,6 +26,12 @@ export default (state, action) => {
       return {
         ...state,
         errorMessage: '',
+      };
+
+    case CHANGE_TAB:
+      return {
+        ...state,
+        activeTab: action.payload,
       };
 
     default:

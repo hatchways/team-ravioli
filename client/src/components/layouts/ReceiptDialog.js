@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useStyles } from '../themes/dashboardStyles/receiptDialogStyle';
+import { useStyles } from '../themes/homeStyles/receiptDialogStyle';
 import { dateFormater } from '../utility/utils';
 import {
   Button,
@@ -86,6 +86,16 @@ const ReceiptDialog = () => {
       receipt_date,
       user_id,
       picture_url,
+    });
+    setOpen3(false);
+    setReceipt({
+      user_id: localStorage.getItem('userId'),
+      title: '',
+      amount: null,
+      category: 'Food and Drinks',
+      receipt_date: null,
+      create_date: dateNow,
+      picture_url: [],
     });
     // run get receipt to update current receipt state
   };
