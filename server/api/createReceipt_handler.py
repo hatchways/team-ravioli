@@ -21,21 +21,25 @@ def createReceipt():
         amount=request.get_json()['amount']
         category=request.get_json()['category']
         receipt_date=request.get_json()['receipt_date']
-        create_date=request.get_json()['create_date']
+        create_date=request.get_json()['date_created']
         picture_url=request.get_json()['picture_url']
+        # print(type(receipt_date))
+        # print(receipt_date)
     except KeyError:
         responseObject = {
                 'status': 'fail',
                 'message': 'Some Key values Missing, Please enter all details.'
             }
         return make_response(jsonify(responseObject)), 400
-    if user_id != None or title != None or amount != None or category != None or receipt_date != None or create_date != None or picture_url != None :
-        userid = receipt(receipt_id=receipt_id, user_id=user_id ,title=title, amount=amount, category=category,receipt_date=receipt_date,date_created=create_date,picture_url=picture_url ).save()
-        responseObject = {            
+    
+    # Inserting into the database
+    userid = receipt(receipt_id=receipt_id, user_id=user_id ,title=title, amount=amount, category=category,receipt_date=receipt_date,date_created=create_date,picture_url=picture_url ).save()
+    responseObject = {            
                     'status': 'success',
                     'message': 'Receipt Created Successfully.',
                 }
-        return make_response(jsonify(responseObject)), 201
+    return make_response(jsonify(responseObject)), 201
+    
     
     
         
