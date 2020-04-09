@@ -14,6 +14,7 @@ import {
 
 const AuthState = (props) => {
   const initialState = {
+    userId: localStorage.getItem('userId'),
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
@@ -77,6 +78,8 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.post('/login', formData, config);
+      console.log(res.data);
+
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -102,6 +105,7 @@ const AuthState = (props) => {
   return (
     <AuthContext.Provider
       value={{
+        userId: state.userId,
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,

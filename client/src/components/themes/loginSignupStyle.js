@@ -65,12 +65,12 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: '#ffffff',
     margin: theme.spacing(8, 8, 8, 2),
     padding: theme.spacing(1, 4),
-    fontSize: '1.2rem',
+    fontSize: '1rem',
     fontWeight: 'bold',
     textTransform: 'capitalize',
     color: theme.palette.primary.dark,
     [theme.breakpoints.down('md')]: {
-      fontSize: '0.8rem',
+      fontSize: '0.7rem',
       margin: theme.spacing(4, 4, 4, 1),
     },
   },
@@ -85,16 +85,16 @@ export const useStyles = makeStyles((theme) => ({
   },
   disableText: {
     color: theme.palette.text.disabled,
-    fontSize: '1.2rem',
+    fontSize: '1rem',
     [theme.breakpoints.down('md')]: {
-      fontSize: '0.8rem',
+      fontSize: '0.7rem',
     },
   },
   form: {
-    margin: theme.spacing(8, 20, 0, 20),
+    margin: theme.spacing(2, 15, 0, 15),
     [theme.breakpoints.between('sm', 'md')]: {
       fontSize: '0.8rem',
-      margin: theme.spacing(4, 10, 0, 10),
+      margin: theme.spacing(2, 10, 0, 10),
     },
     [theme.breakpoints.down('sm')]: {
       fontSize: '0.8rem',
@@ -102,21 +102,20 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   textField: {
-    margin: theme.spacing(4, 0),
+    margin: theme.spacing(2, 0),
     [theme.breakpoints.down('md')]: {
       fontSize: '0.8rem',
-      margin: theme.spacing(2, 0),
     },
   },
   submit: {
-    margin: theme.spacing(8, 0),
+    margin: theme.spacing(6, 0),
     padding: theme.spacing(2, 6),
-    fontSize: '1.3rem',
+    fontSize: '1.1rem',
     fontWeight: 'bold',
     textTransform: 'capitalize',
     [theme.breakpoints.down('md')]: {
       fontSize: '0.8rem',
-      margin: theme.spacing(4, 0),
+      margin: theme.spacing(3, 0),
     },
   },
   alert: {
