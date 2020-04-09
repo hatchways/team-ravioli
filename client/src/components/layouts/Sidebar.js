@@ -13,7 +13,6 @@ import {
   ListItemText,
   Toolbar,
   Typography,
-  Button,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import logoIcon from '../assets/logo.png';
@@ -42,16 +41,7 @@ const Sidebar = (props) => {
 
   const drawer = (
     <div className={classes.sideBarDiv}>
-      <div
-        className={classes.toolbar}
-        style={{
-          height: '90px',
-          position: 'relative',
-          backgroundColor: '#314f85',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
+      <div className={`${classes.toolbar} ${classes.logoDiv}`}>
         <img src={logoIcon} alt="logo" className={classes.img} />
         <Typography
           className={classes.title}

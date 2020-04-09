@@ -37,6 +37,13 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   toolbar: theme.mixins.toolbar,
+  logoDiv: {
+    height: '90px',
+    position: 'relative',
+    backgroundColor: '#314f85',
+    display: 'flex',
+    alignItems: 'center',
+  },
   drawerPaper: {
     width: 320,
   },

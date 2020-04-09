@@ -21,8 +21,39 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '1.3rem',
     fontWeight: 'bold',
     color: theme.palette.secondary.main,
+    display: 'inline-block',
+    margin: theme.spacing(1),
+    padding: theme.spacing(2),
   },
-  expense: {},
-  categories: {},
-  transactions: {},
+  expenseTotal: {
+    display: 'inline-block',
+    fontSize: '1.8rem',
+    fontWeight: 'bold',
+    color: theme.palette.primary.dark,
+  },
+  DropdownMargin: {
+    backgroundColor: '#f0f2fa',
+  },
+  table: {
+    minWidth: 600,
+  },
+  avatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    color: '#000000',
+    [theme.breakpoints.down('sm')]: {
+      width: theme.spacing(6),
+      height: theme.spacing(6),
+    },
+  },
+  tableCell: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    color: theme.palette.primary.dark,
+  },
+  disabled: {
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    color: theme.palette.text.disabled,
+  },
 }));
