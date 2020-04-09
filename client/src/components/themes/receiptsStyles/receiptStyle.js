@@ -7,10 +7,11 @@ export const useStyles = makeStyles((theme) => ({
   paper: {
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    padding: theme.spacing(5),
+    padding: theme.spacing(2),
     textAlign: 'flex-start',
     borderRadius: '30px',
-    height: '50rem',
+    height: '22rem',
+    color: theme.palette.secondary.main,
   },
   headingText: {
     fontSize: '2rem',
@@ -18,11 +19,11 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.dark,
   },
   secondaryText: {
-    fontSize: '1.3rem',
+    fontSize: '1.8rem',
     fontWeight: 'bold',
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.dark,
   },
   expense: {},
   categories: {},
-  transactions: {},
+  transections: {},
 }));

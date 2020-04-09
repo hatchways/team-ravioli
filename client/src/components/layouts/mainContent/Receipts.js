@@ -1,36 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    padding: theme.spacing(2),
-    textAlign: 'flex-start',
-    borderRadius: '30px',
-    height: '22rem',
-    color: theme.palette.secondary.main
-  },
-  headingText: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    color: theme.palette.primary.dark
-  },
-  secondaryText: {
-    fontSize: '1.8rem',
-    fontWeight: 'bold',
-    color: theme.palette.primary.dark
-  },
-  expense: {},
-  categories: {},
-  transections: {}
-}));
+import { useStyles } from '../../themes/receiptsStyles/receiptStyle';
+import { Paper, Grid, Typography } from '@material-ui/core';
 
 const Receipts = () => {
   const classes = useStyles();
