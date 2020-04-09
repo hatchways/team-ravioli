@@ -14,12 +14,12 @@ class user(db.Document):
     password = db.StringField(required=True)
 
     # Method for encoding authentication token
-    def encode_auth_token(self, user_id):
+    def encode_auth_token(self, email, user_id):
         try:
             payload = {
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=5),
                 'iat': datetime.datetime.utcnow(),
-                'sub': user_id
+                'sub': {"email":email,"user_id":user_id}
             }
             return jwt.encode(payload,SECRET_KEY,algorithm='HS256')
         except Exception as e:
@@ -43,8 +43,8 @@ class receipt(db.Document):
     title = db.StringField(required=True)
     amount = db.IntField(required=True)
     category = db.StringField()
-    receipt_date = db.StringField()
-    date_created = db.StringField(required=True)
+    receipt_date = db.DateTimeField()
+    date_created = db.DateTimeField(required=True)
     picture_url = db.ListField()
 
 # Data Model picture

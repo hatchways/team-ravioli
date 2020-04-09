@@ -30,7 +30,7 @@ def signup():
     if not user.objects(email=email):
         # Inserting into the database
         userid = user(user_id=user_id , name=name , email=email, password=password).save()
-        auth_token = user().encode_auth_token(name)
+        auth_token = user().encode_auth_token(email,user_id)
         # Sending authentication token and success message
         responseObject = {            
             'status': 'success',
