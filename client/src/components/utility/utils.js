@@ -8,3 +8,7 @@ export const dateFormater = () => {
 
   return newDate;
 };
+
+const currentDate = dateFormater().split('-');
+export const currentMonth = currentDate[1];
+export const currentYear = currentDate[0];

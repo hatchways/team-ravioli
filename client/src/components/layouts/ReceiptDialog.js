@@ -38,14 +38,14 @@ const ReceiptDialog = () => {
     amount: null,
     category: 'Food and Drinks',
     receipt_date: null,
-    create_date: dateNow,
+    date_created: dateNow,
     picture_url: [],
   });
   const {
     title,
     amount,
     category,
-    create_date,
+    date_created,
     receipt_date,
     user_id,
     picture_url,
@@ -82,7 +82,7 @@ const ReceiptDialog = () => {
       title,
       amount,
       category,
-      create_date,
+      date_created,
       receipt_date,
       user_id,
       picture_url,
@@ -94,7 +94,7 @@ const ReceiptDialog = () => {
       amount: null,
       category: 'Food and Drinks',
       receipt_date: null,
-      create_date: dateNow,
+      date_created: dateNow,
       picture_url: [],
     });
     // run get receipt to update current receipt state

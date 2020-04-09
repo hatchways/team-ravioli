@@ -8,6 +8,10 @@ import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import SecureRoute from './components/secureRoutes/SecureRoute';
 
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 function App() {
   return (
     <AuthState>
