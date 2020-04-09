@@ -118,7 +118,4 @@ export const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0),
     },
   },
-  alert: {
-    backgroundColor: 'red',
-  },
 }));

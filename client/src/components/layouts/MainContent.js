@@ -7,7 +7,7 @@ import Receipts from './mainContent/Receipts';
 
 const MainContent = () => {
   const classes = useStyles();
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState('reports');
 
   if (active === 'reports') {
     return (
