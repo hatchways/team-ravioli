@@ -16,6 +16,15 @@ export default (state, action) => {
         statusMessage: action.payload,
       };
 
+    case GET_RECEIPTS:
+      return {
+        ...state,
+        receipts: action.payload.response,
+        statusMessage: action.payload.status,
+        totalEpense: action.payload.total_amount,
+        loading: false,
+      };
+
     case RECEIPT_ERROR:
       return {
         ...state,

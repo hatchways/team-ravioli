@@ -11,11 +11,12 @@ import {
 import Report from '../reports/Report';
 import ReceiptContext from '../../context/receipt/receiptContext';
 import { useStyles } from '../../themes/reportsStyles/reportsStyle';
+import { currentYear, currentMonth } from '../../utility/utils';
 
 const Reports = () => {
   const classes = useStyles();
 
-  const [month, setMonth] = useState('');
+  const [month, setMonth] = useState(currentMonth);
   const receiptContext = useContext(ReceiptContext);
   const { receipts, getReceipts } = receiptContext;
   const [expense, setExpense] = useState(null);

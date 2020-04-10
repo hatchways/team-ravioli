@@ -6,6 +6,7 @@ import ReceiptState from './components/context/receipt/ReceiptState';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
+import setAuthToken from './components/utility/setAuthToken';
 import SecureRoute from './components/secureRoutes/SecureRoute';
 
 if (localStorage.token) {

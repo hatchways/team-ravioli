@@ -2,7 +2,12 @@ import React, { useReducer } from 'react';
 import ReceiptContext from './receiptContext';
 import axios from 'axios';
 import receiptReducer from './receiptReducer';
-import { CREATE_RECEIPT, RECEIPT_ERROR, CHANGE_TAB } from '../actionTypes';
+import {
+  CREATE_RECEIPT,
+  RECEIPT_ERROR,
+  CHANGE_TAB,
+  GET_RECEIPTS,
+} from '../actionTypes';
 import { currentYear, currentMonth } from '../../utility/utils';
 
 const ReceiptState = (props) => {
@@ -62,6 +67,7 @@ const ReceiptState = (props) => {
     statusMessage: '',
     errorMessage: '',
     activeTab: 'dashboard',
+    totalExpense: '',
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
 
@@ -75,7 +81,7 @@ const ReceiptState = (props) => {
     try {
       const res = await axios.post('/createReceipt', receiptData, config);
       console.log(res);
-      // run get receipt here getReceipts();
+      getReceipts({ currentMonth, currentYear });
       dispatch({
         type: CREATE_RECEIPT,
         payload: res.data.message,
@@ -89,19 +95,26 @@ const ReceiptState = (props) => {
   };
 
   // Get receipts
-  const getReceipts = (obj) => {
-    const params = {
-      month: '',
-      year: '',
+  const getReceipts = async (obj) => {
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
     };
-    if (obj.month === '') {
-      params.month = currentMonth;
-      params.year = currentYear;
+    const month = parseInt(obj.month) || parseInt(obj.currentMonth);
+    const year = parseInt(obj.currentYear);
+    const url = `/getReceipts?month=${month}&year=${year}`;
+
+    try {
+      const res = await axios.get(url, config);
+      console.log(res);
+      dispatch({
+        type: GET_RECEIPTS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
     }
-    console.log(
-      `get receipt called with ${params.month} and ${params.currentYear}`
-    );
-    console.log(`get receipt called with ${obj.month} and ${obj.currentYear}`);
   };
 
   // Get Report

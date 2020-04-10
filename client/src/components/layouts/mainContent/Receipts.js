@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useStyles } from '../../themes/receiptsStyles/receiptStyle';
 import { Paper, Grid, Typography } from '@material-ui/core';
+import ReceiptItem from '../receipts/ReceiptItem';
+import ReceiptContext from '../../context/receipt/receiptContext';
 
 const Receipts = () => {
   const classes = useStyles();
+  const receiptContext = useContext(ReceiptContext);
+  const { receipts } = receiptContext;
   const date = 'Nov 11, 2019';
   return (
     <div className={classes.root}>
@@ -11,7 +15,9 @@ const Receipts = () => {
         <Grid item xs={12}>
           <Typography className={classes.headingText}>Receipts</Typography>
         </Grid>
-        <Grid item xs={12} sm={3}>
+        {receipts &&
+          receipts.map((receipt) => <ReceiptItem receipt={receipt} />)}
+        {/* <Grid item xs={12} sm={3}>
           <Paper elevation={3} className={classes.paper}></Paper>
           <div style={{ textAlign: 'center', padding: '1rem' }}>{date}</div>
         </Grid>
@@ -42,7 +48,7 @@ const Receipts = () => {
         <Grid item xs={12} sm={3}>
           <Paper elevation={3} className={classes.paper}></Paper>
           <div style={{ textAlign: 'center', padding: '1rem' }}>{date}</div>
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );
