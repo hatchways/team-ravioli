@@ -17,26 +17,20 @@ const Reports = () => {
   const classes = useStyles();
 
   const [month, setMonth] = useState(currentMonth);
+  const [year, setYear] = useState(currentYear);
   const receiptContext = useContext(ReceiptContext);
-  const { receipts, getReceipts } = receiptContext;
-  const [expense, setExpense] = useState(null);
+  const { receipts, getReceipts, totalExpense } = receiptContext;
 
   useEffect(() => {
-    const getExpense = () => {
-      const total = receipts
-        .map((receipt) => receipt.amount)
-        .reduce((acc, item) => (acc += item), 0);
-      setExpense(total);
-    };
-    getExpense();
-  }, [receipts]);
-
-  useEffect(() => {
-    getReceipts({ month, currentYear });
-  }, [month]);
+    getReceipts({ month, year });
+  }, [month, year]);
 
   const handleChange = (e) => {
-    setMonth(e.target.value);
+    if (e.target.id === 'month-select') {
+      setMonth(e.target.value);
+    } else {
+      setYear(e.target.value);
+    }
   };
 
   return (
@@ -45,36 +39,67 @@ const Reports = () => {
         <Grid item xs={12}>
           <Grid
             container
-            item
             direction="row"
             justify="space-between"
             alignItems="flex-start"
+            spacing={2}
           >
-            <Typography className={classes.headingText}>Reports</Typography>
-            <FormControl variant="outlined" className={classes.DropdownMargin}>
-              <InputLabel htmlFor="month-select">Month</InputLabel>
-              <Select
-                native
-                label="Month"
-                id="month-select"
-                value={month}
-                onChange={handleChange}
+            <Grid item>
+              <Typography className={classes.headingText}>Reports</Typography>
+            </Grid>
+            <Grid item>
+              <FormControl
+                variant="outlined"
+                className={classes.DropdownMargin}
               >
-                <option aria-label="None" value="" />
-                <option value="01">January</option>
-                <option value="02">February</option>
-                <option value="03">March</option>
-                <option value="04">April</option>
-                <option value="05">May</option>
-                <option value="06">June</option>
-                <option value="07">July</option>
-                <option value="08">August</option>
-                <option value="09">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-              </Select>
-            </FormControl>
+                <InputLabel htmlFor="month-select">Month</InputLabel>
+                <Select
+                  native
+                  label="Month"
+                  id="month-select"
+                  value={month}
+                  onChange={handleChange}
+                >
+                  <option aria-label="All" value="All">
+                    All
+                  </option>
+                  <option value="01">January</option>
+                  <option value="02">February</option>
+                  <option value="03">March</option>
+                  <option value="04">April</option>
+                  <option value="05">May</option>
+                  <option value="06">June</option>
+                  <option value="07">July</option>
+                  <option value="08">August</option>
+                  <option value="09">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </Select>
+              </FormControl>
+              <FormControl
+                variant="outlined"
+                className={classes.DropdownMargin}
+              >
+                <InputLabel htmlFor="year-select">Year</InputLabel>
+                <Select
+                  native
+                  label="Year"
+                  id="year-select"
+                  value={year}
+                  onChange={handleChange}
+                >
+                  <option aria-label="none" value=""></option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2025">2024</option>
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12}>
@@ -83,7 +108,7 @@ const Reports = () => {
               Total Expenses
             </Typography>
             <Typography className={classes.expenseTotal}>
-              $ {expense}
+              $ {totalExpense}
             </Typography>
             <Divider />
             <Report receipts={receipts} />

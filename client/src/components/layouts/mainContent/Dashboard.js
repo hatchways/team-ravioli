@@ -22,7 +22,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={12}>
           <Typography className={classes.secondaryText}>
-            Recent Transections
+            Recent Transactions
           </Typography>
         </Grid>
         <Grid item xs={12}>

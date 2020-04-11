@@ -12,58 +12,7 @@ import { currentYear, currentMonth } from '../../utility/utils';
 
 const ReceiptState = (props) => {
   const initialState = {
-    receipts: [
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'vacation',
-        amount: 1111,
-        category: 'Travel',
-        receipt_date: '2020-04-02',
-        date_created: '2020-04-08',
-        picture_url: [],
-      },
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'tea',
-        amount: 11,
-        category: 'Food and Drinks',
-        receipt_date: '2020-04-20',
-        date_created: '2020-04-09',
-        picture_url: [],
-      },
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'Jacket',
-        amount: 210,
-        category: 'Shopping',
-        receipt_date: '2020-04-22',
-        date_created: '2020-04-08',
-        picture_url: [],
-      },
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'Appstore',
-        amount: 14,
-        category: 'Services',
-        receipt_date: '2020-04-25',
-        date_created: '2020-04-08',
-        picture_url: [],
-      },
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'Gift',
-        amount: 50,
-        category: 'Other',
-        receipt_date: '2020-04-27',
-        date_created: '2020-04-08',
-        picture_url: [],
-      },
-    ],
+    receipts: [],
     statusMessage: '',
     errorMessage: '',
     activeTab: 'dashboard',
@@ -97,23 +46,33 @@ const ReceiptState = (props) => {
   // Get receipts
   const getReceipts = async (obj) => {
     const config = {
+      params: {
+        month: obj.month,
+        year: obj.year,
+      },
       header: {
         'Content-Type': 'application/json',
       },
     };
-    const month = parseInt(obj.month) || parseInt(obj.currentMonth);
-    const year = parseInt(obj.currentYear);
-    const url = `/getReceipts?month=${month}&year=${year}`;
 
     try {
-      const res = await axios.get(url, config);
+      const res = await axios.get('/getReceipts', config);
       console.log(res);
+      const data = {
+        response: await res.data.response.reverse(),
+        status: await res.data.status,
+        total_amount: await res.data.total_amount,
+      };
+
       dispatch({
         type: GET_RECEIPTS,
-        payload: res.data,
+        payload: data,
       });
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong',
+      });
     }
   };
 
@@ -137,6 +96,7 @@ const ReceiptState = (props) => {
         statusMessage: state.statusMessage,
         errorMessage: state.errorMessage,
         activeTab: state.activeTab,
+        totalExpense: state.totalExpense,
         createReceipt,
         changeTab,
         getReceipts,

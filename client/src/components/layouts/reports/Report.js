@@ -4,7 +4,7 @@ import ReceiptContext from '../../context/receipt/receiptContext';
 import { useStyles } from '../../themes/reportsStyles/reportsStyle';
 import { TableContainer, Table } from '@material-ui/core';
 
-const Report = ({ receipt }) => {
+const Report = () => {
   const classes = useStyles();
   const receiptContext = useContext(ReceiptContext);
   const { receipts } = receiptContext;

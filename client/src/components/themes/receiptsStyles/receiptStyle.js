@@ -23,7 +23,23 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     color: theme.palette.primary.dark,
   },
-  expense: {},
-  categories: {},
-  transections: {},
+  DropdownMargin: {
+    backgroundColor: '#f0f2fa',
+  },
+  receiptImg: {
+    width: '13rem',
+    height: '14rem',
+    borderRadius: '10px',
+    [theme.breakpoints.down('xs')]: {
+      width: '10rem',
+      height: '11rem',
+    },
+  },
+  receiptDate: {
+    padding: '1rem',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: theme.palette.text.disabled,
+  },
 }));

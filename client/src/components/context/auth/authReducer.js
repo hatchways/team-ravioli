@@ -4,19 +4,19 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  USER_LOADED,
+  // USER_LOADED,
   CLEAR_MESSAGE,
 } from '../actionTypes';
 
 export default (state, action) => {
   switch (action.type) {
-    case USER_LOADED:
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        message: action.payload.message,
-      };
+    // case USER_LOADED:
+    //   return {
+    //     ...state,
+    //     isAuthenticated: true,
+    //     loading: false,
+    //     message: action.payload.message,
+    //   };
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
       localStorage.setItem('userId', action.payload.user_id);

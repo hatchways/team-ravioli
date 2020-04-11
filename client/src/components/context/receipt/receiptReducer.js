@@ -21,7 +21,7 @@ export default (state, action) => {
         ...state,
         receipts: action.payload.response,
         statusMessage: action.payload.status,
-        totalEpense: action.payload.total_amount,
+        totalExpense: action.payload.total_amount,
         loading: false,
       };
 
