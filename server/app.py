@@ -8,6 +8,7 @@ from api.createReceipt_handler import createReceipt_handler
 from api.updateReceipt_handler import updateReceipt_handler
 from api.getReceipt_handler import getReceipt_handler
 from api.getReceipts_handler import getReceipts_handler
+from api.viewAllReceipts_handler import viewAllReceipts_handler
 
 # Initialize flask app
 app = Flask(__name__)
@@ -26,6 +27,7 @@ app.register_blueprint(createReceipt_handler)
 app.register_blueprint(updateReceipt_handler)
 app.register_blueprint(getReceipt_handler)
 app.register_blueprint(getReceipts_handler)
+app.register_blueprint(viewAllReceipts_handler)
 
 
         

@@ -14,17 +14,18 @@ createReceipt_handler = Blueprint('createReceipt_handler',__name__)
 def createReceipt():
     # Get Receipt inputs
     try:
+        auth_token=request.headers.get("auth_token")
+        auth=user.decode_auth_token(auth_token)
+        user_id=auth['user_id']
         id=uuid.uuid1()
         receipt_id=str(id).replace("-", "")
-        user_id=request.get_json()['user_id']
         title=request.get_json()['title']
         amount=request.get_json()['amount']
         category=request.get_json()['category']
         receipt_date=request.get_json()['receipt_date']
         create_date=request.get_json()['date_created']
         picture_url=request.get_json()['picture_url']
-        # print(type(receipt_date))
-        # print(receipt_date)
+        
     except KeyError:
         responseObject = {
                 'status': 'fail',

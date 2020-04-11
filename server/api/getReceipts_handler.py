@@ -2,6 +2,7 @@
 from flask import jsonify, Blueprint
 from flask import Flask, request, json ,jsonify, make_response
 from database.models import user,receipt,picture
+from datetime import datetime
 
 
 getReceipts_handler = Blueprint('getReceipts_handler',__name__)
@@ -25,16 +26,18 @@ def getReceipts():
     data=receipt.objects(user_id=userid)
     response=[]
     total_amt=0
+    date_str=""
     for doc in data:
         print(type(doc.receipt_date.year))
         if doc.receipt_date.month== month and doc.receipt_date.year==year:
             total_amt=total_amt+doc.amount
+            date_str=str(doc.receipt_date.day) +'-'+ str(doc.receipt_date.month)+'-'+str(doc.receipt_date.year)
             dic={
                 'receipt_id':doc.receipt_id,
             'title':doc.title,
             'amount':doc.amount,
             'category':doc.category,
-            'receipt_date':doc.receipt_date,
+            'receipt_date':date_str,
             'picture_url':doc.picture_url
             }
             response.append(dic)
