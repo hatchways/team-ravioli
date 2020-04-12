@@ -47,7 +47,7 @@ def login():
         verify=verify_password(data.password,password)
         print(verify)
         if verify == True :
-            auth_token = user().encode_auth_token(email)
+            auth_token = user().encode_auth_token(email,data.user_id)
             #print(type(auth_token))
             responseObject = {            
             'status': 'success',
