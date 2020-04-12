@@ -19,7 +19,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import { DropzoneArea } from 'material-ui-dropzone';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReceiptContext from '../context/receipt/receiptContext';
-import { currentYear, currentMonth } from '../utility/utils';
 
 const ReceiptDialog = () => {
   const classes = useStyles();
@@ -30,15 +29,15 @@ const ReceiptDialog = () => {
   const [err, setErr] = useState(false);
 
   const receiptContext = useContext(ReceiptContext);
-  const { createReceipt, getReceipts } = receiptContext;
+  const { createReceipt } = receiptContext;
 
   const dateNow = dateFormater();
   const [receipt, setReceipt] = useState({
     user_id: localStorage.getItem('userId'),
     title: '',
-    amount: null,
+    amount: '',
     category: 'Food and Drinks',
-    receipt_date: null,
+    receipt_date: '',
     date_created: dateNow,
     picture_url: [],
   });
@@ -88,14 +87,13 @@ const ReceiptDialog = () => {
       user_id,
       picture_url,
     });
-    getReceipts({ month: currentMonth, year: currentYear });
     setOpen3(false);
     setReceipt({
       user_id: localStorage.getItem('userId'),
       title: '',
-      amount: null,
+      amount: '',
       category: 'Food and Drinks',
-      receipt_date: null,
+      receipt_date: '',
       date_created: dateNow,
       picture_url: [],
     });
@@ -108,9 +106,9 @@ const ReceiptDialog = () => {
   };
 
   const handleContinue = () => {
-    if (!receipt_date) {
+    if (receipt_date === '') {
       setDateErr(true);
-    } else if (!amount) {
+    } else if (amount === '') {
       setErr(true);
     } else {
       setOpen2(false);

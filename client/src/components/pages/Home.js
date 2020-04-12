@@ -1,17 +1,15 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../layouts/Navbar';
 import Sidebar from '../layouts/Sidebar';
 import MainContent from '../layouts/MainContent';
-import AuthContext from '../context/auth/authContext';
+import setAuthToken from '../utility/setAuthToken';
 
 const Home = () => {
-  const authContext = useContext(AuthContext);
-  const { loadUser } = authContext;
-
-  // useEffect(() => {
-  //   loadUser();
-  //   // eslint-disable-next-line
-  // }, []);
+  useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+  }, []);
 
   return (
     <div>

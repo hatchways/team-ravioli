@@ -53,7 +53,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   listText: {
     padding: theme.spacing(1),
-    margin: theme.spacing(0, 4, 0, 6),
+    margin: theme.spacing(0, 4, 0, 4),
   },
   active: {
     backgroundColor: '#314f85',

@@ -10,7 +10,11 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(5),
     textAlign: 'flex-start',
     borderRadius: '30px',
-    height: '50rem',
+    height: '40rem',
+    overflowY: 'scroll',
+    [theme.breakpoints.down('sm')]: {
+      overflowX: 'scroll',
+    },
   },
   headingText: {
     fontSize: '2rem',
@@ -55,5 +59,14 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '1rem',
     fontWeight: 'bold',
     color: theme.palette.text.disabled,
+  },
+  loading: {
+    marginLeft: '45%',
+    marginTop: '10%',
+  },
+  noMatch: {
+    fontWeight: 'bold',
+    color: theme.palette.text.disabled,
+    margin: theme.spacing(4),
   },
 }));

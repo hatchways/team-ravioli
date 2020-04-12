@@ -42,4 +42,13 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.disabled,
   },
+  loading: {
+    marginLeft: '45%',
+    marginTop: '10%',
+  },
+  noMatch: {
+    fontWeight: 'bold',
+    color: theme.palette.text.disabled,
+    margin: theme.spacing(4),
+  },
 }));

@@ -7,22 +7,38 @@ import {
   InputLabel,
   FormControl,
   Divider,
+  CircularProgress,
 } from '@material-ui/core';
 import Report from '../reports/Report';
 import ReceiptContext from '../../context/receipt/receiptContext';
 import { useStyles } from '../../themes/reportsStyles/reportsStyle';
-import { currentYear, currentMonth } from '../../utility/utils';
+import { currentYear } from '../../utility/utils';
 
 const Reports = () => {
   const classes = useStyles();
 
-  const [month, setMonth] = useState(currentMonth);
+  const [month, setMonth] = useState('all');
   const [year, setYear] = useState(currentYear);
   const receiptContext = useContext(ReceiptContext);
-  const { receipts, getReceipts, totalExpense } = receiptContext;
+  const {
+    loading,
+    receipts,
+    getReceiptsByMonth,
+    totalExpense,
+    getAllReceipts,
+    getReceiptsByYear,
+  } = receiptContext;
 
   useEffect(() => {
-    getReceipts({ month, year });
+    if (month === 'all' && year !== '') {
+      getReceiptsByYear(year);
+    } else if (month !== 'all' && year !== '') {
+      console.log('by month and year fired from Reports');
+      getReceiptsByMonth({ month, year });
+    } else {
+      getAllReceipts();
+    }
+    // eslint-disable-next-line
   }, [month, year]);
 
   const handleChange = (e) => {
@@ -60,7 +76,7 @@ const Reports = () => {
                   value={month}
                   onChange={handleChange}
                 >
-                  <option aria-label="All" value="All">
+                  <option aria-label="All" value="all">
                     All
                   </option>
                   <option value="01">January</option>
@@ -89,7 +105,6 @@ const Reports = () => {
                   value={year}
                   onChange={handleChange}
                 >
-                  <option aria-label="none" value=""></option>
                   <option value="2018">2018</option>
                   <option value="2019">2019</option>
                   <option value="2020">2020</option>
@@ -111,7 +126,11 @@ const Reports = () => {
               $ {totalExpense}
             </Typography>
             <Divider />
-            <Report receipts={receipts} />
+            {!loading ? (
+              <Report receipts={receipts} />
+            ) : (
+              <CircularProgress className={classes.loading} color="secondary" />
+            )}
           </Paper>
         </Grid>
       </Grid>

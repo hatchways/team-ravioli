@@ -2,25 +2,39 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useStyles } from '../../themes/receiptsStyles/receiptStyle';
 import {
   Grid,
-  Box,
   Typography,
   Select,
   InputLabel,
   FormControl,
+  CircularProgress,
 } from '@material-ui/core';
-import ReceiptItem from '../receipts/ReceiptItem';
+import Receipt from '../receipts/Receipt';
 import ReceiptContext from '../../context/receipt/receiptContext';
-import { currentYear, currentMonth } from '../../utility/utils';
+import { currentYear } from '../../utility/utils';
 
 const Receipts = () => {
   const classes = useStyles();
   const receiptContext = useContext(ReceiptContext);
-  const { receipts, getReceipts } = receiptContext;
-  const [month, setMonth] = useState(currentMonth);
+  const {
+    receipts,
+    getReceiptsByMonth,
+    loading,
+    getAllReceipts,
+    getReceiptsByYear,
+  } = receiptContext;
+  const [month, setMonth] = useState('all');
   const [year, setYear] = useState(currentYear);
 
   useEffect(() => {
-    getReceipts({ month, year });
+    if (month === 'all' && year !== '') {
+      getReceiptsByYear(year);
+    } else if (month !== 'all' && year !== '') {
+      console.log('by month and year fired from Receipts');
+      getReceiptsByMonth({ month, year });
+    } else {
+      getAllReceipts();
+    }
+    // eslint-disable-next-line
   }, [month, year]);
 
   const handleChange = (e) => {
@@ -58,7 +72,7 @@ const Receipts = () => {
                   value={month}
                   onChange={handleChange}
                 >
-                  <option aria-label="All" value="All">
+                  <option aria-label="All" value="all">
                     All
                   </option>
                   <option value="01">January</option>
@@ -88,7 +102,6 @@ const Receipts = () => {
                   value={year}
                   onChange={handleChange}
                 >
-                  <option aria-label="none" value=""></option>
                   <option value="2018">2018</option>
                   <option value="2019">2019</option>
                   <option value="2020">2020</option>
@@ -101,8 +114,13 @@ const Receipts = () => {
             </Grid>
           </Grid>
         </Grid>
-        {receipts &&
-          receipts.map((receipt) => <ReceiptItem receipt={receipt} />)}
+        <Grid item xs={12}>
+          {!loading ? (
+            <Receipt receipts={receipts} />
+          ) : (
+            <CircularProgress className={classes.loading} color="secondary" />
+          )}
+        </Grid>
       </Grid>
     </div>
   );

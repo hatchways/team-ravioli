@@ -6,7 +6,6 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   LOGIN_SUCCESS,
-  // USER_LOADED,
   LOGIN_FAIL,
   LOGOUT,
   CLEAR_MESSAGE,
@@ -18,7 +17,6 @@ const AuthState = (props) => {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
-    user: null,
     message: null,
   };
 
@@ -51,7 +49,6 @@ const AuthState = (props) => {
     };
     try {
       const res = await axios.post('/signup', formData, config);
-
       if (res.data.status === 'success') {
         dispatch({
           type: SIGNUP_SUCCESS,
@@ -79,7 +76,6 @@ const AuthState = (props) => {
     try {
       const res = await axios.post('/login', formData, config);
       console.log(res.data);
-
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,

@@ -7,11 +7,14 @@ import {
   RECEIPT_ERROR,
   CHANGE_TAB,
   GET_RECEIPTS,
+  GET_ALL_RECEIPTS,
+  GET_RECEIPTS_YEARLY,
+  CLEAR_RECEIPT,
 } from '../actionTypes';
-import { currentYear, currentMonth } from '../../utility/utils';
 
 const ReceiptState = (props) => {
   const initialState = {
+    loading: true,
     receipts: [],
     statusMessage: '',
     errorMessage: '',
@@ -29,12 +32,12 @@ const ReceiptState = (props) => {
     };
     try {
       const res = await axios.post('/createReceipt', receiptData, config);
-      console.log(res);
-      getReceipts({ currentMonth, currentYear });
+
       dispatch({
         type: CREATE_RECEIPT,
         payload: res.data.message,
       });
+      getAllReceipts();
     } catch (err) {
       dispatch({
         type: RECEIPT_ERROR,
@@ -44,7 +47,8 @@ const ReceiptState = (props) => {
   };
 
   // Get receipts
-  const getReceipts = async (obj) => {
+  const getReceiptsByMonth = async (obj) => {
+    console.log('get By year and month fired');
     const config = {
       params: {
         month: obj.month,
@@ -76,6 +80,81 @@ const ReceiptState = (props) => {
     }
   };
 
+  // Get All Receipts
+  const getAllReceipts = async () => {
+    console.log('get all fired');
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get('/viewAllReceipts', config);
+      console.log(res);
+      const data = {
+        response: await res.data.response.reverse(),
+        status: await res.data.status,
+        total_amount: await res.data.total_amount,
+      };
+
+      dispatch({
+        type: GET_ALL_RECEIPTS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong',
+      });
+    }
+  };
+
+  // Get Receipts by Year
+
+  const getReceiptsByYear = async (year) => {
+    console.log('get By year fired');
+
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get('/viewAllReceipts', config);
+      console.log(res);
+      const items = await res.data.response;
+      const filteredItems = items
+        .reverse()
+        .filter((item) => item.receipt_date.includes(year));
+      const total = filteredItems.reduce(
+        (acc, curr) => (acc += curr.amount),
+        0
+      );
+      const data = {
+        response: filteredItems,
+        status: await res.data.status,
+        total_amount: total,
+      };
+
+      dispatch({
+        type: GET_RECEIPTS_YEARLY,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong',
+      });
+    }
+  };
+
+  // Clear receipt
+  const clearReceipt = () => {
+    dispatch({ type: CLEAR_RECEIPT });
+  };
+
   // Get Report
 
   // Delete receipt
@@ -92,6 +171,7 @@ const ReceiptState = (props) => {
   return (
     <ReceiptContext.Provider
       value={{
+        loading: state.loading,
         receipts: state.receipts,
         statusMessage: state.statusMessage,
         errorMessage: state.errorMessage,
@@ -99,7 +179,10 @@ const ReceiptState = (props) => {
         totalExpense: state.totalExpense,
         createReceipt,
         changeTab,
-        getReceipts,
+        getReceiptsByMonth,
+        getAllReceipts,
+        getReceiptsByYear,
+        clearReceipt,
       }}
     >
       {props.children}

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useStyles } from '../themes/homeStyles/navbarStyles';
 import AuthContext from '../context/auth/authContext';
+import ReceiptContext from '../context/receipt/receiptContext';
 import ReceiptDialog from './ReceiptDialog';
 import {
   CssBaseline,
@@ -20,10 +21,13 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
+  const receiptContext = useContext(ReceiptContext);
   const authContext = useContext(AuthContext);
+  const { clearReceipt } = receiptContext;
   const { logout } = authContext;
 
   const handleClick = () => {
+    clearReceipt();
     logout();
   };
 

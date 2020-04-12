@@ -37,8 +37,8 @@ export default (state, action) => {
       return {
         ...state,
         token: null,
+        userId: null,
         isAuthenticated: false,
-        user: null,
         message: action.payload,
         loading: false,
       };

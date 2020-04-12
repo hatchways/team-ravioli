@@ -1,12 +1,12 @@
 import React from 'react';
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../../themes/receiptsStyles/receiptStyle';
 import receiptImg from '../../assets/receipt.png';
 
 const ReceiptItem = ({ receipt }) => {
   const classes = useStyles();
   return (
-    <Grid item xs={12} sm={4} lg={3} spacing={3}>
+    <Grid item xs={12} sm={4} lg={3}>
       <Grid
         container
         item
