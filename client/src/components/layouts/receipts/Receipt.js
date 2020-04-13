@@ -1,22 +1,20 @@
 import React from 'react';
-import ReportItem from '../reports/ReportItem';
-import { useStyles } from '../../themes/reportsStyles/reportsStyle';
-import { TableContainer, Table, Typography } from '@material-ui/core';
+import ReceiptItem from '../receipts/ReceiptItem';
+import { Grid, Typography } from '@material-ui/core';
+import { useStyles } from '../../themes/receiptsStyles/receiptStyle';
 
-const Report = ({ receipts }) => {
+const Receipt = ({ receipts }) => {
   const classes = useStyles();
 
   return (
     <div>
       {receipts.length > 0 ? (
-        <TableContainer>
-          <Table className={classes.table} aria-label="simple table">
-            {receipts !== [] &&
-              receipts.map((receipt, index) => (
-                <ReportItem receipt={receipt} key={index} />
-              ))}
-          </Table>
-        </TableContainer>
+        <Grid container spacing={3}>
+          {receipts !== [] &&
+            receipts.map((receipt, index) => (
+              <ReceiptItem key={index} receipt={receipt} />
+            ))}
+        </Grid>
       ) : (
         <div>
           <Typography className={classes.noMatch} variant="h6">
@@ -36,4 +34,4 @@ const Report = ({ receipts }) => {
   );
 };
 
-export default Report;
+export default Receipt;

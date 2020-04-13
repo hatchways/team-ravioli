@@ -27,6 +27,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down('xs')]: {
       height: '20vh',
+      zIndex: '-1',
       '&::before': {
         height: '20vh',
       },

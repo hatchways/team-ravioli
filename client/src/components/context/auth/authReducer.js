@@ -4,24 +4,16 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  USER_LOADED,
   CLEAR_MESSAGE,
 } from '../actionTypes';
 
 export default (state, action) => {
   switch (action.type) {
-    case USER_LOADED:
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-        message: action.payload.message,
-      };
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
       localStorage.setItem('userId', action.payload.user_id);
       localStorage.setItem('token', action.payload.auth_token);
-      return {
+      const userSuccess = {
         ...state,
         userId: action.payload.user_id,
         token: action.payload.auth_token,
@@ -29,25 +21,30 @@ export default (state, action) => {
         isAuthenticated: true,
         loading: false,
       };
+      return userSuccess;
+      break;
     case SIGNUP_FAIL:
     case LOGIN_FAIL:
     case LOGOUT:
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
-      return {
+      const userFail = {
         ...state,
         token: null,
+        userId: null,
         isAuthenticated: false,
-        user: null,
         message: action.payload,
         loading: false,
       };
-
+      return userFail;
+      break;
     case CLEAR_MESSAGE:
-      return {
+      const authMsg = {
         ...state,
         message: null,
       };
+      return authMsg;
+      break;
     default:
       return state;
   }

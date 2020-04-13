@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
-import { useStyles } from '../themes/dashboardStyles/sidebarStyles';
+import React, { useState, useContext } from 'react';
+import { useStyles } from '../themes/homeStyles/sidebarStyles';
 import { useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import ReceiptContext from '../context/receipt/receiptContext';
+import {
+  CssBaseline,
+  Divider,
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import logoIcon from '../assets/logo.png';
 
-const Sidebar = props => {
+const Sidebar = (props) => {
   const { container } = props;
+  const receiptContext = useContext(ReceiptContext);
+  const { changeTab, activeTab } = receiptContext;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -24,18 +29,20 @@ const Sidebar = props => {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleTabClick = (e) => {
+    const { innerHTML } = e.target;
+    if (innerHTML === 'Receipts') {
+      changeTab('receipts');
+    } else if (innerHTML === 'Reports') {
+      changeTab('reports');
+    } else {
+      changeTab('dashboard');
+    }
+  };
+
   const drawer = (
     <div className={classes.sideBarDiv}>
-      <div
-        className={classes.toolbar}
-        style={{
-          height: '90px',
-          position: 'relative',
-          backgroundColor: '#314f85',
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
+      <div className={`${classes.toolbar} ${classes.logoDiv}`}>
         <img src={logoIcon} alt="logo" className={classes.img} />
         <Typography
           className={classes.title}
@@ -45,24 +52,30 @@ const Sidebar = props => {
         </Typography>
       </div>
       <Divider />
-      <List>
-        <ListItem button style={{ paddingTop: '40px' }}>
-          {/* Temporary style for Active listItemText  */}
+      <List style={{ paddingTop: '40px' }}>
+        <ListItem button onClick={handleTabClick}>
           <ListItemText
             primary="Dashboard"
-            className={classes.listText}
-            style={{
-              backgroundColor: '#314f85',
-              color: '#38cc89',
-              borderRadius: '10px'
-            }}
+            className={`${classes.listText} ${
+              activeTab === 'dashboard' && classes.active
+            }`}
           />
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Reports" className={classes.listText} />
+        <ListItem button onClick={handleTabClick}>
+          <ListItemText
+            primary="Reports"
+            className={`${classes.listText} ${
+              activeTab === 'reports' && classes.active
+            }`}
+          />
         </ListItem>
-        <ListItem button>
-          <ListItemText primary="Receipts" className={classes.listText} />
+        <ListItem button onClick={handleTabClick}>
+          <ListItemText
+            primary="Receipts"
+            className={`${classes.listText} ${
+              activeTab === 'receipts' && classes.active
+            }`}
+          />
         </ListItem>
       </List>
     </div>
@@ -92,10 +105,10 @@ const Sidebar = props => {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: false
+              keepMounted: false,
             }}
           >
             {drawer}
@@ -104,7 +117,7 @@ const Sidebar = props => {
         <Hidden smDown implementation="css">
           <Drawer
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
             variant="permanent"
             open

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useStyles } from '../themes/dashboardStyles/receiptDialogStyle';
+import { useStyles } from '../themes/homeStyles/receiptDialogStyle';
 import { dateFormater } from '../utility/utils';
 import {
   Button,
@@ -35,17 +35,17 @@ const ReceiptDialog = () => {
   const [receipt, setReceipt] = useState({
     user_id: localStorage.getItem('userId'),
     title: '',
-    amount: null,
+    amount: '',
     category: 'Food and Drinks',
-    receipt_date: null,
-    create_date: dateNow,
+    receipt_date: '',
+    date_created: dateNow,
     picture_url: [],
   });
   const {
     title,
     amount,
     category,
-    create_date,
+    date_created,
     receipt_date,
     user_id,
     picture_url,
@@ -62,12 +62,14 @@ const ReceiptDialog = () => {
   };
 
   const onChange = (e) => {
-    setReceipt({ ...receipt, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setReceipt({ ...receipt, [name]: value });
     setErr(false);
   };
 
   const handleDateChange = (e) => {
-    setReceipt({ ...receipt, receipt_date: e.target.value });
+    const { value } = e.target;
+    setReceipt({ ...receipt, receipt_date: value });
     setErr(false);
   };
 
@@ -82,10 +84,20 @@ const ReceiptDialog = () => {
       title,
       amount,
       category,
-      create_date,
+      date_created,
       receipt_date,
       user_id,
       picture_url,
+    });
+    setOpen3(false);
+    setReceipt({
+      user_id: localStorage.getItem('userId'),
+      title: '',
+      amount: '',
+      category: 'Food and Drinks',
+      receipt_date: '',
+      date_created: dateNow,
+      picture_url: [],
     });
     // run get receipt to update current receipt state
   };
@@ -96,9 +108,9 @@ const ReceiptDialog = () => {
   };
 
   const handleContinue = () => {
-    if (!receipt_date) {
+    if (receipt_date === '') {
       setDateErr(true);
-    } else if (!amount) {
+    } else if (amount === '') {
       setErr(true);
     } else {
       setOpen2(false);

@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
-import { useStyles } from '../themes/dashboardStyles/navbarStyles';
+import React, { useState, useContext } from 'react';
+import { useStyles } from '../themes/homeStyles/navbarStyles';
+import AuthContext from '../context/auth/authContext';
+import ReceiptContext from '../context/receipt/receiptContext';
 import ReceiptDialog from './ReceiptDialog';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import {
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Avatar,
+  MenuItem,
+  Menu,
+} from '@material-ui/core/';
 import logoIcon from '../assets/logo.png';
 import profilePic from '../assets/dashboardIcon.png';
-import Avatar from '@material-ui/core/Avatar';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import { useContext } from 'react';
-import AuthContext from '../context/auth/authContext';
-// import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const Navbar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
+  const receiptContext = useContext(ReceiptContext);
   const authContext = useContext(AuthContext);
+  const { clearReceipt } = receiptContext;
   const { logout } = authContext;
 
   const handleClick = () => {
+    clearReceipt();
     logout();
   };
 

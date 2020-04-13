@@ -2,64 +2,24 @@ import React, { useReducer } from 'react';
 import ReceiptContext from './receiptContext';
 import axios from 'axios';
 import receiptReducer from './receiptReducer';
-import { CREATE_RECEIPT, RECEIPT_ERROR } from '../actionTypes';
+import {
+  CREATE_RECEIPT,
+  RECEIPT_ERROR,
+  CHANGE_TAB,
+  GET_RECEIPTS,
+  GET_ALL_RECEIPTS,
+  GET_RECEIPTS_YEARLY,
+  CLEAR_RECEIPT,
+} from '../actionTypes';
 
 const ReceiptState = (props) => {
   const initialState = {
-    receipts: [
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'vacation',
-        amount: 1111,
-        category: 'Travel',
-        receipt_date: '2020-04-02',
-        date_created: '2020-04-08',
-        picture_url: [],
-      },
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'tea',
-        amount: 11,
-        category: 'Food and Drinks',
-        receipt_date: '2020-04-20',
-        date_created: '2020-04-09',
-        picture_url: [],
-      },
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'Jacket',
-        amount: 210,
-        category: 'Shopping',
-        receipt_date: '2020-04-22',
-        date_created: '2020-04-08',
-        picture_url: [],
-      },
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'Appstore',
-        amount: 14,
-        category: 'Services',
-        receipt_date: '2020-04-25',
-        date_created: '2020-04-08',
-        picture_url: [],
-      },
-      {
-        receipt_id: '5177982679d311ea8e37b46bfc6cbb3b',
-        user_id: 'c15c8e26791e11eabc30b46bfc6cbb3b',
-        title: 'Gift',
-        amount: 50,
-        category: 'Other',
-        receipt_date: '2020-04-27',
-        date_created: '2020-04-08',
-        picture_url: [],
-      },
-    ],
+    loading: true,
+    receipts: [],
     statusMessage: '',
     errorMessage: '',
+    activeTab: 'dashboard',
+    totalExpense: '',
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
 
@@ -72,12 +32,12 @@ const ReceiptState = (props) => {
     };
     try {
       const res = await axios.post('/createReceipt', receiptData, config);
-      console.log(res);
-      // Run get receipt to update receipt state with this created receipt.
+      const { message } = res.data;
       dispatch({
         type: CREATE_RECEIPT,
-        payload: res.data.message,
+        payload: message,
       });
+      getAllReceipts();
     } catch (err) {
       dispatch({
         type: RECEIPT_ERROR,
@@ -87,18 +47,136 @@ const ReceiptState = (props) => {
   };
 
   // Get receipts
+  const getReceiptsByMonth = async (obj) => {
+    const config = {
+      params: {
+        month: obj.month,
+        year: obj.year,
+      },
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-  // Get Report
+    try {
+      const res = await axios.get('/getReceipts', config);
+      const { response, status, total_amount } = await res.data;
+      const data = {
+        response: response,
+        status: status,
+        total_amount: total_amount,
+      };
+
+      dispatch({
+        type: GET_RECEIPTS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong',
+      });
+    }
+  };
+
+  // Get All Receipts
+  const getAllReceipts = async () => {
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get('/viewAllReceipts', config);
+      const { response, status, total_amount } = await res.data;
+      const data = {
+        response: response,
+        status: status,
+        total_amount: total_amount,
+      };
+
+      dispatch({
+        type: GET_ALL_RECEIPTS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong',
+      });
+    }
+  };
+
+  // Get Receipts by Year
+  const getReceiptsByYear = async (year) => {
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get('/viewAllReceipts', config);
+      const { response, status } = await res.data;
+
+      const filteredItems = response.filter((item) =>
+        item.receipt_date.includes(year)
+      );
+      const total = filteredItems.reduce(
+        (acc, curr) => (acc += curr.amount),
+        0
+      );
+      const data = {
+        response: filteredItems,
+        status: status,
+        total_amount: total,
+      };
+
+      dispatch({
+        type: GET_RECEIPTS_YEARLY,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong',
+      });
+    }
+  };
+
+  // Clear receipt
+  const clearReceipt = () => {
+    dispatch({ type: CLEAR_RECEIPT });
+  };
 
   // Delete receipt
+
+  // Update receipt
+
+  // Change sidebar active tab
+  const changeTab = (tab) => {
+    dispatch({
+      type: CHANGE_TAB,
+      payload: tab,
+    });
+  };
 
   return (
     <ReceiptContext.Provider
       value={{
+        loading: state.loading,
         receipts: state.receipts,
         statusMessage: state.statusMessage,
         errorMessage: state.errorMessage,
+        activeTab: state.activeTab,
+        totalExpense: state.totalExpense,
         createReceipt,
+        changeTab,
+        getReceiptsByMonth,
+        getAllReceipts,
+        getReceiptsByYear,
+        clearReceipt,
       }}
     >
       {props.children}
