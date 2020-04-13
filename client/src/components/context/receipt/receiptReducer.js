@@ -4,7 +4,6 @@ import {
   GET_ALL_RECEIPTS,
   GET_RECEIPTS_YEARLY,
   CLEAR_RECEIPT,
-  // DELETE_RECEIPT,
   RECEIPT_ERROR,
   CLEAR_ERROR,
   CHANGE_TAB,
@@ -13,31 +12,35 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case CREATE_RECEIPT:
-      return {
+      const createResult = {
         ...state,
         statusMessage: action.payload,
         loading: false,
       };
+      return createResult;
+      break;
     case GET_ALL_RECEIPTS:
     case GET_RECEIPTS_YEARLY:
     case GET_RECEIPTS:
-      return {
+      const allResult = {
         ...state,
         receipts: [...action.payload.response],
         statusMessage: action.payload.status,
         totalExpense: action.payload.total_amount,
         loading: false,
       };
-
+      return allResult;
+      break;
     case RECEIPT_ERROR:
-      return {
+      const receiptErr = {
         ...state,
         loading: false,
         errorMessage: action.payload,
       };
-
+      return receiptErr;
+      break;
     case CLEAR_RECEIPT:
-      return {
+      const clearState = {
         ...state,
         receipts: [],
         statusMessage: '',
@@ -46,19 +49,22 @@ export default (state, action) => {
         activeTab: 'dashboard',
         loading: false,
       };
-
+      return clearState;
+      break;
     case CLEAR_ERROR:
-      return {
+      const clearErr = {
         ...state,
         errorMessage: '',
       };
-
+      return clearErr;
+      break;
     case CHANGE_TAB:
-      return {
+      const tab = {
         ...state,
         activeTab: action.payload,
       };
-
+      return tab;
+      break;
     default:
       return state;
   }

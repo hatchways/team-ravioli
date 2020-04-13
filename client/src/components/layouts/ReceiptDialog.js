@@ -62,12 +62,14 @@ const ReceiptDialog = () => {
   };
 
   const onChange = (e) => {
-    setReceipt({ ...receipt, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setReceipt({ ...receipt, [name]: value });
     setErr(false);
   };
 
   const handleDateChange = (e) => {
-    setReceipt({ ...receipt, receipt_date: e.target.value });
+    const { value } = e.target;
+    setReceipt({ ...receipt, receipt_date: value });
     setErr(false);
   };
 

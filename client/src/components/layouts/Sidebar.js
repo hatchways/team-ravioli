@@ -30,9 +30,10 @@ const Sidebar = (props) => {
   };
 
   const handleTabClick = (e) => {
-    if (e.target.innerHTML === 'Receipts') {
+    const { innerHTML } = e.target;
+    if (innerHTML === 'Receipts') {
       changeTab('receipts');
-    } else if (e.target.innerHTML === 'Reports') {
+    } else if (innerHTML === 'Reports') {
       changeTab('reports');
     } else {
       changeTab('dashboard');

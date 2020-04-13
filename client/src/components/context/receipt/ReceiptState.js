@@ -32,10 +32,10 @@ const ReceiptState = (props) => {
     };
     try {
       const res = await axios.post('/createReceipt', receiptData, config);
-
+      const { message } = res.data;
       dispatch({
         type: CREATE_RECEIPT,
-        payload: res.data.message,
+        payload: message,
       });
       getAllReceipts();
     } catch (err) {
@@ -48,7 +48,6 @@ const ReceiptState = (props) => {
 
   // Get receipts
   const getReceiptsByMonth = async (obj) => {
-    console.log('get By year and month fired');
     const config = {
       params: {
         month: obj.month,
@@ -61,11 +60,11 @@ const ReceiptState = (props) => {
 
     try {
       const res = await axios.get('/getReceipts', config);
-      console.log(res);
+      const { response, status, total_amount } = await res.data;
       const data = {
-        response: await res.data.response.reverse(),
-        status: await res.data.status,
-        total_amount: await res.data.total_amount,
+        response: response,
+        status: status,
+        total_amount: total_amount,
       };
 
       dispatch({
@@ -82,7 +81,6 @@ const ReceiptState = (props) => {
 
   // Get All Receipts
   const getAllReceipts = async () => {
-    console.log('get all fired');
     const config = {
       header: {
         'Content-Type': 'application/json',
@@ -91,11 +89,11 @@ const ReceiptState = (props) => {
 
     try {
       const res = await axios.get('/viewAllReceipts', config);
-      console.log(res);
+      const { response, status, total_amount } = await res.data;
       const data = {
-        response: await res.data.response.reverse(),
-        status: await res.data.status,
-        total_amount: await res.data.total_amount,
+        response: response,
+        status: status,
+        total_amount: total_amount,
       };
 
       dispatch({
@@ -111,10 +109,7 @@ const ReceiptState = (props) => {
   };
 
   // Get Receipts by Year
-
   const getReceiptsByYear = async (year) => {
-    console.log('get By year fired');
-
     const config = {
       header: {
         'Content-Type': 'application/json',
@@ -123,18 +118,18 @@ const ReceiptState = (props) => {
 
     try {
       const res = await axios.get('/viewAllReceipts', config);
-      console.log(res);
-      const items = await res.data.response;
-      const filteredItems = items
-        .reverse()
-        .filter((item) => item.receipt_date.includes(year));
+      const { response, status } = await res.data;
+
+      const filteredItems = response.filter((item) =>
+        item.receipt_date.includes(year)
+      );
       const total = filteredItems.reduce(
         (acc, curr) => (acc += curr.amount),
         0
       );
       const data = {
         response: filteredItems,
-        status: await res.data.status,
+        status: status,
         total_amount: total,
       };
 
@@ -155,12 +150,11 @@ const ReceiptState = (props) => {
     dispatch({ type: CLEAR_RECEIPT });
   };
 
-  // Get Report
-
   // Delete receipt
 
-  // Change sidebar active tab
+  // Update receipt
 
+  // Change sidebar active tab
   const changeTab = (tab) => {
     dispatch({
       type: CHANGE_TAB,

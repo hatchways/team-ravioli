@@ -22,24 +22,6 @@ const AuthState = (props) => {
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // Load User
-  // const loadUser = async () => {
-  //   if (initialState.token !== null) {
-  //     let data = {
-  //       message: 'User loaded',
-  //     };
-  //     dispatch({
-  //       type: USER_LOADED,
-  //       payload: data,
-  //     });
-  //   } else {
-  //     dispatch({
-  //       type: LOGOUT,
-  //       payload: 'Logged out',
-  //     });
-  //   }
-  // };
-
   // Signup User
   const signup = async (formData) => {
     const config = {
@@ -49,7 +31,8 @@ const AuthState = (props) => {
     };
     try {
       const res = await axios.post('/signup', formData, config);
-      if (res.data.status === 'success') {
+      const { status, message } = await res.data;
+      if (status === 'success') {
         dispatch({
           type: SIGNUP_SUCCESS,
           payload: res.data,
@@ -57,7 +40,7 @@ const AuthState = (props) => {
       } else {
         dispatch({
           type: SIGNUP_FAIL,
-          payload: res.data.message,
+          payload: message,
         });
       }
     } catch (err) {
@@ -75,7 +58,6 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.post('/login', formData, config);
-      console.log(res.data);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,

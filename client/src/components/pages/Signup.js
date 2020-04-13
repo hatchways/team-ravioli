@@ -45,12 +45,13 @@ const Signup = (props) => {
   const { name, email, password, password2 } = user;
 
   const onChange = (e) => {
-    if (e.target.name === 'name') {
-      setUser({ ...user, [e.target.name]: e.target.value.toUpperCase() });
-    } else if (e.target.name === 'email') {
-      setUser({ ...user, [e.target.name]: e.target.value.toLowerCase() });
+    const { name, value } = e.target;
+    if (name === 'name') {
+      setUser({ ...user, [name]: value.toUpperCase() });
+    } else if (name === 'email') {
+      setUser({ ...user, [name]: value.toLowerCase() });
     } else {
-      setUser({ ...user, [e.target.name]: e.target.value });
+      setUser({ ...user, [name]: value });
     }
   };
 

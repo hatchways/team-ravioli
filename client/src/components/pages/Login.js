@@ -36,10 +36,11 @@ const Login = (props) => {
   }, [message, isAuthenticated, props.history]);
 
   const onChange = (e) => {
-    if (e.target.name === 'email') {
-      setUser({ ...user, [e.target.name]: e.target.value.toLowerCase() });
+    const { name, value } = e.target;
+    if (name === 'email') {
+      setUser({ ...user, [name]: value.toLowerCase() });
     } else {
-      setUser({ ...user, [e.target.name]: e.target.value });
+      setUser({ ...user, [name]: value });
     }
   };
 

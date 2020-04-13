@@ -29,7 +29,6 @@ const Receipts = () => {
     if (month === 'all' && year !== '') {
       getReceiptsByYear(year);
     } else if (month !== 'all' && year !== '') {
-      console.log('by month and year fired from Receipts');
       getReceiptsByMonth({ month, year });
     } else {
       getAllReceipts();
@@ -38,10 +37,11 @@ const Receipts = () => {
   }, [month, year]);
 
   const handleChange = (e) => {
-    if (e.target.id === 'month-select') {
-      setMonth(e.target.value);
+    const { id, value } = e.target;
+    if (id === 'month-select') {
+      setMonth(value);
     } else {
-      setYear(e.target.value);
+      setYear(value);
     }
   };
 
