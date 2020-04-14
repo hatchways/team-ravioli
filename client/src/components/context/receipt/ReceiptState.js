@@ -42,7 +42,6 @@ const ReceiptState = (props) => {
     formData.append('date_created', date_created);
     formData.append('receipt_date', receipt_date);
     formData.append('picture_url', picture_url);
-    formData.append('picture_name', picture_url.name);
 
     const config = {
       header: {
