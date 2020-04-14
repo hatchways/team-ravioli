@@ -14,7 +14,6 @@ import {
   Menu,
 } from '@material-ui/core/';
 import logoIcon from '../assets/logo.png';
-import profilePic from '../assets/dashboardIcon.png';
 
 const Navbar = () => {
   const classes = useStyles();
@@ -53,14 +52,10 @@ const Navbar = () => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleMenu}
-              color="inherit"
             >
-              <Avatar
-                alt="Profile pic"
-                src={profilePic}
-                className={classes.large}
-              />
+              <Avatar alt="Profile pic" src="" className={classes.large} />
             </IconButton>
+
             <span onClick={handleMenu} className={classes.profile}>
               Profile
             </span>

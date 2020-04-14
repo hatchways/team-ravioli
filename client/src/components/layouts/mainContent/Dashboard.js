@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useStyles } from '../../themes/dashboardStyles/dashboardStyle';
-import { Typography, Grid, Paper, Divider } from '@material-ui/core';
+import { Typography, Grid, Paper, CircularProgress } from '@material-ui/core';
+import ReceiptContext from '../../context/receipt/receiptContext';
+import RecentTransaction from '../dashboard/RecentTransaction';
 
 const Dashboard = () => {
   const classes = useStyles();
+
+  const receiptContext = useContext(ReceiptContext);
+  const { receipts, getAllReceipts, loading } = receiptContext;
+
+  useEffect(() => {
+    getAllReceipts();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -26,27 +37,12 @@ const Dashboard = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Paper elevation={3} className={classes.paper}>
-            <Grid container spacing={8}>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-            </Grid>
+          <Paper elevation={3} className={classes.transactionPaper}>
+            {!loading ? (
+              <RecentTransaction receipts={receipts} />
+            ) : (
+              <CircularProgress className={classes.loading} color="secondary" />
+            )}
           </Paper>
         </Grid>
       </Grid>

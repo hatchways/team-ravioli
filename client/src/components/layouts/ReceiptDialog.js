@@ -74,6 +74,12 @@ const ReceiptDialog = () => {
   };
 
   const handleChange = (files) => {
+    // const formData = new FormData();
+    // formData.append('picture_url', files[0]);
+    // formData.append('picture_url', files[0].name);
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0] + '-' + pair[1]);
+    // }
     let newReceipt = receipt;
     newReceipt = { ...receipt, picture_url: files };
     setReceipt(newReceipt);

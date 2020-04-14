@@ -11,9 +11,9 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'flex-start',
     borderRadius: '30px',
     height: '40rem',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     [theme.breakpoints.down('sm')]: {
-      overflowX: 'scroll',
+      overflowX: 'auto',
     },
   },
   headingText: {

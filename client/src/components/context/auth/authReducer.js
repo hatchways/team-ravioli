@@ -11,8 +11,8 @@ export default (state, action) => {
   switch (action.type) {
     case SIGNUP_SUCCESS:
     case LOGIN_SUCCESS:
-      localStorage.setItem('userId', action.payload.user_id);
       localStorage.setItem('token', action.payload.auth_token);
+      localStorage.setItem('userId', action.payload.user_id);
       const userSuccess = {
         ...state,
         userId: action.payload.user_id,
