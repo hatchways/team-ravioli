@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
-import ReceiptContext from './receiptContext';
-import axios from 'axios';
-import receiptReducer from './receiptReducer';
+import React, { useReducer } from "react";
+import ReceiptContext from "./receiptContext";
+import axios from "axios";
+import receiptReducer from "./receiptReducer";
 import {
   CREATE_RECEIPT,
   RECEIPT_ERROR,
@@ -10,16 +10,16 @@ import {
   GET_ALL_RECEIPTS,
   GET_RECEIPTS_YEARLY,
   CLEAR_RECEIPT,
-} from '../actionTypes';
+} from "../actionTypes";
 
 const ReceiptState = (props) => {
   const initialState = {
     loading: true,
     receipts: [],
-    statusMessage: '',
-    errorMessage: '',
-    activeTab: 'dashboard',
-    totalExpense: '',
+    statusMessage: "",
+    errorMessage: "",
+    activeTab: "dashboard",
+    totalExpense: "",
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
 
@@ -27,11 +27,20 @@ const ReceiptState = (props) => {
   const createReceipt = async (receiptData) => {
     const config = {
       header: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
     try {
-      const res = await axios.post('/createReceipt', receiptData, config);
+      console.log(receiptData);
+      const formData = new FormData();
+      const file = receiptData.picture_url[0];
+
+      console.log(file.name, file.data);
+
+      formData.append("images", file);
+      console.log(formData);
+
+      const res = await axios.post("/createReceipt", formData, config);
       const { message } = res.data;
       dispatch({
         type: CREATE_RECEIPT,
@@ -41,7 +50,7 @@ const ReceiptState = (props) => {
     } catch (err) {
       dispatch({
         type: RECEIPT_ERROR,
-        payload: 'Something went wrong. Please try again.',
+        payload: "Something went wrong. Please try again.",
       });
     }
   };
@@ -54,12 +63,12 @@ const ReceiptState = (props) => {
         year: obj.year,
       },
       header: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
     try {
-      const res = await axios.get('/getReceipts', config);
+      const res = await axios.get("/getReceipts", config);
       const { response, status, total_amount } = await res.data;
       const data = {
         response: response,
@@ -74,7 +83,7 @@ const ReceiptState = (props) => {
     } catch (error) {
       dispatch({
         type: RECEIPT_ERROR,
-        payload: 'Something went wrong',
+        payload: "Something went wrong",
       });
     }
   };
@@ -83,12 +92,12 @@ const ReceiptState = (props) => {
   const getAllReceipts = async () => {
     const config = {
       header: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
     try {
-      const res = await axios.get('/viewAllReceipts', config);
+      const res = await axios.get("/viewAllReceipts", config);
       const { response, status, total_amount } = await res.data;
       const data = {
         response: response,
@@ -103,7 +112,7 @@ const ReceiptState = (props) => {
     } catch (error) {
       dispatch({
         type: RECEIPT_ERROR,
-        payload: 'Something went wrong',
+        payload: "Something went wrong",
       });
     }
   };
@@ -112,12 +121,12 @@ const ReceiptState = (props) => {
   const getReceiptsByYear = async (year) => {
     const config = {
       header: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
     try {
-      const res = await axios.get('/viewAllReceipts', config);
+      const res = await axios.get("/viewAllReceipts", config);
       const { response, status } = await res.data;
 
       const filteredItems = response.filter((item) =>
@@ -140,7 +149,7 @@ const ReceiptState = (props) => {
     } catch (error) {
       dispatch({
         type: RECEIPT_ERROR,
-        payload: 'Something went wrong',
+        payload: "Something went wrong",
       });
     }
   };
