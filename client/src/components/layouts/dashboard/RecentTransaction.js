@@ -26,7 +26,7 @@ const RecentTransaction = ({ receipts }) => {
       {recent.length > 0 ? (
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">
-            {recent !== [] &&
+            {recent &&
               recent.map((receipt, index) => (
                 <RecentItems key={index} recent={receipt} />
               ))}
