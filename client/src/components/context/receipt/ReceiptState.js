@@ -25,37 +25,31 @@ const ReceiptState = (props) => {
 
   // Create receipt
   const createReceipt = async (receiptData) => {
-    // const {
-    //   user_id,
-    //   title,
-    //   amount,
-    //   category,
-    //   date_created,
-    //   receipt_date,
-    //   picture_url,
-    // } = receiptData;
-    // const formData = new FormData();
-    // formData.append('user_id', user_id);
-    // formData.append('title', title);
-    // formData.append('amount', amount);
-    // formData.append('category', category);
-    // formData.append('date_created', date_created);
-    // formData.append('receipt_date', receipt_date);
-    // formData.append('picture_url', picture_url);
-    // formData.append('file_name', picture_url.name);
-
-    // for (let pair of formData.entries()) {
-    //   console.log(pair[0] + '-' + pair[1]);
-    // }
+    const {
+      user_id,
+      title,
+      amount,
+      category,
+      date_created,
+      receipt_date,
+      picture_url,
+    } = receiptData;
+    const formData = new FormData();
+    formData.append('user_id', user_id);
+    formData.append('title', title);
+    formData.append('amount', amount);
+    formData.append('category', category);
+    formData.append('date_created', date_created);
+    formData.append('receipt_date', receipt_date);
+    formData.append('picture_url', picture_url);
 
     const config = {
       header: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
       },
     };
     try {
-      const res = await axios.post('/createReceipt', receiptData, config);
+      const res = await axios.post('/createReceipt', formData, config);
       const { message } = res.data;
       dispatch({
         type: CREATE_RECEIPT,
