@@ -50,7 +50,7 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     color: theme.palette.primary.dark,
   },
-  DropdownMargin: {
+  dropdownMargin: {
     backgroundColor: '#f0f2fa',
   },
   table: {
