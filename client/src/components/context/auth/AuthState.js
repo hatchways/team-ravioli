@@ -10,6 +10,7 @@ import {
   LOGOUT,
   CLEAR_MESSAGE,
 } from '../actionTypes';
+import setAuthToken from '../../utility/setAuthToken';
 
 const AuthState = (props) => {
   const initialState = {
@@ -37,6 +38,9 @@ const AuthState = (props) => {
           type: SIGNUP_SUCCESS,
           payload: res.data,
         });
+        if (localStorage.token) {
+          setAuthToken(localStorage.token);
+        }
       } else {
         dispatch({
           type: SIGNUP_FAIL,
@@ -62,6 +66,9 @@ const AuthState = (props) => {
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
+      if (localStorage.token) {
+        setAuthToken(localStorage.token);
+      }
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,

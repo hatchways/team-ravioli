@@ -60,7 +60,7 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '1rem',
     fontWeight: 'bold',
     [theme.breakpoints.down('sm')]: {
-      display: 'none',
+      fontSize: '0.8rem',
     },
   },
   menuItem: {

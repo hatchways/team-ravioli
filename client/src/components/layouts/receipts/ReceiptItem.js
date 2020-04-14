@@ -16,6 +16,8 @@ const ReceiptItem = ({ receipt }) => {
       >
         <img src={receiptImg} alt="receipt" className={classes.receiptImg} />
         <Typography className={classes.receiptDate}>
+          {receipt.title}
+          <br />
           {receipt.receipt_date}
         </Typography>
       </Grid>
