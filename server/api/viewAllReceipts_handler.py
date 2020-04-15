@@ -39,6 +39,7 @@ def viewAllReceipts():
                 'picture_url':doc.picture_url
             }
             response.append(dic)
+        response.reverse()
         responseObject = {
             'status': 'success',
             'response':response,

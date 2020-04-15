@@ -45,7 +45,7 @@ class receipt(db.Document):
     category = db.StringField()
     receipt_date = db.DateTimeField()
     date_created = db.DateTimeField(required=True)
-    picture_url = db.ListField()
+    picture_url = db.StringField()
 
 # Data Model picture
 class picture(db.Document):
