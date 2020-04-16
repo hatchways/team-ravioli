@@ -44,7 +44,7 @@ export const useStyles = makeStyles((theme) => ({
   categoryIcon: {
     width: theme.spacing(5),
     height: theme.spacing(5),
-    color: '#000000',
+    backgroundColor: '#000000',
     [theme.breakpoints.down('sm')]: {
       width: theme.spacing(6),
       height: theme.spacing(6),

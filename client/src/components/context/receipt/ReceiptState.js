@@ -52,7 +52,6 @@ const ReceiptState = (props) => {
     };
     try {
       const res = await axios.post('/createReceipt', formData, config);
-      console.log(res.data);
       const { message } = res.data;
       dispatch({
         type: CREATE_RECEIPT,

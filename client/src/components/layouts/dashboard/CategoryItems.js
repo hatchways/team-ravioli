@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, TableBody, TableRow, TableCell } from '@material-ui/core';
-import ReceiptIcon from '@material-ui/icons/Receipt';
 import { useStyles } from '../../themes/dashboardStyle';
+import SetIcon from '../../utility/SetIcon';
 
 const CategoryItems = ({ category }) => {
   const classes = useStyles();
@@ -10,7 +10,7 @@ const CategoryItems = ({ category }) => {
       <TableRow className={classes.tableRow}>
         <TableCell align="left">
           <Avatar className={classes.categoryIcon}>
-            <ReceiptIcon />
+            <SetIcon name={category.name} />
           </Avatar>
         </TableCell>
         <TableCell className={classes.tableCell} align="left">

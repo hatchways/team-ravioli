@@ -13,13 +13,18 @@ def topCategories():
     token = user.decode_auth_token(auth_token)
     userid = token['user_id']
 
-    if not receipt.objects(user_id=userid):
-        # data=receipt.objects(user_id=userid)
+    if not userid:
         responseObject = {
             'status': 'fail',
-            'message': 'Something is wrong.'
+            'message': 'Request is missing authentication or something went wrong'
         }
         return make_response(jsonify(responseObject)), 400
+    elif not receipt.objects(user_id=userid):
+        responseObject = {
+            'status': 'success',
+            'topCategory': [{'name': 'Food and Drinks', 'total': 0}, {'name': 'Shopping', 'total': 0}, {'name': 'Grocery', 'total': 0}]
+        }
+        return make_response(jsonify(responseObject)), 201
     else:
         data = receipt.objects(user_id=userid)
         current_year = datetime.date.today().year
@@ -37,6 +42,10 @@ def topCategories():
         services_count = 0
         other_amt = 0
         other_count = 0
+        grocery_amt = 0
+        grocery_count = 0
+        business_amt = 0
+        business_count = 0
 
         for doc in filtered_yearly:
 
@@ -55,6 +64,12 @@ def topCategories():
             elif doc.category == "Other":
                 other_count += 1
                 other_amt += doc.amount
+            elif doc.category == "Grocery":
+                grocery_count += 1
+                grocery_amt += doc.amount
+            elif doc.category == "Business":
+                business_count += 1
+                business_amt += doc.amount
             else:
                 pass
 
@@ -72,10 +87,12 @@ def topCategories():
         c3 = Category('Shopping', shopping_amt, shopping_count)
         c4 = Category('Services', services_amt, services_count)
         c5 = Category('Other', other_amt, other_count)
+        c6 = Category('Grocery', grocery_amt, grocery_count)
+        c7 = Category('Business', business_amt, business_count)
 
-        li = [c1, c2, c3, c4, c5]
+        li = [c1, c2, c3, c4, c5, c6, c7]
+
         # key to sort the top three categories by most choosed category
-
         def e_sort(cat):
             return cat.count
         s_li = sorted(li, key=e_sort, reverse=True)

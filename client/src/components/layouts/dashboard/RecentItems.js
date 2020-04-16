@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, TableBody, TableRow, TableCell } from '@material-ui/core';
-import ReceiptIcon from '@material-ui/icons/Receipt';
 import { useStyles } from '../../themes/dashboardStyle';
+import SetIcon from '../../utility/SetIcon';
 
 const RecentItems = ({ recent }) => {
   const classes = useStyles();
@@ -10,7 +10,7 @@ const RecentItems = ({ recent }) => {
       <TableRow className={classes.tableRow}>
         <TableCell align="center">
           <Avatar className={classes.categoryIcon}>
-            <ReceiptIcon />
+            <SetIcon name={recent.category} />
           </Avatar>
         </TableCell>
         <TableCell className={classes.tableCell} align="left">

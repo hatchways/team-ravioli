@@ -231,6 +231,8 @@ const ReceiptDialog = () => {
                 <option value="Travel">Travel</option>
                 <option value="Services">Services</option>
                 <option value="Shopping">Shopping</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Business">Business</option>
                 <option value="Other">Other</option>
               </Select>
             </FormControl>

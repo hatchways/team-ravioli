@@ -102,13 +102,13 @@ const Receipts = () => {
                   value={year}
                   onChange={handleChange}
                 >
-                  <option value="2018">2018</option>
-                  <option value="2019">2019</option>
-                  <option value="2020">2020</option>
-                  <option value="2021">2021</option>
-                  <option value="2022">2022</option>
-                  <option value="2023">2023</option>
-                  <option value="2025">2024</option>
+                  <option value={currentYear - 2}>2018</option>
+                  <option value={currentYear - 1}>2019</option>
+                  <option value={currentYear}>2020</option>
+                  <option value={currentYear + 1}>2021</option>
+                  <option value={currentYear + 2}>2022</option>
+                  <option value={currentYear + 3}>2023</option>
+                  <option value={currentYear + 4}>2024</option>
                 </Select>
               </FormControl>
             </Grid>
