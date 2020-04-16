@@ -3,31 +3,25 @@ import { Avatar, TableBody, TableRow, TableCell } from '@material-ui/core';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import { useStyles } from '../../themes/dashboardStyle';
 
-const RecentItems = ({ recent }) => {
+const CategoryItems = ({ category }) => {
   const classes = useStyles();
   return (
     <TableBody>
       <TableRow className={classes.tableRow}>
-        <TableCell align="center">
+        <TableCell align="left">
           <Avatar className={classes.categoryIcon}>
             <ReceiptIcon />
           </Avatar>
         </TableCell>
         <TableCell className={classes.tableCell} align="left">
-          {recent.title}
+          {category.name}
         </TableCell>
-        <TableCell className={classes.tableCell} align="center">
-          - ${recent.amount}
-        </TableCell>
-        <TableCell className={classes.tableCell} align="center">
-          {recent.receipt_date}
-        </TableCell>
-        <TableCell className={classes.disabled} align="center">
-          {recent.category}
+        <TableCell className={classes.tableCell} align="right">
+          - ${category.total}
         </TableCell>
       </TableRow>
     </TableBody>
   );
 };
 
-export default RecentItems;
+export default CategoryItems;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReceiptItem from '../receipts/ReceiptItem';
 import { Grid, Typography } from '@material-ui/core';
-import { useStyles } from '../../themes/receiptsStyles/receiptStyle';
+import { useStyles } from '../../themes/receiptsReportsStyle';
 
 const Receipt = ({ receipts }) => {
   const classes = useStyles();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, TableBody, TableRow, TableCell } from '@material-ui/core';
-import { useStyles } from '../../themes/reportsStyles/reportsStyle';
+import { useStyles } from '../../themes/receiptsReportsStyle';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 
 const ReportItem = ({ receipt }) => {
@@ -9,7 +9,7 @@ const ReportItem = ({ receipt }) => {
     <TableBody>
       <TableRow className={classes.tableRow}>
         <TableCell align="center">
-          <Avatar className={classes.avatar}>
+          <Avatar className={classes.categoryIcon}>
             <ReceiptIcon />
           </Avatar>
         </TableCell>

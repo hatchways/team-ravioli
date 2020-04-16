@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useStyles } from '../../themes/dashboardStyles/dashboardStyle';
+import { useStyles } from '../../themes/dashboardStyle';
 import { TableContainer, Table, Typography } from '@material-ui/core';
-import RecentItems from '../dashboard/RecentItems';
+import RecentItems from './RecentItems';
 
 const RecentTransaction = ({ receipts }) => {
   const classes = useStyles();

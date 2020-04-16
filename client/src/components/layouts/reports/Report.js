@@ -1,6 +1,6 @@
 import React from 'react';
 import ReportItem from '../reports/ReportItem';
-import { useStyles } from '../../themes/reportsStyles/reportsStyle';
+import { useStyles } from '../../themes/receiptsReportsStyle';
 import { TableContainer, Table, Typography } from '@material-ui/core';
 
 const Report = ({ receipts }) => {

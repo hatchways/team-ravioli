@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useStyles } from '../../themes/receiptsStyles/receiptStyle';
+import { useStyles } from '../../themes/receiptsReportsStyle';
 import {
   Grid,
   Typography,
@@ -62,7 +62,7 @@ const Receipts = () => {
             <Grid item>
               <FormControl
                 variant="outlined"
-                className={classes.DropdownMargin}
+                className={classes.dropdownMargin}
               >
                 <InputLabel htmlFor="month-select">Month</InputLabel>
                 <Select
@@ -92,7 +92,7 @@ const Receipts = () => {
 
               <FormControl
                 variant="outlined"
-                className={classes.DropdownMargin}
+                className={classes.dropdownMargin}
               >
                 <InputLabel htmlFor="year-select">Year</InputLabel>
                 <Select

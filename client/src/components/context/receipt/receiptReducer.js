@@ -3,6 +3,7 @@ import {
   GET_RECEIPTS,
   GET_ALL_RECEIPTS,
   GET_RECEIPTS_YEARLY,
+  TOP_CATEGORIES,
   CLEAR_RECEIPT,
   RECEIPT_ERROR,
   CLEAR_ERROR,
@@ -30,6 +31,14 @@ export default (state, action) => {
         loading: false,
       };
       return allResult;
+      break;
+    case TOP_CATEGORIES:
+      const categoryResult = {
+        ...state,
+        topCategories: [...action.payload],
+        loading: false,
+      };
+      return categoryResult;
       break;
     case RECEIPT_ERROR:
       const receiptErr = {

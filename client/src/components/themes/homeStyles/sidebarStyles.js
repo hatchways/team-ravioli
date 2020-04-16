@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     [theme.breakpoints.up('xs')]: {
-      width: 320,
+      width: 280,
       flexShrink: 0,
     },
   },
@@ -45,7 +45,7 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   drawerPaper: {
-    width: 320,
+    width: 280,
   },
   content: {
     flexGrow: 1,

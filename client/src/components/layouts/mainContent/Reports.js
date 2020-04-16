@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import Report from '../reports/Report';
 import ReceiptContext from '../../context/receipt/receiptContext';
-import { useStyles } from '../../themes/reportsStyles/reportsStyle';
+import { useStyles } from '../../themes/receiptsReportsStyle';
 import { currentYear } from '../../utility/utils';
 
 const Reports = () => {
@@ -66,7 +66,7 @@ const Reports = () => {
             <Grid item>
               <FormControl
                 variant="outlined"
-                className={classes.DropdownMargin}
+                className={classes.dropdownMargin}
               >
                 <InputLabel htmlFor="month-select">Month</InputLabel>
                 <Select
@@ -95,7 +95,7 @@ const Reports = () => {
               </FormControl>
               <FormControl
                 variant="outlined"
-                className={classes.DropdownMargin}
+                className={classes.dropdownMargin}
               >
                 <InputLabel htmlFor="year-select">Year</InputLabel>
                 <Select
@@ -118,7 +118,7 @@ const Reports = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Paper elevation={3} className={classes.paper}>
+          <Paper elevation={3} className={classes.reportPaper}>
             <Typography className={classes.secondaryText}>
               Total Expenses
             </Typography>
