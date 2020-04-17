@@ -13,13 +13,7 @@ def topCategories():
     token = user.decode_auth_token(auth_token)
     userid = token['user_id']
 
-    if not userid:
-        responseObject = {
-            'status': 'fail',
-            'message': 'Request is missing authentication or something went wrong'
-        }
-        return make_response(jsonify(responseObject)), 400
-    elif not receipt.objects(user_id=userid):
+    if not receipt.objects(user_id=userid):
         responseObject = {
             'status': 'success',
             'topCategory': [{'name': 'Food and Drinks', 'total': 0}, {'name': 'Shopping', 'total': 0}, {'name': 'Grocery', 'total': 0}]
