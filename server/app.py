@@ -10,6 +10,7 @@ from api.getReceipt_handler import getReceipt_handler
 from api.getReceipts_handler import getReceipts_handler
 from api.viewAllReceipts_handler import viewAllReceipts_handler
 from api.topCategories_handler import topCategories_handler
+from api.email_handler import email_handler
 
 
 # Initialize flask app
@@ -31,3 +32,4 @@ app.register_blueprint(getReceipt_handler)
 app.register_blueprint(getReceipts_handler)
 app.register_blueprint(viewAllReceipts_handler)
 app.register_blueprint(topCategories_handler)
+app.register_blueprint(email_handler)
