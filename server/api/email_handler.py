@@ -1,7 +1,7 @@
 from flask import jsonify, Blueprint
 from flask import Flask, request, json, jsonify, make_response
 from database.models import user, receipt, picture
-from config import SENDGRID_API_KEY
+from config import SENDGRID_API_KEY, SENDER_EMAIL
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -13,8 +13,8 @@ email_handler = Blueprint('email_handler', __name__)
 def sendEmail():
 
     message = Mail(
-        from_email='teamravioli6@gmail.com',
-        to_emails='teamravioli6@gmail.com',
+        from_email=SENDER_EMAIL,
+        to_emails='user_email',
         subject='Sending test email',
         html_content='<strong>First setup test with Sendgrid email API.</strong>')
     try:
