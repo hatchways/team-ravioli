@@ -69,8 +69,8 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   avatar: {
-    width: theme.spacing(12),
-    height: theme.spacing(12),
+    width: theme.spacing(11),
+    height: theme.spacing(11),
     color: theme.palette.secondary.main,
     [theme.breakpoints.down('sm')]: {
       width: theme.spacing(10),

@@ -70,7 +70,7 @@ const ReceiptDialog = () => {
   const handleDateChange = (e) => {
     const { value } = e.target;
     setReceipt({ ...receipt, receipt_date: value });
-    setErr(false);
+    setDateErr(false);
   };
 
   const handleChange = (files) => {
@@ -231,6 +231,8 @@ const ReceiptDialog = () => {
                 <option value="Travel">Travel</option>
                 <option value="Services">Services</option>
                 <option value="Shopping">Shopping</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Business">Business</option>
                 <option value="Other">Other</option>
               </Select>
             </FormControl>

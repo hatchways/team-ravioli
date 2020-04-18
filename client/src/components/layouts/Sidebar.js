@@ -52,7 +52,7 @@ const Sidebar = (props) => {
         </Typography>
       </div>
       <Divider />
-      <List style={{ paddingTop: '40px' }}>
+      <List style={{ paddingTop: '25px' }}>
         <ListItem button onClick={handleTabClick}>
           <ListItemText
             primary="Dashboard"

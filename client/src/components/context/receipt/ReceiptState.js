@@ -9,6 +9,7 @@ import {
   GET_RECEIPTS,
   GET_ALL_RECEIPTS,
   GET_RECEIPTS_YEARLY,
+  TOP_CATEGORIES,
   CLEAR_RECEIPT,
 } from '../actionTypes';
 
@@ -16,6 +17,7 @@ const ReceiptState = (props) => {
   const initialState = {
     loading: true,
     receipts: [],
+    topCategories: [],
     statusMessage: '',
     errorMessage: '',
     activeTab: 'dashboard',
@@ -107,6 +109,7 @@ const ReceiptState = (props) => {
 
     try {
       const res = await axios.get('/viewAllReceipts', config);
+
       const { response, status, total_amount } = await res.data;
       const data = {
         response: response,
@@ -163,14 +166,36 @@ const ReceiptState = (props) => {
     }
   };
 
+  // Get top categories
+  const getTopCategories = async () => {
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get('/topCategories', config);
+      const { topCategory } = res.data;
+
+      dispatch({
+        type: TOP_CATEGORIES,
+        payload: topCategory,
+      });
+    } catch (error) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong',
+      });
+    }
+  };
+
   // Clear receipt
   const clearReceipt = () => {
     dispatch({ type: CLEAR_RECEIPT });
   };
 
   // Delete receipt
-
-  // Update receipt
 
   // Change sidebar active tab
   const changeTab = (tab) => {
@@ -189,12 +214,14 @@ const ReceiptState = (props) => {
         errorMessage: state.errorMessage,
         activeTab: state.activeTab,
         totalExpense: state.totalExpense,
+        topCategories: state.topCategories,
         createReceipt,
         changeTab,
         getReceiptsByMonth,
         getAllReceipts,
         getReceiptsByYear,
         clearReceipt,
+        getTopCategories,
       }}
     >
       {props.children}

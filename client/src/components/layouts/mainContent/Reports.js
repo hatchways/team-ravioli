@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import Report from '../reports/Report';
 import ReceiptContext from '../../context/receipt/receiptContext';
-import { useStyles } from '../../themes/reportsStyles/reportsStyle';
+import { useStyles } from '../../themes/receiptsReportsStyle';
 import { currentYear } from '../../utility/utils';
 
 const Reports = () => {
@@ -66,7 +66,7 @@ const Reports = () => {
             <Grid item>
               <FormControl
                 variant="outlined"
-                className={classes.DropdownMargin}
+                className={classes.dropdownMargin}
               >
                 <InputLabel htmlFor="month-select">Month</InputLabel>
                 <Select
@@ -95,7 +95,7 @@ const Reports = () => {
               </FormControl>
               <FormControl
                 variant="outlined"
-                className={classes.DropdownMargin}
+                className={classes.dropdownMargin}
               >
                 <InputLabel htmlFor="year-select">Year</InputLabel>
                 <Select
@@ -105,20 +105,20 @@ const Reports = () => {
                   value={year}
                   onChange={handleChange}
                 >
-                  <option value="2018">2018</option>
-                  <option value="2019">2019</option>
-                  <option value="2020">2020</option>
-                  <option value="2021">2021</option>
-                  <option value="2022">2022</option>
-                  <option value="2023">2023</option>
-                  <option value="2025">2024</option>
+                  <option value={currentYear - 3}>{currentYear - 3}</option>
+                  <option value={currentYear - 2}>{currentYear - 2}</option>
+                  <option value={currentYear - 1}>{currentYear - 1}</option>
+                  <option value={currentYear}>{currentYear}</option>
+                  <option value={currentYear + 1}>{currentYear + 1}</option>
+                  <option value={currentYear + 2}>{currentYear + 2}</option>
+                  <option value={currentYear + 3}>{currentYear + 3}</option>
                 </Select>
               </FormControl>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Paper elevation={3} className={classes.paper}>
+          <Paper elevation={3} className={classes.reportPaper}>
             <Typography className={classes.secondaryText}>
               Total Expenses
             </Typography>

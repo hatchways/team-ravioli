@@ -5,14 +5,14 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   container: {
-    backgroundColor: '#fafbff',
-    width: '80vw',
-    margin: theme.spacing(2, 0, 0, 38),
-    padding: theme.spacing(7),
+    // backgroundColor: '#fafbff',
+    width: 'calc(100% - 290px)',
+    padding: theme.spacing(7, 3),
+    marginLeft: '290px',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
-      margin: theme.spacing(2),
-      padding: theme.spacing(3),
+      margin: theme.spacing(0),
+      padding: theme.spacing(5),
     },
   },
 }));

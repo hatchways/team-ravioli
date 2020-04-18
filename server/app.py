@@ -1,4 +1,4 @@
-# import necessary libraries 
+# import necessary libraries
 from flask import Flask
 from database.db import initialize_db
 from config import CONNECTION_STRING
@@ -9,12 +9,13 @@ from api.updateReceipt_handler import updateReceipt_handler
 from api.getReceipt_handler import getReceipt_handler
 from api.getReceipts_handler import getReceipts_handler
 from api.viewAllReceipts_handler import viewAllReceipts_handler
+from api.topCategories_handler import topCategories_handler
 
 
 # Initialize flask app
 app = Flask(__name__)
 
-#bcrypt=Bcrypt(app)
+# bcrypt=Bcrypt(app)
 app.config.from_object(__name__)
 app.config['MONGODB_SETTINGS'] = {
     'host': CONNECTION_STRING
@@ -29,11 +30,4 @@ app.register_blueprint(updateReceipt_handler)
 app.register_blueprint(getReceipt_handler)
 app.register_blueprint(getReceipts_handler)
 app.register_blueprint(viewAllReceipts_handler)
-
-
-
-        
-    
-    
-
-    
+app.register_blueprint(topCategories_handler)

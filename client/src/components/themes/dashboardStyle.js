@@ -4,7 +4,24 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  paper: {
+  chartPaper: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    padding: theme.spacing(3),
+    textAlign: 'flex-start',
+    borderRadius: '30px',
+    height: '22rem',
+    color: theme.palette.secondary.main,
+  },
+  categoriesPaper: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    padding: theme.spacing(3),
+    textAlign: 'flex-start',
+    borderRadius: '30px',
+    height: '22rem',
+  },
+  transactionPaper: {
     fontSize: '1.5rem',
     fontWeight: 'bold',
     padding: theme.spacing(5),
@@ -12,6 +29,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '30px',
     height: '40rem',
     overflowY: 'auto',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
       overflowX: 'auto',
     },
@@ -22,11 +40,16 @@ export const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.dark,
   },
   secondaryText: {
+    fontSize: '1.7rem',
+    fontWeight: 'bold',
+    color: theme.palette.primary.dark,
+  },
+  subText: {
     fontSize: '1.3rem',
     fontWeight: 'bold',
     color: theme.palette.secondary.main,
     display: 'inline-block',
-    margin: theme.spacing(1),
+    margin: theme.spacing(0),
     padding: theme.spacing(2),
   },
   expenseTotal: {
@@ -35,16 +58,16 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     color: theme.palette.primary.dark,
   },
-  DropdownMargin: {
+  dropdownMargin: {
     backgroundColor: '#f0f2fa',
   },
   table: {
-    minWidth: 600,
+    minWidth: 200,
   },
-  avatar: {
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-    color: '#000000',
+  categoryIcon: {
+    width: theme.spacing(5),
+    height: theme.spacing(5),
+    backgroundColor: '#000000',
     [theme.breakpoints.down('sm')]: {
       width: theme.spacing(6),
       height: theme.spacing(6),

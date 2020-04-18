@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
 import logoIcon from '../assets/logo.png';
-import TextField from '@material-ui/core/TextField';
-import Snackbar from '@material-ui/core/Snackbar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { CssBaseline } from '@material-ui/core';
+import {
+  CssBaseline,
+  Grid,
+  TextField,
+  Snackbar,
+  Button,
+  Typography,
+} from '@material-ui/core';
 import { useStyles } from '../themes/loginSignupStyle';
 import AuthContext from '../context/auth/authContext';
 
