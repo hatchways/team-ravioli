@@ -70,7 +70,7 @@ const ReceiptDialog = () => {
   const handleDateChange = (e) => {
     const { value } = e.target;
     setReceipt({ ...receipt, receipt_date: value });
-    setErr(false);
+    setDateErr(false);
   };
 
   const handleChange = (files) => {
