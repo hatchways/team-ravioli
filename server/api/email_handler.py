@@ -16,7 +16,7 @@ def sendEmail():
         from_email='teamravioli6@gmail.com',
         to_emails='teamravioli6@gmail.com',
         subject='Sending test email',
-        html_content='<strong>First setup test</strong>')
+        html_content='<strong>First setup test with Sendgrid email API.</strong>')
     try:
         sg = SendGridAPIClient(api_key=SENDGRID_API_KEY)
         response = sg.send(message)
