@@ -18,6 +18,7 @@ jwt = "*"
 flask-expects-json = "*"
 jsonschema = "*"
 boto3 = "*"
+sendgrid = "*"
 
 [requires]
 python_version = "3.8.2"
