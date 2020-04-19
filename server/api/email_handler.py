@@ -57,6 +57,10 @@ def sendEmail():
         dict_writer.writeheader()
         for dic in new_data:
             dict_writer.writerow(dic)
+        dict_writer.writerow(
+            {'receipt_date': '', 'title': '', 'amount': '', 'category': ''})
+        dict_writer.writerow(
+            {'receipt_date': '', 'title': 'Total', 'amount': total, 'category': ''})
     with open('myFile.csv', 'r') as fi:
         generated_file = fi.read()
         x = generated_file.encode()
