@@ -9,7 +9,6 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import (
     Mail, Attachment, FileContent, FileName,
     FileType, Disposition, ContentId)
-import urllib.request as urllib
 
 email_handler = Blueprint('email_handler', __name__)
 
@@ -69,7 +68,7 @@ def sendEmail():
     attachment.file_type = FileType('text/csv')
     attachment.file_name = FileName('myFile.csv')
     attachment.disposition = Disposition('attachment')
-    attachment.content_id = ContentId('Example Content ID')
+    attachment.content_id = ContentId('Content ID')
     message.attachment = attachment
 
     try:
