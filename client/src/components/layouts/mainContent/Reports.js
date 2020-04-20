@@ -8,6 +8,8 @@ import {
   FormControl,
   Divider,
   CircularProgress,
+  Snackbar,
+  Button,
 } from '@material-ui/core';
 import Report from '../reports/Report';
 import ReceiptContext from '../../context/receipt/receiptContext';
@@ -20,6 +22,7 @@ const Reports = () => {
   const [month, setMonth] = useState('all');
   const [year, setYear] = useState(currentYear);
   const receiptContext = useContext(ReceiptContext);
+  const [snackbar, setSnackbar] = useState(false);
   const {
     loading,
     receipts,
@@ -27,6 +30,8 @@ const Reports = () => {
     totalExpense,
     getAllReceipts,
     getReceiptsByYear,
+    sendEmail,
+    statusMessage,
   } = receiptContext;
 
   useEffect(() => {
@@ -40,6 +45,13 @@ const Reports = () => {
     // eslint-disable-next-line
   }, [month, year]);
 
+  // For Email Success message
+  useEffect(() => {
+    if (statusMessage === 'Email successfully sent') {
+      setSnackbar(true);
+    }
+  }, [statusMessage]);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     if (id === 'month-select') {
@@ -47,6 +59,17 @@ const Reports = () => {
     } else {
       setYear(value);
     }
+  };
+
+  const handleEmailClick = () => {
+    sendEmail({ month, year });
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbar(false);
   };
 
   return (
@@ -119,12 +142,42 @@ const Reports = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} className={classes.reportPaper}>
-            <Typography className={classes.secondaryText}>
-              Total Expenses
-            </Typography>
-            <Typography className={classes.expenseTotal}>
-              $ {totalExpense}
-            </Typography>
+            <Snackbar
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              open={snackbar}
+              autoHideDuration={3000}
+              onClose={handleClose}
+              message={statusMessage}
+            />
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+            >
+              <Grid item>
+                <Typography className={classes.secondaryText}>
+                  Total Expenses
+                </Typography>
+                <Typography className={classes.expenseTotal}>
+                  $ {totalExpense}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={handleEmailClick}
+                  className={
+                    month === 'all' || receipts.length === 0
+                      ? `${classes.emailHiddenBtn}`
+                      : `${classes.emailBtn}`
+                  }
+                >
+                  Email Report
+                </Button>
+              </Grid>
+            </Grid>
             <Divider />
             {!loading ? (
               <Report receipts={receipts} />
