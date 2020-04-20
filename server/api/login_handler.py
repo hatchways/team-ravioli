@@ -43,9 +43,9 @@ def login():
         return make_response(jsonify(responseObject)),400
     else:
         data=user.objects.get(email=email)
-        print(data.password)
+        
         verify=verify_password(data.password,password)
-        print(verify)
+        
         if verify == True :
             auth_token = user().encode_auth_token(email,data.user_id)
             #print(type(auth_token))
