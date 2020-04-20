@@ -8,6 +8,7 @@ import {
   RECEIPT_ERROR,
   CLEAR_ERROR,
   CHANGE_TAB,
+  SEND_EMAIL,
 } from '../actionTypes';
 
 export default (state, action) => {
@@ -39,6 +40,14 @@ export default (state, action) => {
         loading: false,
       };
       return categoryResult;
+      break;
+    case SEND_EMAIL:
+      const emailResult = {
+        ...state,
+        statusMessage: action.payload.message,
+        loading: false,
+      };
+      return emailResult;
       break;
     case RECEIPT_ERROR:
       const receiptErr = {

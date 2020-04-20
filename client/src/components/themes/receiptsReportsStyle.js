@@ -38,6 +38,21 @@ export const useStyles = makeStyles((theme) => ({
   dropdownMargin: {
     backgroundColor: '#f0f2fa',
   },
+  emailBtn: {
+    fontSize: '0.8rem',
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
+    margin: theme.spacing(2, 3),
+    padding: theme.spacing(1, 3),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.6rem',
+      margin: theme.spacing(0, 1),
+      padding: theme.spacing(1, 3),
+    },
+  },
+  emailHiddenBtn: {
+    visibility: 'hidden',
+  },
   table: {
     minWidth: 300,
   },

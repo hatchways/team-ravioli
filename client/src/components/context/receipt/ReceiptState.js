@@ -11,6 +11,7 @@ import {
   GET_RECEIPTS_YEARLY,
   TOP_CATEGORIES,
   CLEAR_RECEIPT,
+  SEND_EMAIL,
 } from '../actionTypes';
 
 const ReceiptState = (props) => {
@@ -195,6 +196,38 @@ const ReceiptState = (props) => {
     dispatch({ type: CLEAR_RECEIPT });
   };
 
+  // Send monthly report email with csv
+  const sendEmail = async (obj) => {
+    const config = {
+      params: {
+        month: obj.month,
+        year: obj.year,
+      },
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get('/sendEmail', config);
+      const { status, message } = await res.data;
+      const data = {
+        status: status,
+        message: message,
+      };
+
+      dispatch({
+        type: SEND_EMAIL,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong, unable to send email',
+      });
+    }
+  };
+
   // Delete receipt
 
   // Change sidebar active tab
@@ -222,6 +255,7 @@ const ReceiptState = (props) => {
         getReceiptsByYear,
         clearReceipt,
         getTopCategories,
+        sendEmail,
       }}
     >
       {props.children}
