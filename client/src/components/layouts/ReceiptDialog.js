@@ -29,7 +29,12 @@ const ReceiptDialog = () => {
   const [err, setErr] = useState(false);
 
   const receiptContext = useContext(ReceiptContext);
-  const { createReceipt, uploadImage, receiptState } = receiptContext;
+  const {
+    createReceipt,
+    uploadImage,
+    receiptState,
+    clearError,
+  } = receiptContext;
 
   const [image, setImage] = useState(null);
   const [receipt, setReceipt] = useState(receiptState);
@@ -55,6 +60,7 @@ const ReceiptDialog = () => {
 
   // Method to handle dialog close
   const handleClose = () => {
+    clearError();
     setOpen(false);
     setOpen2(false);
     setOpen3(false);
@@ -80,7 +86,7 @@ const ReceiptDialog = () => {
   };
 
   // handling final submit in dialog
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     createReceipt({
       title,
       amount,
@@ -90,6 +96,7 @@ const ReceiptDialog = () => {
       user_id,
       picture_url,
     });
+    clearError();
     setOpen3(false);
   };
 

@@ -14,6 +14,7 @@ import {
   TOP_CATEGORIES,
   CLEAR_RECEIPT,
   SEND_EMAIL,
+  CLEAR_ERROR,
 } from '../actionTypes';
 
 const ReceiptState = (props) => {
@@ -50,7 +51,7 @@ const ReceiptState = (props) => {
     try {
       const res = await axios.post('/createReceiptVision', data, config);
       console.log(res.data);
-      const { title, amount, picture_url } = res.data;
+      const { title, amount, picture_url } = res.data.response;
       const load = {
         title,
         amount,
@@ -252,6 +253,23 @@ const ReceiptState = (props) => {
     }
   };
 
+  // Clear Error
+  const clearError = () => {
+    const clearReceipt = {
+      user_id: localStorage.getItem('userId'),
+      title: '',
+      amount: '',
+      category: 'Food and Drinks',
+      receipt_date: '',
+      date_created: dateNow,
+      picture_url: '',
+    };
+    dispatch({
+      type: CLEAR_ERROR,
+      payload: clearReceipt,
+    });
+  };
+
   // Delete receipt
 
   // Change sidebar active tab
@@ -281,6 +299,7 @@ const ReceiptState = (props) => {
         clearReceipt,
         getTopCategories,
         sendEmail,
+        clearError,
         uploadImage,
       }}
     >

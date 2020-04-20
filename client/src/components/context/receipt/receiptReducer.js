@@ -31,7 +31,6 @@ export default (state, action) => {
       const createResult = {
         ...state,
         statusMessage: action.payload,
-        receiptState: { ...state.receiptState },
         loading: false,
       };
       return createResult;
@@ -87,6 +86,8 @@ export default (state, action) => {
     case CLEAR_ERROR:
       const clearErr = {
         ...state,
+        receiptState: action.payload,
+        statusMessage: '',
         errorMessage: '',
       };
       return clearErr;
