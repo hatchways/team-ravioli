@@ -52,6 +52,7 @@ def sendEmail():
         subject='Report from Receipt Tracker',
         html_content='<p>Dear User,<br/><br/>This email has attached report for the requested month and year.<br/>We really appreciate your bussiness and always looking for your feedback to improove our service.<br/><br/>Have a great day!</p>'
     )
+    # create file to write csv data
     with open('myFile.csv', 'w', newline="") as f:
         dict_writer = csv.DictWriter(f, headers)
         dict_writer.writeheader()
