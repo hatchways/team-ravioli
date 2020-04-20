@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useStyles } from '../themes/homeStyles/receiptDialogStyle';
 import { dateFormater } from '../utility/utils';
 import {
@@ -29,18 +29,10 @@ const ReceiptDialog = () => {
   const [err, setErr] = useState(false);
 
   const receiptContext = useContext(ReceiptContext);
-  const { createReceipt } = receiptContext;
+  const { createReceipt, uploadImage, receiptState } = receiptContext;
 
-  const dateNow = dateFormater();
-  const [receipt, setReceipt] = useState({
-    user_id: localStorage.getItem('userId'),
-    title: '',
-    amount: '',
-    category: 'Food and Drinks',
-    receipt_date: '',
-    date_created: dateNow,
-    picture_url: [],
-  });
+  const [image, setImage] = useState(null);
+  const [receipt, setReceipt] = useState(receiptState);
   const {
     title,
     amount,
@@ -51,34 +43,43 @@ const ReceiptDialog = () => {
     picture_url,
   } = receipt;
 
+  // Effect to update receipt state with data receipved from backend
+  useEffect(() => {
+    setReceipt(receiptState);
+  }, [receiptState]);
+
+  // handling initial dialog open
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  // Method to handle dialog close
   const handleClose = () => {
     setOpen(false);
     setOpen2(false);
     setOpen3(false);
   };
 
+  // handling manual form entries
   const onChange = (e) => {
     const { name, value } = e.target;
     setReceipt({ ...receipt, [name]: value });
     setErr(false);
   };
 
+  // handling date change in form
   const handleDateChange = (e) => {
     const { value } = e.target;
     setReceipt({ ...receipt, receipt_date: value });
     setDateErr(false);
   };
 
+  // handling picture drop in dropzone
   const handleChange = (files) => {
-    let newReceipt = receipt;
-    newReceipt = { ...receipt, picture_url: files[0] };
-    setReceipt(newReceipt);
+    setImage(files[0]);
   };
 
+  // handling final submit in dialog
   const handleSubmit = async () => {
     createReceipt({
       title,
@@ -90,23 +91,22 @@ const ReceiptDialog = () => {
       picture_url,
     });
     setOpen3(false);
-    setReceipt({
-      user_id: localStorage.getItem('userId'),
-      title: '',
-      amount: '',
-      category: 'Food and Drinks',
-      receipt_date: '',
-      date_created: dateNow,
-      picture_url: [],
-    });
-    // run get receipt to update current receipt state
   };
 
-  const handleNext = () => {
+  const handleSkip = () => {
     setOpen(false);
     setOpen2(true);
   };
 
+  const handleUpload = () => {
+    if (image !== null) {
+      uploadImage(image);
+      setOpen(false);
+      setOpen2(true);
+    }
+  };
+
+  // handling second dialog submit
   const handleContinue = () => {
     if (receipt_date === '') {
       setDateErr(true);
@@ -172,7 +172,16 @@ const ReceiptDialog = () => {
             variant="outlined"
             color="secondary"
             className={classes.dialogActionBtn}
-            onClick={handleNext}
+            onClick={handleSkip}
+          >
+            Skip
+          </Button>
+          <Button
+            autoFocus
+            variant="outlined"
+            color="secondary"
+            className={classes.dialogActionBtn}
+            onClick={handleUpload}
           >
             Next
           </Button>
