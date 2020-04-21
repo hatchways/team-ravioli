@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useStyles } from '../themes/homeStyles/receiptDialogStyle';
-import { dateFormater } from '../utility/utils';
 import {
   Button,
   Grid,

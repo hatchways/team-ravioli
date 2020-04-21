@@ -34,6 +34,8 @@ const Reports = () => {
     statusMessage,
   } = receiptContext;
 
+  const roundTotal = totalExpense.toFixed(2);
+
   useEffect(() => {
     if (month === 'all' && year !== '') {
       getReceiptsByYear(year);
@@ -160,7 +162,7 @@ const Reports = () => {
                   Total Expenses
                 </Typography>
                 <Typography className={classes.expenseTotal}>
-                  $ {totalExpense}
+                  $ {roundTotal}
                 </Typography>
               </Grid>
               <Grid item>
