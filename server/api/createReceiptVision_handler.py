@@ -43,7 +43,8 @@ def createReceiptVision():
         texts = response.text_annotations
 
         # Parse the text from receipts
-        
+        title=""
+        amount=0
         texts_list=list(texts)
         for i in range(len(texts_list)):
             if "{}".format(texts_list[i].description).lower() in ['fuel', 'gas','restaurant']:
@@ -68,7 +69,7 @@ def createReceiptVision():
                         amount=dig[0]
                         break
                     else:
-                        amount=0
+                        pass
                 break
         if amount==None:
             amount=0   
