@@ -2,8 +2,10 @@ import React, { useReducer } from 'react';
 import ReceiptContext from './receiptContext';
 import axios from 'axios';
 import receiptReducer from './receiptReducer';
+import { dateFormater } from '../../utility/utils';
 import {
   CREATE_RECEIPT,
+  UPLOAD_RECEIPT_IMG,
   RECEIPT_ERROR,
   CHANGE_TAB,
   GET_RECEIPTS,
@@ -12,11 +14,22 @@ import {
   TOP_CATEGORIES,
   CLEAR_RECEIPT,
   SEND_EMAIL,
+  CLEAR_ERROR,
 } from '../actionTypes';
 
 const ReceiptState = (props) => {
+  const dateNow = dateFormater();
   const initialState = {
     loading: true,
+    receiptState: {
+      user_id: localStorage.getItem('userId'),
+      title: '',
+      amount: '',
+      category: 'Food and Drinks',
+      receipt_date: '',
+      date_created: dateNow,
+      picture_url: '',
+    },
     receipts: [],
     topCategories: [],
     statusMessage: '',
@@ -25,26 +38,10 @@ const ReceiptState = (props) => {
     totalExpense: '',
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
-
-  // Create receipt
-  const createReceipt = async (receiptData) => {
-    const {
-      user_id,
-      title,
-      amount,
-      category,
-      date_created,
-      receipt_date,
-      picture_url,
-    } = receiptData;
-    const formData = new FormData();
-    formData.append('user_id', user_id);
-    formData.append('title', title);
-    formData.append('amount', amount);
-    formData.append('category', category);
-    formData.append('date_created', date_created);
-    formData.append('receipt_date', receipt_date);
-    formData.append('picture_url', picture_url);
+  // Upload Image and get receipt Information
+  const uploadImage = async (image) => {
+    const data = new FormData();
+    data.append('picture_url', image);
 
     const config = {
       header: {
@@ -52,7 +49,35 @@ const ReceiptState = (props) => {
       },
     };
     try {
-      const res = await axios.post('/createReceipt', formData, config);
+      const res = await axios.post('/createReceiptVision', data, config);
+      console.log(res.data);
+      const { title, amount, picture_url } = res.data.response;
+      const load = {
+        title,
+        amount,
+        picture_url,
+      };
+      dispatch({
+        type: UPLOAD_RECEIPT_IMG,
+        payload: load,
+      });
+    } catch (err) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong. Please try again.',
+      });
+    }
+  };
+
+  // Create receipt
+  const createReceipt = async (receiptData) => {
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await axios.post('/createReceipt', receiptData, config);
       const { message } = res.data;
       dispatch({
         type: CREATE_RECEIPT,
@@ -228,6 +253,23 @@ const ReceiptState = (props) => {
     }
   };
 
+  // Clear Error
+  const clearError = () => {
+    const clearReceipt = {
+      user_id: localStorage.getItem('userId'),
+      title: '',
+      amount: '',
+      category: 'Food and Drinks',
+      receipt_date: '',
+      date_created: dateNow,
+      picture_url: '',
+    };
+    dispatch({
+      type: CLEAR_ERROR,
+      payload: clearReceipt,
+    });
+  };
+
   // Delete receipt
 
   // Change sidebar active tab
@@ -242,6 +284,7 @@ const ReceiptState = (props) => {
     <ReceiptContext.Provider
       value={{
         loading: state.loading,
+        receiptState: state.receiptState,
         receipts: state.receipts,
         statusMessage: state.statusMessage,
         errorMessage: state.errorMessage,
@@ -256,6 +299,8 @@ const ReceiptState = (props) => {
         clearReceipt,
         getTopCategories,
         sendEmail,
+        clearError,
+        uploadImage,
       }}
     >
       {props.children}

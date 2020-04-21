@@ -9,10 +9,24 @@ import {
   CLEAR_ERROR,
   CHANGE_TAB,
   SEND_EMAIL,
+  UPLOAD_RECEIPT_IMG,
 } from '../actionTypes';
 
 export default (state, action) => {
   switch (action.type) {
+    case UPLOAD_RECEIPT_IMG:
+      const uploadResult = {
+        ...state,
+        receiptState: {
+          ...state.receiptState,
+          title: action.payload.title,
+          amount: action.payload.amount,
+          picture_url: action.payload.picture_url,
+        },
+        loading: false,
+      };
+      return uploadResult;
+      break;
     case CREATE_RECEIPT:
       const createResult = {
         ...state,
@@ -72,6 +86,8 @@ export default (state, action) => {
     case CLEAR_ERROR:
       const clearErr = {
         ...state,
+        receiptState: action.payload,
+        statusMessage: '',
         errorMessage: '',
       };
       return clearErr;

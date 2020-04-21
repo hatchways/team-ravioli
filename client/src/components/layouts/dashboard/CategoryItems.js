@@ -5,6 +5,9 @@ import SetIcon from '../../utility/SetIcon';
 
 const CategoryItems = ({ category }) => {
   const classes = useStyles();
+
+  const roundTotal = category.total.toFixed(2);
+
   return (
     <TableBody>
       <TableRow className={classes.tableRow}>
@@ -17,7 +20,7 @@ const CategoryItems = ({ category }) => {
           {category.name}
         </TableCell>
         <TableCell className={classes.tableCell} align="right">
-          - ${category.total}
+          - ${roundTotal}
         </TableCell>
       </TableRow>
     </TableBody>

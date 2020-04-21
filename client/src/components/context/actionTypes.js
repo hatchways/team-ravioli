@@ -7,6 +7,8 @@ export const LOGOUT = 'LOGOUT';
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 
 //Receipt action types
+
+export const UPLOAD_RECEIPT_IMG = 'UPLOAD_RECEIPT_IMG';
 export const CREATE_RECEIPT = 'CREATE_RECEIPT';
 export const GET_ALL_RECEIPTS = 'GET_ALL_RECEIPTS';
 export const GET_RECEIPTS_YEARLY = 'GET_RECEIPTS_YEARLY';
