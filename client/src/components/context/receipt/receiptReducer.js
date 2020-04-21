@@ -74,6 +74,7 @@ export default (state, action) => {
     case CLEAR_RECEIPT:
       const clearState = {
         ...state,
+        receiptState: action.payload,
         receipts: [],
         statusMessage: '',
         errorMessage: '',
