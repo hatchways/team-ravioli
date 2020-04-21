@@ -41,7 +41,7 @@ class receipt(db.Document):
     receipt_id=db.StringField(required=True, unique=True)
     user_id=db.StringField(required=True)
     title = db.StringField(required=True)
-    amount = db.IntField(required=True)
+    amount = db.FloatField(required=True)
     category = db.StringField()
     receipt_date = db.DateTimeField()
     date_created = db.DateTimeField(required=True)
