@@ -24,26 +24,33 @@ const ReceiptItem = ({ receipt }) => {
         alignItems="center"
         justify="center"
       >
-        <div className={classes.imgDiv}>
-          <div className={classes.imgOverlay} onClick={handleToggle}></div>
-          <img
-            src={receipt.picture_url}
-            alt="receipt"
-            className={classes.receiptImg}
-          />
-
-          <Backdrop
-            className={classes.backdrop}
-            open={open}
-            onClick={handleClose}
-          >
+        {receipt.picture_url !== '' ? (
+          <div className={classes.imgDiv}>
+            <div className={classes.imgOverlay} onClick={handleToggle}></div>
             <img
               src={receipt.picture_url}
               alt="receipt"
-              className={classes.receiptImgZoom}
+              className={classes.receiptImg}
             />
-          </Backdrop>
-        </div>
+
+            <Backdrop
+              className={classes.backdrop}
+              open={open}
+              onClick={handleClose}
+            >
+              <img
+                src={receipt.picture_url}
+                alt="receipt"
+                className={classes.receiptImgZoom}
+              />
+            </Backdrop>
+          </div>
+        ) : (
+          <div className={classes.defaultImg}>
+            <ReceiptIcon className={classes.defaultIcon} />
+          </div>
+        )}
+
         <Typography className={classes.receiptDate}>
           {receipt.title}
           <br />
