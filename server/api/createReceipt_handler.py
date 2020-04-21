@@ -25,7 +25,7 @@ def createReceipt():
         amount=request.get_json()['amount']
         category=request.get_json()['category']
         receipt_date=request.get_json()['receipt_date']
-        create_date=request.get_json()['create_date']
+        create_date=request.get_json()['date_created']
         picture_url=request.get_json()['picture_url']
     
     except KeyError:

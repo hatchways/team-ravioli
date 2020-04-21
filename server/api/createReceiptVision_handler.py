@@ -53,8 +53,6 @@ def createReceiptVision():
                 pass
         if title==None:
             title=""   
-        else: 
-            pass
 
         for i in range(len(texts_list)):
             if "{}".format(texts_list[i].description).lower() in ['total', 'total amount', 'sub-total']:
@@ -73,9 +71,7 @@ def createReceiptVision():
                 break
         if amount==None:
             amount=0   
-        else: 
-            pass
-
+        
         response={
             'title':title,
             'amount':amount,
