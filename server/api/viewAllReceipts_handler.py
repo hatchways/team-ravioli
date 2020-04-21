@@ -12,9 +12,8 @@ viewAllReceipts_handler = Blueprint('viewAllReceipts_handler',__name__)
 def viewAllReceipts():
     
     auth_token=request.headers.get("auth_token")
-    auth=user.decode_auth_token(auth_token)
-    userid=auth['user_id']
-    if not receipt.objects(user_id=userid):    
+    
+    if not auth_token:    
         #data=receipt.objects(user_id=userid)
         responseObject = {
                 'status': 'fail',
@@ -22,6 +21,8 @@ def viewAllReceipts():
             }
         return make_response(jsonify(responseObject)), 400
     else:
+        auth=user.decode_auth_token(auth_token)
+        userid=auth['user_id']
         data=receipt.objects(user_id=userid)
         response=[]
         total_amt=0
