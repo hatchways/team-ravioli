@@ -21,15 +21,12 @@ def createReceipt():
         user_id=auth['user_id']
         id=uuid.uuid1()
         receipt_id=str(id).replace("-", "")
-        data=request.form
-        data1=data.to_dict(flat=False)
-        #receipt_id=data1['receipt_id'][0]
-        title=data1['title'][0]
-        amount=data1['amount'][0]
-        category=data1['category'][0]
-        receipt_date=data1['receipt_date'][0]
-        create_date=data1['date_created'][0]
-        picture_url=data1['picture_url'][0]
+        title=request.get_json()['title']
+        amount=request.get_json()['amount']
+        category=request.get_json()['category']
+        receipt_date=request.get_json()['receipt_date']
+        create_date=request.get_json()['create_date']
+        picture_url=request.get_json()['picture_url']
     
     except KeyError:
         responseObject = {

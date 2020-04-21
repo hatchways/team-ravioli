@@ -42,26 +42,25 @@ def createReceiptVision():
         response = client.text_detection(image=image)
         texts = response.text_annotations
 
-         # Parse the text from receipts
-        count=0
+        # Parse the text from receipts
+        
         texts_list=list(texts)
         for i in range(len(texts_list)):
-            if "{}".format(texts_list[i].description).lower() in ['fuel', 'gas']:
+            if "{}".format(texts_list[i].description).lower() in ['fuel', 'gas','restaurant']:
                 title=texts_list[i].description
-                #print("---------", '\n Title:"{}"'.format(tt))
-                count+=1
-                #print("---------", '\n Title:"{}"'.format(texts_list[i].description))
             else:
                 pass
+        if title==None:
+            title=""   
+        else: 
+            pass
 
+        for i in range(len(texts_list)):
             if "{}".format(texts_list[i].description).lower() in ['total', 'total amount', 'sub-total']:
-                
-                #print("---------", '\n"{}"'.format(texts_list[i].description))
                 new_lst=texts_list[i:]
             
                 for j in range(len(new_lst)):
                     digit="{}".format(new_lst[j].description)
-                    
                     
                     dig=re.findall('\d*\.?\d+',digit)
                     
@@ -69,9 +68,13 @@ def createReceiptVision():
                         amount=dig[0]
                         break
                     else:
-                        pass
+                        amount=0
                 break
-            
+        if amount==None:
+            amount=0   
+        else: 
+            pass
+
         response={
             'title':title,
             'amount':amount,
