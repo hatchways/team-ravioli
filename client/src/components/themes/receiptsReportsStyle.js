@@ -78,7 +78,7 @@ export const useStyles = makeStyles((theme) => ({
   receiptImg: {
     width: '13rem',
     height: '14rem',
-    borderRadius: '10px',
+    borderRadius: '7px',
     [theme.breakpoints.down('xs')]: {
       width: '10rem',
       height: '11rem',
