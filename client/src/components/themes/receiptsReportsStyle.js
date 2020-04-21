@@ -112,6 +112,23 @@ export const useStyles = makeStyles((theme) => ({
     zIndex: theme.zIndex.drawer + 1,
     color: '#ffffff',
   },
+  defaultImg: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '13rem',
+    height: '14rem',
+    borderRadius: '7px',
+    backgroundColor: '#a9a9a9',
+    [theme.breakpoints.down('xs')]: {
+      width: '10rem',
+      height: '11rem',
+    },
+  },
+  defaultIcon: {
+    width: '5rem',
+    height: '8rem',
+  },
   receiptDate: {
     padding: '1rem',
     fontSize: '1rem',
