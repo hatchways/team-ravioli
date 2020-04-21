@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { useStyles } from '../../themes/receiptsReportsStyle';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 
 const ReceiptItem = ({ receipt }) => {
   const classes = useStyles();
@@ -13,11 +14,18 @@ const ReceiptItem = ({ receipt }) => {
         alignItems="center"
         justify="center"
       >
-        <img
-          src={receipt.picture_url}
-          alt="receipt"
-          className={classes.receiptImg}
-        />
+        {receipt.picture_url !== '' ? (
+          <img
+            src={receipt.picture_url}
+            alt="receipt"
+            className={classes.receiptImg}
+          />
+        ) : (
+          <div className={classes.defaultImg}>
+            <ReceiptIcon className={classes.defaultIcon} />
+          </div>
+        )}
+
         <Typography className={classes.receiptDate}>
           {receipt.title}
           <br />
