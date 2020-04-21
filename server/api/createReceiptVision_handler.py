@@ -49,8 +49,7 @@ def createReceiptVision():
         for i in range(len(texts_list)):
             if "{}".format(texts_list[i].description).lower() in ['fuel', 'gas','restaurant']:
                 title=texts_list[i].description
-            else:
-                pass
+            
         if title==None:
             title=""   
 
@@ -66,8 +65,7 @@ def createReceiptVision():
                     if len(dig)!=0:
                         amount=dig[0]
                         break
-                    else:
-                        pass
+                    
                 break
         if amount==None:
             amount=0   
