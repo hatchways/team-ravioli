@@ -28,7 +28,7 @@ def getReceipts():
     total_amt=0
     date_str=""
     for doc in data:
-        print(type(doc.receipt_date.year))
+        
         if doc.receipt_date.month== month and doc.receipt_date.year==year:
             total_amt=total_amt+doc.amount
             date_str=str(doc.receipt_date.day) +'-'+ str(doc.receipt_date.month)+'-'+str(doc.receipt_date.year)
@@ -41,9 +41,11 @@ def getReceipts():
             'picture_url':doc.picture_url
             }
             response.append(dic)
-            print(dic)
+    
+            
         else:
             pass
+    response.reverse()
     responseObject = {
             'status': 'success',
             'response':response,

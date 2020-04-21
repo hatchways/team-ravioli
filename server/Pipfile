@@ -18,6 +18,8 @@ jwt = "*"
 flask-expects-json = "*"
 jsonschema = "*"
 boto3 = "*"
+google-cloud-vision = "*"
+pandas = "*"
 sendgrid = "*"
 
 [requires]
