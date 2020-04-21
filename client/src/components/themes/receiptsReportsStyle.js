@@ -75,6 +75,20 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     color: theme.palette.text.disabled,
   },
+  imgOverlay: {
+    content: '""',
+    position: 'absolute',
+    width: '13rem',
+    height: '14rem',
+    borderRadius: '7px',
+    backgroundColor: theme.palette.primary.dark,
+    opacity: '0',
+    zIndex: '2',
+    '&:hover': {
+      opacity: '0.5',
+      cursor: 'zoom-in',
+    },
+  },
   receiptImg: {
     width: '13rem',
     height: '14rem',
@@ -83,6 +97,20 @@ export const useStyles = makeStyles((theme) => ({
       width: '10rem',
       height: '11rem',
     },
+  },
+  receiptImgZoom: {
+    width: '39rem',
+    height: '42rem',
+    borderRadius: '7px',
+    cursor: 'zoom-out',
+    [theme.breakpoints.down('xs')]: {
+      width: '20rem',
+      height: '22rem',
+    },
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#ffffff',
   },
   receiptDate: {
     padding: '1rem',
