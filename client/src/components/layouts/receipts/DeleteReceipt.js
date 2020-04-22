@@ -19,7 +19,7 @@ const DeleteReceipt = ({ receipt }) => {
   };
 
   const handleDelete = () => {
-    deleteReceipt({ id: receipt.id });
+    deleteReceipt({ receipt_id: receipt.receipt_id });
     setOpen(false);
   };
 

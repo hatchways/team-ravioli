@@ -86,6 +86,7 @@ const ReceiptState = (props) => {
         payload: message,
       });
       getAllReceipts();
+      getTopCategories();
     } catch (err) {
       dispatch({
         type: RECEIPT_ERROR,
@@ -292,7 +293,7 @@ const ReceiptState = (props) => {
       },
     };
     try {
-      const res = await axios.delete('/deleteReceipt', id, config);
+      const res = await axios.post('/deleteReceipt', id, config);
       const { message } = res.data;
       dispatch({
         type: DELETE_RECEIPT,
