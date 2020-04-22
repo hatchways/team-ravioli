@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Typography, Backdrop } from '@material-ui/core';
 import { useStyles } from '../../themes/receiptsReportsStyle';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import DeleteReceipt from './DeleteReceipt';
 
 const ReceiptItem = ({ receipt }) => {
   const classes = useStyles();
@@ -50,7 +51,7 @@ const ReceiptItem = ({ receipt }) => {
             <ReceiptIcon className={classes.defaultIcon} />
           </div>
         )}
-
+        <DeleteReceipt receipt={receipt} />
         <Typography className={classes.receiptDate}>
           {receipt.title}
           <br />
