@@ -13,6 +13,7 @@ from api.viewAllReceipts_handler import viewAllReceipts_handler
 from api.topCategories_handler import topCategories_handler
 from api.email_handler import email_handler
 from api.linechart_handler import linechart_handler
+from api.deleteReceipt_handler import deleteReceipt_handler
 
 # Initialize flask app
 app = Flask(__name__)
@@ -36,5 +37,5 @@ app.register_blueprint(viewAllReceipts_handler)
 app.register_blueprint(topCategories_handler)
 app.register_blueprint(email_handler)
 app.register_blueprint(linechart_handler)
-
+app.register_blueprint(deleteReceipt_handler)
 
