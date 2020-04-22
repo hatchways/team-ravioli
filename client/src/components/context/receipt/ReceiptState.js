@@ -216,11 +216,6 @@ const ReceiptState = (props) => {
     }
   };
 
-  // Clear receipt
-  const clearReceipt = () => {
-    dispatch({ type: CLEAR_RECEIPT });
-  };
-
   // Send monthly report email with csv
   const sendEmail = async (obj) => {
     const config = {
@@ -267,6 +262,23 @@ const ReceiptState = (props) => {
     dispatch({
       type: CLEAR_ERROR,
       payload: clearReceipt,
+    });
+  };
+
+  // Clear receipt
+  const clearReceipt = () => {
+    const emptyReceipt = {
+      user_id: localStorage.getItem('userId'),
+      title: '',
+      amount: '',
+      category: 'Food and Drinks',
+      receipt_date: '',
+      date_created: dateNow,
+      picture_url: '',
+    };
+    dispatch({
+      type: CLEAR_RECEIPT,
+      payload: emptyReceipt,
     });
   };
 
