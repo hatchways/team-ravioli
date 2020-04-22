@@ -7,7 +7,7 @@ from database.models import user,receipt,picture
 deleteReceipt_handler = Blueprint('deleteReceipt_handler',__name__)
 
 # Create a route for '/updateReceipt/<id>'
-@deleteReceipt_handler.route('/deleteReceipt',methods=['POST'])
+@deleteReceipt_handler.route('/deleteReceipt',methods=['DELETE'])
 def deleteReceipt():
     # Get Receipt inputs
     
