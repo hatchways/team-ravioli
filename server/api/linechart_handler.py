@@ -46,11 +46,12 @@ def linechart():
             for doc in data:
 
                 if doc.receipt_date.year== now.year :
+                    
                     total=total+doc.amount
                     amount.append(doc.amount)
                     month.append(doc.receipt_date.month)
                     dictionary={'amount':amount,'month':month}
-                    #print(dictionary)
+                    
             
             df=pd.DataFrame(dictionary)
             anc=df.groupby('month').amount.sum()
@@ -68,8 +69,8 @@ def linechart():
                     result[month]=mapping_dict[month]
                 else:
                     result[month]=0
-            print(total)
-            response={'month':list(result.keys()),'amount':list(result.values()),'total':total}
+            
+            response={'month':list(result.keys()),'amount':list(result.values()),'total':round(total,2)}
             
             responseObject = {
                 'status': 'success',
