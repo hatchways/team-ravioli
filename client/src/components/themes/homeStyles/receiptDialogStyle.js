@@ -82,4 +82,8 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     color: theme.palette.primary.dark,
   },
+  loading: {
+    marginLeft: '45%',
+    marginTop: '10%',
+  },
 }));

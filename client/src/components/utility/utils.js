@@ -10,5 +10,6 @@ export const dateFormater = () => {
 };
 
 const currentDate = dateFormater().split('-');
+export const dateNow = dateFormater();
 export const currentMonth = currentDate[1];
 export const currentYear = currentDate[0];

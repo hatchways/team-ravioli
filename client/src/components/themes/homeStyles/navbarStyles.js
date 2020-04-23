@@ -46,12 +46,12 @@ export const useStyles = makeStyles((theme) => ({
   input: {
     display: 'none',
   },
-  large: {
+  profilePic: {
     width: theme.spacing(6),
     height: theme.spacing(6),
     [theme.breakpoints.down('sm')]: {
-      width: theme.spacing(4),
-      height: theme.spacing(4),
+      width: theme.spacing(3),
+      height: theme.spacing(3),
     },
   },
   profile: {
@@ -62,6 +62,9 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       fontSize: '0.8rem',
     },
+  },
+  menu: {
+    marginTop: theme.spacing(6),
   },
   menuItem: {
     fontSize: '1.1rem',

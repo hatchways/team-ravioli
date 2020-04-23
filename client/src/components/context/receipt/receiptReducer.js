@@ -11,6 +11,7 @@ import {
   SEND_EMAIL,
   UPLOAD_RECEIPT_IMG,
   DELETE_RECEIPT,
+  UPDATE_RECEIPT,
 } from '../actionTypes';
 
 export default (state, action) => {
@@ -55,6 +56,14 @@ export default (state, action) => {
         loading: false,
       };
       return categoryResult;
+      break;
+    case UPDATE_RECEIPT:
+      const updateResult = {
+        ...state,
+        statusMessage: action.payload,
+        loading: false,
+      };
+      return updateResult;
       break;
     case SEND_EMAIL:
       const emailResult = {

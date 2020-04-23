@@ -13,6 +13,7 @@ import {
   Select,
   FormControl,
   InputLabel,
+  CircularProgress,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { DropzoneArea } from 'material-ui-dropzone';
@@ -33,6 +34,7 @@ const ReceiptDialog = () => {
     uploadImage,
     receiptState,
     clearError,
+    loading,
   } = receiptContext;
 
   const [image, setImage] = useState(null);
@@ -194,104 +196,109 @@ const ReceiptDialog = () => {
         </DialogActions>
       </Dialog>
       {/* ------------Dialog 2------------- */}
-      <Dialog
-        fullWidth
-        maxWidth="sm"
-        open={open2}
-        onClose={handleClose}
-        aria-labelledby="responsive-dialog-title"
-      >
-        <DialogTitle id="responsive-dialog-title" onClose={handleClose}>
-          <Typography className={classes.dialogMainTitle}>
-            Enter Receipt Information
-          </Typography>
-          <IconButton
-            aria-label="close"
-            className={classes.closeButton}
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-
-        <DialogContent className={classes.dialog}>
-          <Grid container spacing={4} direction="column" justify="center">
-            <TextField
-              error={dateErr}
-              id="date"
-              type="date"
-              helperText="This field cannot be empty!"
-              value={receipt_date}
-              variant="outlined"
-              required
-              onChange={handleDateChange}
-            />
-
-            <FormControl
-              variant="outlined"
-              required
-              className={classes.receiptDropdown}
+      {!loading ? (
+        <Dialog
+          fullWidth
+          maxWidth="sm"
+          open={open2}
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title" onClose={handleClose}>
+            <Typography className={classes.dialogMainTitle}>
+              Enter Receipt Information
+            </Typography>
+            <IconButton
+              aria-label="close"
+              className={classes.closeButton}
+              onClick={handleClose}
             >
-              <InputLabel htmlFor="receipt-category">
-                Select Category
-              </InputLabel>
-              <Select
-                native
-                name="category"
-                value={category}
-                onChange={onChange}
-                label="Select Category"
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+
+          <DialogContent className={classes.dialog}>
+            <Grid container spacing={4} direction="column" justify="center">
+              <TextField
+                error={dateErr}
+                id="date"
+                type="date"
+                helperText="This field cannot be empty!"
+                value={receipt_date}
+                variant="outlined"
+                required
+                onChange={handleDateChange}
+              />
+
+              <FormControl
+                variant="outlined"
+                required
+                className={classes.receiptDropdown}
               >
-                <option value="Food and Drinks">Food and Drinks</option>
-                <option value="Travel">Travel</option>
-                <option value="Services">Services</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Grocery">Grocery</option>
-                <option value="Business">Business</option>
-                <option value="Other">Other</option>
-              </Select>
-            </FormControl>
+                <InputLabel htmlFor="receipt-category">
+                  Select Category
+                </InputLabel>
+                <Select
+                  native
+                  name="category"
+                  value={category}
+                  onChange={onChange}
+                  label="Select Category"
+                >
+                  <option value="Food and Drinks">Food and Drinks</option>
+                  <option value="Travel">Travel</option>
+                  <option value="Services">Services</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="Grocery">Grocery</option>
+                  <option value="Business">Business</option>
+                  <option value="Other">Other</option>
+                </Select>
+              </FormControl>
 
-            <TextField
-              className={classes.receiptInput}
-              id="receiptName"
-              label="Receipt title"
-              type="text"
-              name="title"
-              value={title}
-              onChange={onChange}
-              required
+              <TextField
+                className={classes.receiptInput}
+                id="receiptName"
+                label="Receipt title"
+                type="text"
+                name="title"
+                value={title}
+                onChange={onChange}
+                required
+                variant="outlined"
+              />
+
+              <TextField
+                variant="outlined"
+                error={err}
+                helperText="This field cannot be empty!"
+                className={classes.receiptInput}
+                id="amount"
+                label="$ Amount"
+                type="number"
+                name="amount"
+                value={amount}
+                onChange={onChange}
+                required
+              />
+            </Grid>
+          </DialogContent>
+
+          <DialogActions>
+            <Button
+              autoFocus
               variant="outlined"
-            />
+              color="secondary"
+              className={classes.dialogActionBtn}
+              onClick={handleContinue}
+            >
+              Continue
+            </Button>
+          </DialogActions>
+        </Dialog>
+      ) : (
+        <CircularProgress className={classes.loading} color="secondary" />
+      )}
 
-            <TextField
-              variant="outlined"
-              error={err}
-              helperText="This field cannot be empty!"
-              className={classes.receiptInput}
-              id="amount"
-              label="$ Amount"
-              type="number"
-              name="amount"
-              value={amount}
-              onChange={onChange}
-              required
-            />
-          </Grid>
-        </DialogContent>
-
-        <DialogActions>
-          <Button
-            autoFocus
-            variant="outlined"
-            color="secondary"
-            className={classes.dialogActionBtn}
-            onClick={handleContinue}
-          >
-            Continue
-          </Button>
-        </DialogActions>
-      </Dialog>
       {/* ------------Dialog 3------------- */}
       <Dialog
         fullWidth

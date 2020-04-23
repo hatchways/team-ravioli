@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import ReceiptContext from './receiptContext';
 import axios from 'axios';
 import receiptReducer from './receiptReducer';
-import { dateFormater } from '../../utility/utils';
+import { dateNow } from '../../utility/utils';
 import {
   CREATE_RECEIPT,
   UPLOAD_RECEIPT_IMG,
@@ -12,6 +12,7 @@ import {
   GET_ALL_RECEIPTS,
   GET_RECEIPTS_YEARLY,
   TOP_CATEGORIES,
+  UPDATE_RECEIPT,
   CLEAR_RECEIPT,
   SEND_EMAIL,
   CLEAR_ERROR,
@@ -19,7 +20,6 @@ import {
 } from '../actionTypes';
 
 const ReceiptState = (props) => {
-  const dateNow = dateFormater();
   const initialState = {
     loading: true,
     receiptState: {
@@ -219,6 +219,30 @@ const ReceiptState = (props) => {
     }
   };
 
+  // Update receipt
+  const updateReceipt = async (receiptData) => {
+    console.log('Receipt Updated');
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await axios.post('/updateReceipt', receiptData, config);
+      const { message } = res.data;
+      dispatch({
+        type: UPDATE_RECEIPT,
+        payload: message,
+      });
+      getAllReceipts();
+    } catch (err) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong. Please try again.',
+      });
+    }
+  };
+
   // Send monthly report email with csv
   const sendEmail = async (obj) => {
     const config = {
@@ -334,6 +358,7 @@ const ReceiptState = (props) => {
         getReceiptsByYear,
         clearReceipt,
         getTopCategories,
+        updateReceipt,
         sendEmail,
         clearError,
         uploadImage,
