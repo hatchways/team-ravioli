@@ -11,6 +11,7 @@ import {
   SEND_EMAIL,
   UPLOAD_RECEIPT_IMG,
   DELETE_RECEIPT,
+  CHART_DATA
 } from '../actionTypes';
 
 export default (state, action) => {
@@ -72,6 +73,14 @@ export default (state, action) => {
       };
       return receiptErr;
       break;
+    case CHART_DATA:
+        const chart = {
+          ...state,
+          dresponse: action.payload,
+          loading: false
+        }
+        return chart
+        break;  
     case DELETE_RECEIPT:
       const deleteReceipt = {
         ...state,
