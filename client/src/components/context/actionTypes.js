@@ -21,3 +21,5 @@ export const RECEIPT_ERROR = 'RECEIPT_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const CLEAR_RECEIPT = 'CLEAR_RECEIPT';
 export const CHANGE_TAB = 'CHANGE_TAB';
+export const CHART_ERROR = 'CHART_ERROR';
+export const CHART_DATA = 'CHART_DATA';

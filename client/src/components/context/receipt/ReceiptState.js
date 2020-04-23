@@ -17,6 +17,8 @@ import {
   SEND_EMAIL,
   CLEAR_ERROR,
   DELETE_RECEIPT,
+  CHART_DATA,
+  CHART_ERROR
 } from '../actionTypes';
 
 const ReceiptState = (props) => {
@@ -37,6 +39,7 @@ const ReceiptState = (props) => {
     errorMessage: '',
     activeTab: 'dashboard',
     totalExpense: '',
+    dresponse:{},
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
 
@@ -87,11 +90,38 @@ const ReceiptState = (props) => {
       });
       getAllReceipts();
       getTopCategories();
+      getChart();
     } catch (err) {
       dispatch({
         type: RECEIPT_ERROR,
         payload: 'Something went wrong. Please try again.',
       });
+    }
+  };
+
+  // Get Line chart data
+  const getChart = async () => {
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    try {
+      const res = await axios.get('/lineChart', config);
+      const { response } = res.data;
+      console.log(response)
+
+      dispatch({
+        type: CHART_DATA,
+        payload: response,
+      });
+    } catch (error) {
+      dispatch({
+        type: CHART_ERROR,
+        payload: 'Something went wrong',
+      });
+      console.log(error)
     }
   };
 
@@ -351,6 +381,7 @@ const ReceiptState = (props) => {
         activeTab: state.activeTab,
         totalExpense: state.totalExpense,
         topCategories: state.topCategories,
+        dresponse:state.dresponse,
         createReceipt,
         changeTab,
         getReceiptsByMonth,
@@ -363,6 +394,7 @@ const ReceiptState = (props) => {
         clearError,
         uploadImage,
         deleteReceipt,
+        getChart,
       }}
     >
       {props.children}
