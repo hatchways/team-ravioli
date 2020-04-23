@@ -15,6 +15,7 @@ import {
   CLEAR_RECEIPT,
   SEND_EMAIL,
   CLEAR_ERROR,
+  DELETE_RECEIPT,
 } from '../actionTypes';
 
 const ReceiptState = (props) => {
@@ -38,6 +39,7 @@ const ReceiptState = (props) => {
     totalExpense: '',
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
+
   // Upload Image and get receipt Information
   const uploadImage = async (image) => {
     const data = new FormData();
@@ -84,6 +86,7 @@ const ReceiptState = (props) => {
         payload: message,
       });
       getAllReceipts();
+      getTopCategories();
     } catch (err) {
       dispatch({
         type: RECEIPT_ERROR,
@@ -283,6 +286,27 @@ const ReceiptState = (props) => {
   };
 
   // Delete receipt
+  const deleteReceipt = async (id) => {
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await axios.post('/deleteReceipt', id, config);
+      const { message } = res.data;
+      dispatch({
+        type: DELETE_RECEIPT,
+        payload: message,
+      });
+      getAllReceipts();
+    } catch (error) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong, unable to delete receipt',
+      });
+    }
+  };
 
   // Change sidebar active tab
   const changeTab = (tab) => {
@@ -313,6 +337,7 @@ const ReceiptState = (props) => {
         sendEmail,
         clearError,
         uploadImage,
+        deleteReceipt,
       }}
     >
       {props.children}

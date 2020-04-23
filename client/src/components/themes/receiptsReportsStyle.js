@@ -29,6 +29,9 @@ export const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     padding: theme.spacing(2),
   },
+  subText: {
+    color: theme.palette.primary.dark,
+  },
   expenseTotal: {
     display: 'inline-block',
     fontSize: '1.8rem',
@@ -120,6 +123,7 @@ export const useStyles = makeStyles((theme) => ({
     height: '14rem',
     borderRadius: '7px',
     backgroundColor: '#a9a9a9',
+    marginBottom: '7px',
     [theme.breakpoints.down('xs')]: {
       width: '10rem',
       height: '11rem',
@@ -129,8 +133,28 @@ export const useStyles = makeStyles((theme) => ({
     width: '5rem',
     height: '8rem',
   },
+  deleteBtn: {
+    fontSize: '0.8rem',
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
+    color: theme.palette.error.main,
+    borderColor: theme.palette.error.main,
+    margin: theme.spacing(2, 3),
+    padding: theme.spacing(1, 3),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.6rem',
+      margin: theme.spacing(0, 1),
+      padding: theme.spacing(1, 3),
+    },
+  },
+  deleteIcon: {
+    '&:hover': {
+      color: theme.palette.error.main,
+      cursor: 'pointer',
+    },
+  },
   receiptDate: {
-    padding: '1rem',
+    padding: theme.spacing(0, 2, 2),
     fontSize: '1rem',
     fontWeight: 'bold',
     textAlign: 'center',

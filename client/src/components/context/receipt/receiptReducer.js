@@ -10,6 +10,7 @@ import {
   CHANGE_TAB,
   SEND_EMAIL,
   UPLOAD_RECEIPT_IMG,
+  DELETE_RECEIPT,
 } from '../actionTypes';
 
 export default (state, action) => {
@@ -70,6 +71,14 @@ export default (state, action) => {
         errorMessage: action.payload,
       };
       return receiptErr;
+      break;
+    case DELETE_RECEIPT:
+      const deleteReceipt = {
+        ...state,
+        statusMessage: action.payload,
+        loading: false,
+      };
+      return deleteReceipt;
       break;
     case CLEAR_RECEIPT:
       const clearState = {
