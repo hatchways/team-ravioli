@@ -10,6 +10,7 @@ import {
 import ReceiptContext from '../../context/receipt/receiptContext';
 import RecentTransaction from '../dashboard/RecentTransaction';
 import TopCategories from '../dashboard/TopCategories';
+import Chart from '../dashboard/Chart';
 
 const Dashboard = () => {
   const classes = useStyles();
@@ -21,11 +22,14 @@ const Dashboard = () => {
     loading,
     getTopCategories,
     topCategories,
+    dresponse,
+    getChart,
   } = receiptContext;
 
   useEffect(() => {
     getAllReceipts();
     getTopCategories();
+    getChart();
     // eslint-disable-next-line
   }, []);
 
@@ -38,6 +42,13 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6}>
           <Paper elevation={3} className={classes.chartPaper}>
             <Typography className={classes.subText}>Total Expense</Typography>
+            <Typography className={classes.subText}>$ {dresponse["total"]}</Typography>
+            {!loading ? (
+              <Chart dresponse={dresponse} />
+            ):
+            
+               <CircularProgress className={classes.loading} color="secondary" />
+            }
           </Paper>
         </Grid>
 
