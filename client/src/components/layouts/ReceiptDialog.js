@@ -194,6 +194,7 @@ const ReceiptDialog = () => {
         </DialogActions>
       </Dialog>
       {/* ------------Dialog 2------------- */}
+
       <Dialog
         fullWidth
         maxWidth="sm"
@@ -292,6 +293,7 @@ const ReceiptDialog = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
       {/* ------------Dialog 3------------- */}
       <Dialog
         fullWidth

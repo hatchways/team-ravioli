@@ -11,8 +11,8 @@ const Receipt = ({ receipts }) => {
       {receipts.length > 0 ? (
         <Grid container spacing={3}>
           {receipts !== [] &&
-            receipts.map((receipt, index) => (
-              <ReceiptItem key={index} receipt={receipt} />
+            receipts.map((receipt) => (
+              <ReceiptItem key={receipt.receipt_id} receipt={receipt} />
             ))}
         </Grid>
       ) : (

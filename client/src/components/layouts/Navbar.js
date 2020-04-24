@@ -51,9 +51,8 @@ const Navbar = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleMenu}
             >
-              <Avatar alt="Profile pic" src="" className={classes.large} />
+              <Avatar alt="Profile pic" src="" className={classes.profilePic} />
             </IconButton>
 
             <span onClick={handleMenu} className={classes.profile}>
@@ -65,13 +64,8 @@ const Navbar = () => {
               keepMounted
               open={open}
               onClose={handleClose}
+              className={classes.menu}
             >
-              <MenuItem onClick={handleClose} className={classes.menuItem}>
-                Profile
-              </MenuItem>
-              <MenuItem onClick={handleClose} className={classes.menuItem}>
-                My account
-              </MenuItem>
               <MenuItem onClick={handleClick} className={classes.menuItem}>
                 Logout
               </MenuItem>

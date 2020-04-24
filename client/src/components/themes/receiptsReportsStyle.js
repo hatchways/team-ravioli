@@ -148,8 +148,18 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   deleteIcon: {
+    width: '2rem',
+    height: '2rem',
     '&:hover': {
       color: theme.palette.error.main,
+      cursor: 'pointer',
+    },
+  },
+  editIcon: {
+    width: '2rem',
+    height: '2rem',
+    '&:hover': {
+      color: theme.palette.secondary.main,
       cursor: 'pointer',
     },
   },
@@ -168,5 +178,45 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     color: theme.palette.text.disabled,
     margin: theme.spacing(4),
+  },
+  dialog: {
+    padding: '3rem',
+  },
+  dialogMainTitle: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: theme.palette.primary.dark,
+  },
+  dialogActionBtn: {
+    margin: theme.spacing(2, 3),
+    padding: theme.spacing(2, 5),
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.7rem',
+      margin: theme.spacing(0, 1),
+      padding: theme.spacing(1, 3),
+    },
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+  receiptDropdown: {
+    margin: theme.spacing(2, 0),
+    backgroundColor: '#f0f2fa',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.8rem',
+    },
+  },
+  receiptInput: {
+    margin: theme.spacing(2, 0),
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.8rem',
+    },
   },
 }));

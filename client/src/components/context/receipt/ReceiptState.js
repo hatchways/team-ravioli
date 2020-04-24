@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import ReceiptContext from './receiptContext';
 import axios from 'axios';
 import receiptReducer from './receiptReducer';
-import { dateFormater } from '../../utility/utils';
+import { dateNow } from '../../utility/utils';
 import {
   CREATE_RECEIPT,
   UPLOAD_RECEIPT_IMG,
@@ -12,16 +12,16 @@ import {
   GET_ALL_RECEIPTS,
   GET_RECEIPTS_YEARLY,
   TOP_CATEGORIES,
+  UPDATE_RECEIPT,
   CLEAR_RECEIPT,
   SEND_EMAIL,
   CLEAR_ERROR,
   DELETE_RECEIPT,
   CHART_DATA,
-  CHART_ERROR
+  CHART_ERROR,
 } from '../actionTypes';
 
 const ReceiptState = (props) => {
-  const dateNow = dateFormater();
   const initialState = {
     loading: true,
     receiptState: {
@@ -39,7 +39,7 @@ const ReceiptState = (props) => {
     errorMessage: '',
     activeTab: 'dashboard',
     totalExpense: '',
-    dresponse:{},
+    dresponse: {},
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
 
@@ -110,8 +110,6 @@ const ReceiptState = (props) => {
     try {
       const res = await axios.get('/lineChart', config);
       const { response } = res.data;
-      console.log(response)
-
       dispatch({
         type: CHART_DATA,
         payload: response,
@@ -121,7 +119,7 @@ const ReceiptState = (props) => {
         type: CHART_ERROR,
         payload: 'Something went wrong',
       });
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -249,6 +247,30 @@ const ReceiptState = (props) => {
     }
   };
 
+  // Update receipt
+  const updateReceipt = async (receiptData) => {
+    console.log('Receipt Updated');
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await axios.post('/updateReceipt', receiptData, config);
+      const { message } = res.data;
+      dispatch({
+        type: UPDATE_RECEIPT,
+        payload: message,
+      });
+      getAllReceipts();
+    } catch (err) {
+      dispatch({
+        type: RECEIPT_ERROR,
+        payload: 'Something went wrong. Please try again.',
+      });
+    }
+  };
+
   // Send monthly report email with csv
   const sendEmail = async (obj) => {
     const config = {
@@ -357,7 +379,7 @@ const ReceiptState = (props) => {
         activeTab: state.activeTab,
         totalExpense: state.totalExpense,
         topCategories: state.topCategories,
-        dresponse:state.dresponse,
+        dresponse: state.dresponse,
         createReceipt,
         changeTab,
         getReceiptsByMonth,
@@ -365,6 +387,7 @@ const ReceiptState = (props) => {
         getReceiptsByYear,
         clearReceipt,
         getTopCategories,
+        updateReceipt,
         sendEmail,
         clearError,
         uploadImage,

@@ -3,6 +3,7 @@ import { Grid, Typography, Backdrop } from '@material-ui/core';
 import { useStyles } from '../../themes/receiptsReportsStyle';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import DeleteReceipt from './DeleteReceipt';
+import UpdateReceipt from './UpdateReceipt';
 
 const ReceiptItem = ({ receipt }) => {
   const classes = useStyles();
@@ -51,7 +52,10 @@ const ReceiptItem = ({ receipt }) => {
             <ReceiptIcon className={classes.defaultIcon} />
           </div>
         )}
-        <DeleteReceipt receipt={receipt} />
+        <Grid container justify="center" alignItems="center">
+          <UpdateReceipt receipt={receipt} />
+          <DeleteReceipt receipt={receipt} />
+        </Grid>
         <Typography className={classes.receiptDate}>
           {receipt.title}
           <br />
