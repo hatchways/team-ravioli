@@ -40,6 +40,7 @@ def sendEmail():
         total += doc.amount
         dic = {
             'receipt_date': date_str,
+            'picture_url': doc.picture_url,
             'title': doc.title,
             'amount': doc.amount,
             'category': doc.category,
@@ -58,9 +59,9 @@ def sendEmail():
         for dic in new_data:
             dict_writer.writerow(dic)
         dict_writer.writerow(
-            {'receipt_date': '', 'title': '', 'amount': '', 'category': ''})
+            {'receipt_date': '', 'picture_url': '', 'title': '', 'amount': '', 'category': ''})
         dict_writer.writerow(
-            {'receipt_date': '', 'title': 'Total', 'amount': total, 'category': ''})
+            {'receipt_date': '', 'picture_url': '', 'title': 'Total', 'amount': total, 'category': ''})
     with open('myFile.csv', 'r') as fi:
         generated_file = fi.read()
         x = generated_file.encode()
