@@ -41,6 +41,7 @@ const UpdateReceipt = ({ receipt }) => {
 
   useEffect(() => {
     formatDate();
+    // eslint-disable-next-line
   }, []);
 
   const onChange = (e) => {

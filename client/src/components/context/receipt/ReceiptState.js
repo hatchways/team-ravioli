@@ -18,7 +18,7 @@ import {
   CLEAR_ERROR,
   DELETE_RECEIPT,
   CHART_DATA,
-  CHART_ERROR
+  CHART_ERROR,
 } from '../actionTypes';
 
 const ReceiptState = (props) => {
@@ -39,7 +39,7 @@ const ReceiptState = (props) => {
     errorMessage: '',
     activeTab: 'dashboard',
     totalExpense: '',
-    dresponse:{},
+    dresponse: {},
   };
   const [state, dispatch] = useReducer(receiptReducer, initialState);
 
@@ -110,8 +110,6 @@ const ReceiptState = (props) => {
     try {
       const res = await axios.get('/lineChart', config);
       const { response } = res.data;
-      console.log(response)
-
       dispatch({
         type: CHART_DATA,
         payload: response,
@@ -121,7 +119,7 @@ const ReceiptState = (props) => {
         type: CHART_ERROR,
         payload: 'Something went wrong',
       });
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -381,7 +379,7 @@ const ReceiptState = (props) => {
         activeTab: state.activeTab,
         totalExpense: state.totalExpense,
         topCategories: state.topCategories,
-        dresponse:state.dresponse,
+        dresponse: state.dresponse,
         createReceipt,
         changeTab,
         getReceiptsByMonth,
