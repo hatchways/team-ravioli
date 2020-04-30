@@ -42,13 +42,14 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6}>
           <Paper elevation={3} className={classes.chartPaper}>
             <Typography className={classes.subText}>Total Expense</Typography>
-            <Typography className={classes.subText}>$ {dresponse["total"]}</Typography>
+            <Typography className={classes.chartTotal}>
+              $ {dresponse['total']}
+            </Typography>
             {!loading ? (
               <Chart dresponse={dresponse} />
-            ):
-            
-               <CircularProgress className={classes.loading} color="secondary" />
-            }
+            ) : (
+              <CircularProgress className={classes.loading} color="secondary" />
+            )}
           </Paper>
         </Grid>
 

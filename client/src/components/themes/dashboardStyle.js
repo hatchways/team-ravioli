@@ -58,6 +58,12 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     color: theme.palette.primary.dark,
   },
+  chartTotal: {
+    display: 'inline-block',
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    color: theme.palette.primary.dark,
+  },
   dropdownMargin: {
     backgroundColor: '#f0f2fa',
   },

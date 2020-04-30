@@ -117,6 +117,21 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: '0.8rem',
       margin: theme.spacing(3, 0),
+      padding: theme.spacing(2, 5),
+    },
+  },
+  demo: {
+    margin: theme.spacing(4, 2),
+    padding: theme.spacing(2, 2),
+    fontSize: '0.9rem',
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
+    [theme.breakpoints.between('sm', 'md')]: {
+      fontSize: '0.8rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.7rem',
+      margin: theme.spacing(1),
     },
   },
 }));
