@@ -12,13 +12,24 @@ import {
 import { useStyles } from '../themes/loginSignupStyle';
 import AuthContext from '../context/auth/authContext';
 
+let demoEmail;
+let demoPW;
+
+if (process.env.NODE_ENV !== 'production') {
+  demoEmail = process.env.REACT_APP_DEMO_EMAIL;
+  demoPW = process.env.REACT_APP_DEMO_PW;
+} else {
+  demoEmail = process.env.DEMO_EMAIL;
+  demoPW = process.env.DEMO_PW;
+}
+
 const Signup = (props) => {
   const classes = useStyles();
   const [errMsg, setErrMsg] = useState('');
   const [open, setOpen] = useState(false);
 
   const authContext = useContext(AuthContext);
-  const { signup, message, clearMessage, isAuthenticated } = authContext;
+  const { signup, message, clearMessage, isAuthenticated, login } = authContext;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -75,6 +86,13 @@ const Signup = (props) => {
         password,
       });
     }
+  };
+
+  const handleDemoClick = () => {
+    login({
+      email: demoEmail,
+      password: demoPW,
+    });
   };
 
   const handleKeyDown = (e) => {
@@ -199,6 +217,14 @@ const Signup = (props) => {
                   color="secondary"
                 >
                   Create
+                </Button>
+                <Button
+                  className={classes.demo}
+                  variant="contained"
+                  color="primary"
+                  onClick={handleDemoClick}
+                >
+                  Guest Login
                 </Button>
               </form>
             </Grid>
