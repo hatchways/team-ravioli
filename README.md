@@ -73,10 +73,10 @@ These can be obtained here (follow the instructions on the website links):
   ![Upload Receipt](./assets/upload-receipt3.PNG)
   <br>
   ![Upload Receipt](./assets/upload-receipt4.PNG)
-- **Dashboard feature:** In Dashboard user can see total expences by month in graphical way. Top most expences by category and recent transaction(receipts)
+- **Dashboard feature:** In Dashboard user can see total expenses by month in graphical way. Top most expenses by category and recent transaction(receipts)
   ![Dashboard](./assets/dashboard.PNG)
   <br>
-- **Report feature:** User can see there expences in report format. User can filter it by month and year. If user wants there monthly expence report in csv format, then with the help of email button requested monthly report will be sent to users registerd email address.
+- **Report feature:** User can see there expenses in report format. User can filter it by month and year. If user wants there monthly expense report in csv format, then with the help of email button requested monthly report will be sent to users registerd email address.
   ![Reports](./assets/report-page.PNG)
   <br>
 - **Receipt feature:** User can see, edit and delete the receipts.
