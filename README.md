@@ -1,11 +1,12 @@
 # Receipt Tracker
-[Live demo](https://receipt-tracker-app.herokuapp.com/)
+
+## [Live demo](https://receipt-tracker-app.herokuapp.com/)
 
 Receipt tracker is a web application that allows user to manage there expenses by uploading images of paper receipts and keeping track of there daily, monthly and yearly expenses.
 
 ## Contributors
 
-[Punam Sonawane](https://github.com/PunamSonawane), [Hitiksha Panchal](https://github.com/HitikshaPanchal)
+[Punam Sonawane](https://github.com/PunamSonawane), [Hitiksha Panchal](https://github.com/HitikshaPanchal), [Bonnie Li(Team Lead)](https://github.com/bonnieli) 
 
 ## Tech/Framework
 
